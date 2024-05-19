@@ -1,9 +1,9 @@
 # ALREM
 
 <br>
-## 1. First Commit
+## 2. First Commit
 <br>
-### MultiModules, Version Catalog, DB Schema
+###MultiModules, Version Catalog, DB Schema
 <br>
 * 클린 아키텍쳐 기반 멀티 모듈화(레이어 구성)
 * version catalog를 이용해 gradle 라이브러리 관리
@@ -12,7 +12,7 @@
 <br><br><br>
 ## 2. Second Commit
 <br>
-### UI Design
+###UI Design
 <br>
 * MainScreen UI 프로그래밍
 * AlarmAddScreen UI 프로그래밍
