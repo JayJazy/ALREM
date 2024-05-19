@@ -1,9 +1,11 @@
-package com.jayys.alrem.screen
+package com.jayys.alrem.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.jayys.alrem.screen.AlarmAddScreen
+import com.jayys.alrem.screen.MainScreen
 
 @Composable
 fun ScreenNavHost() {
@@ -12,7 +14,12 @@ fun ScreenNavHost() {
     {
         composable(route = ScreenRoute.MainScreen.route)
         {
-            MainScreen()
+            MainScreen(onNavigateToAlarmAddScreen = { navController.navigate(ScreenRoute.AlarmAddScreen.route) })
+        }
+
+        composable(route = ScreenRoute.AlarmAddScreen.route)
+        {
+            AlarmAddScreen()
         }
     }
 }

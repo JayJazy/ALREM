@@ -18,7 +18,9 @@ import androidx.core.view.WindowCompat
 
 private val ColorScheme = lightColorScheme(
     background = mainBackground,
-    onBackground = subBackground
+    onBackground = subBackground,
+    primary = basicItemColor,
+    onPrimary = focusColor
 )
 
 @Composable

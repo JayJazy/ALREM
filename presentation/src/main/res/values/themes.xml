@@ -7,5 +7,23 @@
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/Theme.ALREM</item>
     </style>
-    <style name="Theme.ALREM" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.ALREM" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Status Bar 투명 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- Navigation Bar 색 설정 -->
+        <item name="android:navigationBarColor">@color/MainBackground</item>
+    </style>
+
+    <style name="TimePicker" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/gwangwon_gyoyook</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="colorControlNormal">#00FFFFFF</item>
+    </style>
+
 </resources>
