@@ -1,12 +1,10 @@
-package com.jayys.alrem.screen
+package com.jayys.alrem.screen.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -16,104 +14,36 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
-import com.jayys.alrem.component.AddButton
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainScreen(
-    onNavigateToAlarmAddScreen : () -> Unit
-)
+fun TopItemLayout(screenHeight: Dp, pagerState: PagerState)
 {
-    val onNavigateToAlarmAddScreen = onNavigateToAlarmAddScreen
+    val coroutineScope = rememberCoroutineScope()
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colorScheme.background))
-    {
-        BoxWithConstraints {
-            val screenHeight = maxHeight
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TopLayout(screenHeight)
-                TopItemLayout(screenHeight)
-                AlarmListLayout(screenHeight)
-                AlarmAddOnMainLayout(screenHeight, onNavigateToAlarmAddScreen)
-                Box(contentAlignment = Alignment.BottomCenter)
-                {
-                    AdvertisementLayout1(screenHeight)
-                }
-
-            }
-        }
-
-    }
-}
-
-
-@Composable
-fun TopLayout(screenHeight: Dp)
-{
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(screenHeight * 0.15f))
-    {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 45.dp, start = 30.dp, end = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Box{
-                Text("ALREM", fontSize = 40.sp, color = Color.White, style = MaterialTheme.typography.bodyMedium)
-            }
-            
-            Box{
-                Button(
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color(0xFF939393)),
-                ) {
-                    Icon(
-                        modifier = Modifier.size(30.dp),
-                        imageVector = ImageVector.vectorResource(R.drawable.setting),
-                        contentDescription = "inquiry"
-                    )
-                }
-            }
-        }
-    }
-}
-
-
-@Composable
-fun TopItemLayout(screenHeight: Dp)
-{
-    val (selectedBox, setSelectedBox) = remember { mutableStateOf("알 람") }
-
-    val getBoxBackground = { boxName: String ->
-        if (boxName == selectedBox)
+    val getBoxBackground = { index: Int ->
+        if (index == pagerState.currentPage)
             Brush.linearGradient(colors = listOf(Color(0xFFB98FFE), Color(0xFF8FC9FE)))
         else
             Brush.linearGradient(colors = listOf(Color(0xFF393C41), Color(0xFF393C41)))
@@ -140,14 +70,19 @@ fun TopItemLayout(screenHeight: Dp)
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            boxData.forEach { (boxName, icon) ->
+            boxData.forEachIndexed { index, (boxName, icon) ->
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(8.dp))
-                        .background(getBoxBackground(boxName))
-                        .clickable { setSelectedBox(boxName) },
+                        .background(getBoxBackground(index))
+                        .clickable
+                        {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(index)
+                            }
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -172,41 +107,5 @@ fun TopItemLayout(screenHeight: Dp)
                 }
             }
         }
-    }
-}
-
-
-@Composable
-fun AlarmListLayout(screenHeight: Dp)
-{
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(screenHeight * 0.58f))
-    {
-
-    }
-
-}
-
-
-@Composable
-fun AlarmAddOnMainLayout(screenHeight: Dp, onNavigateToAlarmAddScreen: () -> Unit)
-{
-    AddButton(modifier = Modifier
-        .clickable{ onNavigateToAlarmAddScreen() },
-        text = "알 람 추 가", screenHeight = screenHeight)
-}
-
-
-@Composable
-fun AdvertisementLayout1(screenHeight: Dp)
-{
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(screenHeight * 0.09f)
-        .padding(top = 10.dp)
-        .background(Color.LightGray))
-    {
-        Text(text = "광 고", color = Color.White)
     }
 }

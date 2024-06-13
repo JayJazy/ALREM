@@ -8,5 +8,6 @@ import java.util.Date
 data class RemData(
     @PrimaryKey(autoGenerate = true)
     val id : Int,
-    val remData : Date
+    val remData : Date,
+    val sleepingTime : Int
 )

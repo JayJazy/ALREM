@@ -53,5 +53,8 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
+    // gson
+    implementation(libs.gson)
+
     implementation(project(":domain"))
 }

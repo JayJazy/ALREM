@@ -24,7 +24,7 @@ fun ToggleButton(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(color),
         modifier = modifier.clip(CircleShape),
-        contentPadding = PaddingValues()    // 내부 패딩 제거 하여 글자 중앙에 배치
+        contentPadding = PaddingValues()
     ) {
         Text(day, color = textColor, fontFamily = MaterialTheme.typography.bodyMedium.fontFamily)
     }

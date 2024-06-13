@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-
+    id("kotlin-parcelize")
 }
 
 android {
@@ -72,7 +72,6 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
-
     // Splash
     implementation(libs.splash)
 
@@ -83,6 +82,12 @@ dependencies {
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    // lifecycle
+    implementation (libs.lifecycle.runtime.compose)
+
+    // gson
+    implementation(libs.gson)
 
     implementation(project(":domain"))
     implementation(project(":data"))

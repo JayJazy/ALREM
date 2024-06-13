@@ -1,13 +1,9 @@
-package com.jayys.alrem.model
+package com.jayys.alrem.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import java.util.Date
 
 
-@Entity(tableName = "alarm_table")
-data class AlarmData(
-    @PrimaryKey(autoGenerate = true)
+data class AlarmEntity(
     val id : Int,
     val title : String,
     val alarmDate : List<Date>,
@@ -27,5 +23,4 @@ data class AlarmData(
     val repeatMinute : Int,
 
     val rem : Boolean
-
 )

@@ -21,11 +21,12 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun AddButton(modifier: Modifier, text: String, screenHeight: Dp) {
+fun AddButton(modifier: Modifier, text: String, screenHeight: Dp, navigate: () -> Unit) {
     Box(modifier = modifier
         .fillMaxWidth()
         .height(screenHeight * 0.08f)
         .padding(start = 20.dp, end = 20.dp, top = 2.dp)
+        .clickable { navigate() }
         .background(
             brush = Brush.linearGradient(
                 colors = listOf(
