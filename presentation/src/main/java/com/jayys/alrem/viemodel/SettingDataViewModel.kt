@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.jayys.alrem.R
+import com.jayys.alrem.component.getRawResourceUri
 import com.jayys.alrem.navigation.SettingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -35,6 +36,7 @@ class SettingDataViewModel @Inject constructor(
     }
 
     var originalBellName = "dawn"
+    var isUpdate = false
 
 
     var pageNumber = 0
@@ -52,6 +54,7 @@ class SettingDataViewModel @Inject constructor(
 
     fun createSettingData(): SettingData {
         return SettingData(
+            isUpdate = isUpdate,
             pageNumber = pageNumber,
             alarmName = alarmName,
             dayOfWeekList = dayOfWeekList,
@@ -68,6 +71,7 @@ class SettingDataViewModel @Inject constructor(
 
     fun separateSettingData(settingData: SettingData)
     {
+        isUpdate = settingData.isUpdate
         pageNumber = settingData.pageNumber
         alarmName = settingData.alarmName
         dayOfWeekList = settingData.dayOfWeekList.toMutableList()
@@ -82,9 +86,3 @@ class SettingDataViewModel @Inject constructor(
     }
 }
 
-
-fun getRawResourceUri(context: Context): String {
-    val resourceId = R.raw.dawn
-    val uri = "android.resource://${context.packageName}/$resourceId"
-    return URLEncoder.encode(uri, StandardCharsets.UTF_8.toString())
-}

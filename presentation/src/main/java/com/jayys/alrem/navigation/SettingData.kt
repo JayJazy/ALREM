@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SettingData(
+    var isUpdate: Boolean,
     var pageNumber: Int,
 
     var alarmName: String,

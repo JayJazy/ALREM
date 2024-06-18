@@ -11,3 +11,5 @@ val basicItemColor = Color(0xFF353535)  // primary
 val focusColor = Color(0xFFFFE68E)      // onPrimary
 
 val pinkColor = Color(0xFFE494FF)       // secondary
+
+val underlineColor = Color(0xFF474747)  // onSurface

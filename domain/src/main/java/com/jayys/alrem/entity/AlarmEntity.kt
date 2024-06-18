@@ -5,8 +5,10 @@ import java.util.Date
 
 data class AlarmEntity(
     val id : Int,
+    val pageNum : Int,
     val title : String,
     val alarmDate : List<Date>,
+    val alarmDayOfWeek : List<Boolean>,
 
     val bellName : String,
     val bellRingtone : String,
@@ -14,7 +16,6 @@ data class AlarmEntity(
     val bellVolume : Int,
 
     val vibration : Boolean,
-    val vibVolume : Int,
 
     val tts : Boolean,
     val ttsVolume : Int,

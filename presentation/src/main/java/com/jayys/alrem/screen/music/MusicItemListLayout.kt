@@ -26,6 +26,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.PermissionManager
+import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.screen.music.appmusic.AppMusicLayout
 import com.jayys.alrem.screen.music.storagemusic.StorageMusicLayout
@@ -39,8 +40,9 @@ fun MusicItemListLayout(
     screenHeight: Dp,
     pagerState: PagerState,
     permissionManager: PermissionManager,
+    updateAlarmData: AlarmEntity,
     settingDataViewModel: SettingDataViewModel,
-    onNavigateBackToAlarmAddScreen: (SettingData) -> Unit,
+    onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
 ) {
     CompositionLocalProvider(
         LocalLifecycleOwner provides androidx.compose.ui.platform.LocalLifecycleOwner.current,
@@ -76,9 +78,9 @@ fun MusicItemListLayout(
         {
             HorizontalPager(state = pagerState, beyondBoundsPageCount = 3) { page ->
                 when (page) {
-                    0 -> AppMusicLayout(settingDataViewModel, pagerState, onNavigateBackToAlarmAddScreen)
-                    1 -> SystemMusicLayout(settingDataViewModel, pagerState, onNavigateBackToAlarmAddScreen)
-                    2 -> StorageMusicLayout(settingDataViewModel, pagerState, permissionManager, onNavigateBackToAlarmAddScreen)
+                    0 -> AppMusicLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
+                    1 -> SystemMusicLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
+                    2 -> StorageMusicLayout(settingDataViewModel, pagerState, permissionManager, updateAlarmData, onNavigateBackToAlarmAddScreen)
                 }
             }
         }

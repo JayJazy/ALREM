@@ -21,7 +21,8 @@ private val ColorScheme = lightColorScheme(
     onBackground = subBackground,
     primary = basicItemColor,
     onPrimary = focusColor,
-    secondary = pinkColor
+    secondary = pinkColor,
+    onSurface = underlineColor
 )
 
 @Composable

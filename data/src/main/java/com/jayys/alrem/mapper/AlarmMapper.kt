@@ -6,10 +6,10 @@ import java.util.Date
 
 object AlarmMapper : Mapper<AlarmData, AlarmEntity>{
     override fun AlarmData.mapToDomainModel(): AlarmEntity {
-        return AlarmEntity(id, title, alarmDate, bellName, bellRingtone, bell, bellVolume, vibration, vibVolume, tts, ttsVolume, repeat, repeatMinute, rem)
+        return AlarmEntity(id, pageNum, title, alarmDate, alarmDayOfWeek, bellName, bellRingtone, bell, bellVolume, vibration, tts, ttsVolume, repeat, repeatMinute, rem)
     }
 
     override fun AlarmEntity.mapFromDomainModel(): AlarmData {
-        return AlarmData(id, title, alarmDate, bellName, bellRingtone, bell, bellVolume, vibration, vibVolume, tts, ttsVolume, repeat, repeatMinute, rem)
+        return AlarmData(id, pageNum, title, alarmDate, alarmDayOfWeek, bellName, bellRingtone, bell, bellVolume, vibration, tts, ttsVolume, repeat, repeatMinute, rem)
     }
 }

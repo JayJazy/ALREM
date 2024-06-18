@@ -1,5 +1,6 @@
 package com.jayys.alrem.screen.alarmadd
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,7 @@ import com.jayys.alrem.viemodel.SettingDataViewModel
 @Composable
 fun DayOfWeekLayout(screenHeight: Dp, settingDataViewModel: SettingDataViewModel)
 {
-    val weekdays = listOf("월", "화", "수", "목", "금", "토", "일")
+    val weekdays = listOf("일", "월", "화", "수", "목", "금", "토")
     val toggleStates = remember { mutableStateListOf(*settingDataViewModel.dayOfWeekList.toTypedArray()) }
 
     Box(modifier = Modifier
@@ -39,14 +40,12 @@ fun DayOfWeekLayout(screenHeight: Dp, settingDataViewModel: SettingDataViewModel
             verticalAlignment = Alignment.CenterVertically
         ) {
             weekdays.forEachIndexed { index, day ->
-                // 버튼 간 간격을 위한 패딩
                 val modifier = Modifier.padding(horizontal = 4.dp)
-                // 토글 상태에 따라 버튼 색상을 결정
                 val buttonColor = if (toggleStates[index]) MaterialTheme.colorScheme.onPrimary else Color(0xFF4D4D4D)
                 val textColor = when(index)
                 {
-                    5 -> Color.Blue
-                    6 -> Color.Red
+                    0 -> Color.Red
+                    6 -> Color.Blue
                     else -> Color.Black
                 }
                 ToggleButton(

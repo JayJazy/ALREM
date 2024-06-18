@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
+import com.jayys.alrem.viemodel.AlarmDataViewModel
 
 @Composable
 fun TopLayout(screenHeight: Dp)
@@ -48,7 +49,10 @@ fun TopLayout(screenHeight: Dp)
 
             Box{
                 Button(
-                    onClick = { openAppSettings(context) },
+                    onClick =
+                    {
+                        openAppSettings(context)
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color(0xFF939393)),
                 ) {
                     Icon(

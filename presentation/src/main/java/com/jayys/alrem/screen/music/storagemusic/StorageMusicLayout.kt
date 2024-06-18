@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.PermissionManager
+import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.screen.music.RingtoneItemView
 import com.jayys.alrem.screen.music.RingtonePlay
@@ -34,7 +35,8 @@ fun StorageMusicLayout(
     settingDataViewModel: SettingDataViewModel,
     pagerState: PagerState,
     permissionManager: PermissionManager,
-    onNavigateBackToAlarmAddScreen: (SettingData) -> Unit
+    updateAlarmData: AlarmEntity,
+    onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
 )
 {
     LaunchedEffect(Unit) {
@@ -69,7 +71,7 @@ fun StorageMusicLayout(
                             .height(180.dp)
                             .fillMaxWidth(), contentAlignment = Alignment.Center
                     ) {
-                        RingtonePlay(settingDataViewModel, pagerState, onNavigateBackToAlarmAddScreen)
+                        RingtonePlay(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
                     }
                 },
                 sheetPeekHeight = 0.dp,

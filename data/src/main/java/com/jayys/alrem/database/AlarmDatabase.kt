@@ -6,12 +6,13 @@ import androidx.room.TypeConverters
 import com.jayys.alrem.dao.AlarmDao
 import com.jayys.alrem.dao.RemDao
 import com.jayys.alrem.model.AlarmData
+import com.jayys.alrem.model.BooleanListConverter
 import com.jayys.alrem.model.DateConverter
 import com.jayys.alrem.model.DateListConverter
 import com.jayys.alrem.model.RemData
 
-@Database(entities = [AlarmData::class, RemData::class], version = 1, exportSchema = false)
-@TypeConverters(DateConverter::class, DateListConverter::class)
+@Database(entities = [AlarmData::class, RemData::class], version = 3, exportSchema = false)
+@TypeConverters(DateConverter::class, DateListConverter::class, BooleanListConverter::class)
 abstract class AlarmDatabase : RoomDatabase() {
 
     abstract fun AlarmDao() : AlarmDao

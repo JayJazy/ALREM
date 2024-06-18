@@ -49,6 +49,9 @@ dependencies {
     implementation(libs.room.ktx)
     annotationProcessor(libs.room.compiler)
 
+    // dataStore
+    implementation (libs.datastore)
+
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

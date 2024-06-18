@@ -43,7 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.R
+import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
+import com.jayys.alrem.screen.alarmadd.update.settingDataToUpdatedAlarmData
 import com.jayys.alrem.viemodel.SettingDataViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -52,7 +54,12 @@ private var tempRingtone: Ringtone? = null
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RingtonePlay(settingDataViewModel: SettingDataViewModel, pagerState: PagerState, onNavigateBackToAlarmAddScreen: (SettingData) -> Unit)
+fun RingtonePlay(
+    settingDataViewModel: SettingDataViewModel,
+    pagerState: PagerState,
+    updateAlarmData: AlarmEntity,
+    onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
+)
 {
     val context = LocalContext.current
     val selectedUri by settingDataViewModel.selectedUri.collectAsStateWithLifecycle()
@@ -60,7 +67,7 @@ fun RingtonePlay(settingDataViewModel: SettingDataViewModel, pagerState: PagerSt
 
     val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
-    var sliderPosition by remember { mutableFloatStateOf(0.134f) }
+    var sliderPosition by remember { mutableFloatStateOf( settingDataViewModel.bellVolume.toFloat() / maxVolume.toFloat() ) }
     var isPlaying by remember { mutableStateOf(false) }
 
     val ringtone = RingtoneManager.getRingtone(context, selectedUri)
@@ -159,7 +166,13 @@ fun RingtonePlay(settingDataViewModel: SettingDataViewModel, pagerState: PagerSt
             Button(onClick =
             {
                 saveSettingData(settingDataViewModel, sliderPosition, maxVolume, pagerState)
-                onNavigateBackToAlarmAddScreen(settingDataViewModel.createSettingData())
+                val alarm = if (settingDataViewModel.isUpdate) {
+                    settingDataToUpdatedAlarmData(settingDataViewModel, updateAlarmData.id)
+                }
+                else {
+                    settingDataToUpdatedAlarmData(settingDataViewModel, 0)
+                }
+                onNavigateBackToAlarmAddScreen(alarm, settingDataViewModel.createSettingData())
             },
                 modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
                 Text(text = "설 정", color = Color.Blue, fontSize = 18.sp)
@@ -183,7 +196,12 @@ fun ringtoneStop()
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-fun saveSettingData(settingDataViewModel: SettingDataViewModel, sliderPosition: Float, maxVolume: Int, pagerState: PagerState) {
+fun saveSettingData(
+    settingDataViewModel: SettingDataViewModel,
+    sliderPosition: Float,
+    maxVolume: Int,
+    pagerState: PagerState
+) {
     settingDataViewModel.originalBellName = settingDataViewModel.bellName
 
     val uri = settingDataViewModel.selectedUri.value.toString()

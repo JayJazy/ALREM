@@ -15,17 +15,22 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.component.AdvertisementLayout
+import com.jayys.alrem.entity.AlarmEntity
+import com.jayys.alrem.viemodel.AlarmDataViewModel
 import com.jayys.alrem.viemodel.SettingDataViewModel
 
 @Composable
 fun AlarmAddScreen(
+    updateAlarmData: AlarmEntity,
     settingData: SettingData,
+    onNavigateToMusicScreen: (AlarmEntity, SettingData) -> Unit,
+    onNavigateToMainScreen: () -> Unit,
     settingDataViewModel: SettingDataViewModel = hiltViewModel(),
-    onNavigateToMusicScreen: (SettingData) -> Unit,
-    onNavigateToMainScreen: () -> Unit
+    alarmDataViewModel: AlarmDataViewModel = hiltViewModel()
 )
 {
     settingDataViewModel.separateSettingData(settingData)
+
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -41,8 +46,8 @@ fun AlarmAddScreen(
                 TitleLayout(screenHeight, settingDataViewModel)
                 DayOfWeekLayout(screenHeight, settingDataViewModel)
                 TimePickerLayout(screenHeight, settingDataViewModel)
-                SettingItemsLayout(screenHeight, settingDataViewModel, onNavigateToMusicScreen)
-                AlarmAddLayout(screenHeight, settingDataViewModel, onNavigateToMainScreen)
+                SettingItemsLayout(screenHeight, settingDataViewModel, updateAlarmData, onNavigateToMusicScreen)
+                AlarmAddLayout(screenHeight, updateAlarmData, settingDataViewModel, alarmDataViewModel, onNavigateToMainScreen)
                 Box(contentAlignment = Alignment.BottomCenter)
                 {
                     AdvertisementLayout(screenHeight)

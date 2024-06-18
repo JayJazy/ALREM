@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.screen.music.RingtoneItemView
 import com.jayys.alrem.screen.music.RingtonePlay
@@ -31,7 +32,8 @@ import kotlinx.coroutines.launch
 fun SystemMusicLayout(
     settingDataViewModel: SettingDataViewModel,
     pagerState: PagerState,
-    onNavigateBackToAlarmAddScreen: (SettingData) -> Unit
+    updateAlarmData: AlarmEntity,
+    onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
 )
 {
     val context = LocalContext.current
@@ -61,7 +63,7 @@ fun SystemMusicLayout(
                     Box(modifier = Modifier
                         .height(180.dp)
                         .fillMaxWidth(), contentAlignment = Alignment.TopCenter){
-                        RingtonePlay(settingDataViewModel, pagerState, onNavigateBackToAlarmAddScreen)
+                        RingtonePlay(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
                     }
                 },
                 sheetPeekHeight = 0.dp,

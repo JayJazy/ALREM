@@ -26,7 +26,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -46,6 +45,7 @@ private var tts : TextToSpeech? = null
 @Composable
 fun VolumeDialog(
     initialValue: Float,
+    maxVolume: Int,
     onDismiss: () -> Unit,
     onConfirm: (Float) -> Unit
 ) {
@@ -67,7 +67,11 @@ fun VolumeDialog(
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     IconButton(
-                        onClick = { ttsPlay(context, sliderPosition) },
+                        onClick =
+                        {
+                            tts?.stop()
+                            ttsPlay(context, sliderPosition, maxVolume)
+                        },
                         modifier = Modifier.size(24.dp)
                     ) {
                         Icon(
@@ -108,8 +112,8 @@ fun VolumeDialog(
     }
 }
 
-fun ttsPlay(context: Context, sliderPosition: Float) {
-    val newVolume = sliderPosition * 15
+fun ttsPlay(context: Context, sliderPosition: Float, maxVolume: Int) {
+    val newVolume = sliderPosition * maxVolume
 
     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
     {
@@ -123,7 +127,7 @@ fun ttsPlay(context: Context, sliderPosition: Float) {
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_ALARM, (audioManager.getStreamMaxVolume(
                         AudioManager.STREAM_ALARM
-                    ) * newVolume.toInt() / 15), 0
+                    ) * newVolume.toInt() / maxVolume), 0
                 )
                 tts?.setAudioAttributes(
                     AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build()

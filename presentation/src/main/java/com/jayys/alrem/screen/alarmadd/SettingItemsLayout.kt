@@ -1,5 +1,7 @@
 package com.jayys.alrem.screen.alarmadd
 
+import android.content.Context
+import android.media.AudioManager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -8,17 +10,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jayys.alrem.component.RepeatDialog
 import com.jayys.alrem.component.SettingItem
 import com.jayys.alrem.component.VolumeDialog
+import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
+import com.jayys.alrem.screen.alarmadd.update.settingDataToUpdatedAlarmData
 import com.jayys.alrem.viemodel.SettingDataViewModel
 
 
@@ -26,13 +32,18 @@ import com.jayys.alrem.viemodel.SettingDataViewModel
 fun SettingItemsLayout(
     screenHeight: Dp,
     settingDataViewModel: SettingDataViewModel,
-    onNavigateToMusicScreen: (SettingData) -> Unit
+    updateAlarmData: AlarmEntity,
+    onNavigateToMusicScreen: (AlarmEntity, SettingData) -> Unit
 )
 {
+    val context = LocalContext.current
     val settingItemText = listOf("음악", "진동", "시간 알람", "반복 시간", "수면 시간 기록")
     val switchStates = remember { mutableStateListOf(*settingDataViewModel.switchState.toTypedArray()) }
 
+    val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
     var ttsVolumeDialog by remember { mutableStateOf(false) }
+    var volumeValue by remember { mutableFloatStateOf( settingDataViewModel.ttsVolume.toFloat() / maxVolume.toFloat() ) }
 
     var repeatDialog by remember { mutableStateOf(false) }
 
@@ -40,18 +51,20 @@ fun SettingItemsLayout(
 
     if (ttsVolumeDialog) {
         VolumeDialog(
-            initialValue = 0.134f,
+            initialValue = volumeValue,
+            maxVolume = maxVolume,
             onDismiss =
             {
                 ttsVolumeDialog = false
                 switchStates[2] = false
                 settingDataViewModel.switchState[2] = switchStates[2]
-            },
-            onConfirm = { newVolume ->
-                settingDataViewModel.ttsVolume = (newVolume * 15).toInt()
-                ttsVolumeDialog = false
             }
         )
+        { newVolume ->
+            settingDataViewModel.ttsVolume = (newVolume * maxVolume).toInt()
+            volumeValue = settingDataViewModel.ttsVolume.toFloat() / maxVolume.toFloat()
+            ttsVolumeDialog = false
+        }
     }
 
     if(repeatDialog)
@@ -86,7 +99,19 @@ fun SettingItemsLayout(
                 }
 
                 val onClick: () -> Unit = when (index) {
-                    0 -> { { onNavigateToMusicScreen(settingDataViewModel.createSettingData()) } }
+                    0 -> { {
+                            if (settingDataViewModel.isUpdate)
+                            {
+                                val alarm = settingDataToUpdatedAlarmData(settingDataViewModel, updateAlarmData.id)
+                                onNavigateToMusicScreen(alarm, settingDataViewModel.createSettingData())
+                            }
+                            else
+                            {
+                                val alarm = settingDataToUpdatedAlarmData(settingDataViewModel, 0)
+                                onNavigateToMusicScreen(alarm, settingDataViewModel.createSettingData())
+                            }
+
+                        } }
                     else -> { { } }
                 }
 

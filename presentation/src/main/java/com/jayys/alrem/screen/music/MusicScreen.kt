@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jayys.alrem.PermissionManager
+import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.viemodel.SettingDataViewModel
 
@@ -24,8 +25,9 @@ import com.jayys.alrem.viemodel.SettingDataViewModel
 @Composable
 fun MusicScreen(
     permissionManager : PermissionManager,
+    updateAlarmData : AlarmEntity,
     settingData: SettingData,
-    onNavigateBackToAlarmAddScreen: (SettingData) -> Unit,
+    onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit,
     settingDataViewModel: SettingDataViewModel = hiltViewModel()
 ) {
     settingDataViewModel.separateSettingData(settingData)
@@ -44,7 +46,7 @@ fun MusicScreen(
             ) {
                 val pagerState = rememberPagerState(initialPage = settingDataViewModel.pageNumber){3}
 
-                MusicItemListLayout(screenHeight, pagerState, permissionManager, settingDataViewModel, onNavigateBackToAlarmAddScreen)
+                MusicItemListLayout(screenHeight, pagerState, permissionManager, updateAlarmData, settingDataViewModel, onNavigateBackToAlarmAddScreen)
 
             }
         }
@@ -52,6 +54,6 @@ fun MusicScreen(
 
     BackHandler(enabled = true, onBack = {
         settingDataViewModel.bellName = settingDataViewModel.originalBellName
-        onNavigateBackToAlarmAddScreen(settingDataViewModel.createSettingData())
+        onNavigateBackToAlarmAddScreen(updateAlarmData, settingDataViewModel.createSettingData())
     })
 }
