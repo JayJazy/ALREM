@@ -22,4 +22,10 @@
 * 앱, 시스템 및 내부 저장소 음악 목록<br><br>
 
 ### 오류 개선<br>
-* 예외 발생 오류 개선<br><br><br>
+* 예외 발생 오류 개선<br><br>
+
+<br><br>
+## 4. Fourth Commit ( DB, Bug fixes )
+* alarm 정보 DB에 저장 기능 구현<br><br>
+* alarm 정보 update 및 delete 기능 구현<br><br>
+* alarmAddScreen 기능 버그 수정<br><br>
