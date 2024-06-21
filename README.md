@@ -25,7 +25,12 @@
 * 예외 발생 오류 개선<br><br>
 
 <br><br>
-## 4. Fourth Commit ( DB, Bug fixes )
+## 4. Fourth Commit ( SQL DB, Bug fixes )
 * alarm 정보 DB에 저장 기능 구현<br><br>
 * alarm 정보 update 및 delete 기능 구현<br><br>
 * alarmAddScreen 기능 버그 수정<br><br>
+
+<br><br>
+## 4. Fifth Commit ( UI Design, implement functions )
+* RemScreen 및 여러 Layout UI Design<br><br>
+* Rem 시간에 맞춰 시간 계산 기능 구현<br><br>
