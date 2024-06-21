@@ -17,7 +17,6 @@ fun settingDataToUpdatedAlarmData(settingDataViewModel: SettingDataViewModel, id
         "목" to Calendar.THURSDAY,
         "금" to Calendar.FRIDAY,
         "토" to Calendar.SATURDAY
-
     )
 
     val allDaysSelected = settingDataViewModel.dayOfWeekList.all { it }

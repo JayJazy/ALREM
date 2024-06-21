@@ -12,6 +12,7 @@ import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.screen.alarmadd.AlarmAddScreen
 import com.jayys.alrem.screen.main.MainScreen
 import com.jayys.alrem.screen.music.MusicScreen
+import com.jayys.alrem.screen.rem.RemScreen
 
 @Composable
 fun ScreenNavHost(permissionManager: PermissionManager) {
@@ -20,10 +21,14 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
     {
         composable(route = ScreenRoute.MainScreen.route)
         {
-            MainScreen(onNavigateToAlarmAddScreen = { updateAlarmData, settingData ->
+            MainScreen(
+                onNavigateToAlarmAddScreen = { updateAlarmData, settingData ->
                 val route = ScreenRoute.AlarmAddScreen.createRoute(updateAlarmData, settingData)
-                navController.navigate(route)
-            })
+                navController.navigate(route) },
+
+                onNavigateToRemScreen = { itemValue ->
+                    val route = ScreenRoute.RemScreen.createRoute(itemValue)
+                    navController.navigate(route) })
         }
 
         composable(
@@ -82,6 +87,22 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
                     updatedAlarmData, updatedSettingData ->
                     val route = ScreenRoute.AlarmAddScreen.createRoute(updatedAlarmData, updatedSettingData)
                     navController.navigate(route) { popUpTo(ScreenRoute.MusicScreen.route) { inclusive = true } }
+                })
+        }
+
+
+        composable(
+            route = ScreenRoute.RemScreen.route,
+            arguments = listOf( navArgument("itemValue") { type = NavType.StringType } )
+        )
+        {
+            backStackEntry ->
+            val itemValue = backStackEntry.arguments?.getString("itemValue")
+
+            RemScreen(
+                itemValue = itemValue ?: "",
+                onNavigateToMainScreen = {
+                    navController.navigate(ScreenRoute.MainScreen.route) { popUpTo(ScreenRoute.MusicScreen.route) { inclusive = true }}
                 })
         }
     }

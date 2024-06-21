@@ -3,7 +3,6 @@ package com.jayys.alrem.navigation
 import android.net.Uri
 import com.google.gson.Gson
 import com.jayys.alrem.entity.AlarmEntity
-import com.jayys.alrem.model.AlarmData
 
 sealed class ScreenRoute(val route : String) {
 
@@ -22,6 +21,12 @@ sealed class ScreenRoute(val route : String) {
             val updateAlarmDataJson = Uri.encode(Gson().toJson(updateAlarmData))
             val settingDataJson = Uri.encode(Gson().toJson(settingData))
             return "MusicScreen/$updateAlarmDataJson/$settingDataJson"
+        }
+    }
+
+    data object RemScreen : ScreenRoute("RemScreen/{itemValue}"){
+        fun createRoute(itemValue : String) : String{
+            return "RemScreen/$itemValue"
         }
     }
 }

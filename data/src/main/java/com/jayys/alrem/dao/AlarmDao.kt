@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface AlarmDao{
 
     /** 조회 **/
-    @Query("SELECT * FROM alarm_table ORDER BY id ASC")
+    @Query("SELECT * FROM alarm_table ORDER BY id DESC")
     fun getAllAlarms() : Flow<List<AlarmData>>
 
 

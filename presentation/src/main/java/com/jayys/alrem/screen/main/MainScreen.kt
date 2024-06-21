@@ -15,6 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +35,7 @@ import com.jayys.alrem.viemodel.SwitchViewModel
 @Composable
 fun MainScreen(
     onNavigateToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit,
+    onNavigateToRemScreen: (String) -> Unit,
     settingDataViewModel: SettingDataViewModel = hiltViewModel(),
     alarmDataViewModel: AlarmDataViewModel = hiltViewModel(),
     switchViewModel: SwitchViewModel = hiltViewModel(),
@@ -47,6 +51,7 @@ fun MainScreen(
     CompositionLocalProvider(LocalLifecycleOwner provides lifecycleOwner){
         val alarmList by alarmDataViewModel.alarmData.collectAsStateWithLifecycle(lifecycleOwner.lifecycle)
         val switchStates by switchViewModel.switchStates.collectAsStateWithLifecycle(lifecycleOwner.lifecycle)
+
         LaunchedEffect(alarmList)
         {
             switchViewModel.loadSwitchStates(alarmList)
@@ -60,11 +65,12 @@ fun MainScreen(
             BoxWithConstraints {
                 val screenHeight = maxHeight
                 val pagerState = rememberPagerState(initialPage = settingDataViewModel.pageNumber){2}
+
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    TopLayout(screenHeight, alarmDataViewModel)
+                    TopLayout(screenHeight)
                     TopItemLayout(screenHeight, pagerState)
                     AlarmAndRemLayout(
                         screenHeight,
@@ -74,7 +80,8 @@ fun MainScreen(
                         settingDataViewModel,
                         switchViewModel,
                         alarmDataViewModel,
-                        onNavigateToAlarmAddScreen)
+                        onNavigateToAlarmAddScreen,
+                        onNavigateToRemScreen)
                     Box(contentAlignment = Alignment.BottomCenter)
                     {
                         AdvertisementLayout(screenHeight)

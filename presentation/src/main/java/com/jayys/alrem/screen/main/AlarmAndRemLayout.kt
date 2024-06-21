@@ -25,7 +25,8 @@ fun AlarmAndRemLayout(
     settingDataViewModel: SettingDataViewModel,
     switchViewModel: SwitchViewModel,
     alarmDataViewModel: AlarmDataViewModel,
-    onNavigateToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
+    onNavigateToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit,
+    onNavigateToRemScreen: (String) -> Unit,
 )
 {
     Box(modifier = Modifier
@@ -42,7 +43,7 @@ fun AlarmAndRemLayout(
                     switchViewModel,
                     alarmDataViewModel,
                     onNavigateToAlarmAddScreen)
-                1 -> RemLayout()
+                1 -> RemLayout(screenHeight, onNavigateToRemScreen)
             }
         }
     }

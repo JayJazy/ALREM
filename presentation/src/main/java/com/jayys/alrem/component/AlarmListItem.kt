@@ -1,5 +1,6 @@
 package com.jayys.alrem.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -83,10 +84,11 @@ fun AlarmListItem(
                         verticalArrangement = Arrangement.Center
                     ) {
 
-                        Text(text = alarm.title,
+                        Text(text = getDays(alarm.alarmDate),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 15.sp)
+                            color = Color.White,
+                            fontSize = 15.sp,
+                            modifier = Modifier.padding(start = 5.dp))
 
                         Spacer(modifier = Modifier.height(screenHeight * 0.007f))
 
@@ -127,9 +129,9 @@ fun AlarmListItem(
                     verticalAlignment = Alignment.CenterVertically
                 )
                 {
-                    Text(text = getDays(alarm.alarmDate),
-                        style =MaterialTheme.typography.bodyMedium,
-                        color = Color.White,
+                    Text(text = alarm.title,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 15.sp,
                         modifier = Modifier.weight(1f))
 
