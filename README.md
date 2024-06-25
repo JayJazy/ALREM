@@ -12,7 +12,7 @@
 * AlarmAddScreen UI 프로그래밍<br><br>
 
 <br><br>
-## 2. Third Commit ( UI Design, implement functions, fixed error )
+## 3. Third Commit ( UI Design, implement functions, fixed error )
 ### AlarmAddScreen 세부 기능 구현<br>
 * 여러 SettingItem 기능 개발<br><br>
 * hilt와 hiltViewmodel을 이용하여 세팅 값 저장하기<br><br>
@@ -31,6 +31,11 @@
 * alarmAddScreen 기능 버그 수정<br><br>
 
 <br><br>
-## 4. Fifth Commit ( UI Design, implement functions )
+## 5. Fifth Commit ( UI Design, implement functions )
 * RemScreen 및 여러 Layout UI Design<br><br>
 * Rem 시간에 맞춰 시간 계산 기능 구현<br><br>
+
+<br><br>
+## 6. Sixth Commit ( UI Design, implement functions )
+* RemLayout의 BarChart 및 Graph 개발<br><br>
+* PreferencesScreen 기능 추가<br><br>
