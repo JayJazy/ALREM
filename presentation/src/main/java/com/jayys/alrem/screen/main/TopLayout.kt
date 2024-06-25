@@ -1,9 +1,6 @@
 package com.jayys.alrem.screen.main
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,18 +18,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
-import com.jayys.alrem.viemodel.AlarmDataViewModel
 
 @Composable
-fun TopLayout(screenHeight: Dp)
+fun TopLayout(screenHeight: Dp, onNavigateToPreferencesScreen: () -> Unit)
 {
-    val context = LocalContext.current
+
     Box(modifier = Modifier
         .fillMaxWidth()
         .height(screenHeight * 0.15f))
@@ -51,7 +46,7 @@ fun TopLayout(screenHeight: Dp)
                 Button(
                     onClick =
                     {
-                        openAppSettings(context)
+                        onNavigateToPreferencesScreen()
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color(0xFF939393)),
                 ) {
@@ -64,15 +59,4 @@ fun TopLayout(screenHeight: Dp)
             }
         }
     }
-}
-
-
-fun openAppSettings(context: Context)
-{
-    val intent = Intent().apply {
-        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        data = Uri.fromParts("package", context.packageName, null)
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    }
-    context.startActivity(intent)
 }

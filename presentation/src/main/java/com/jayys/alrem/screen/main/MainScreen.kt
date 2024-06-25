@@ -15,9 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -34,6 +31,7 @@ import com.jayys.alrem.viemodel.SwitchViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
+    onNavigateToPreferencesScreen: () -> Unit,
     onNavigateToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit,
     onNavigateToRemScreen: (String) -> Unit,
     settingDataViewModel: SettingDataViewModel = hiltViewModel(),
@@ -70,7 +68,7 @@ fun MainScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    TopLayout(screenHeight)
+                    TopLayout(screenHeight, onNavigateToPreferencesScreen)
                     TopItemLayout(screenHeight, pagerState)
                     AlarmAndRemLayout(
                         screenHeight,

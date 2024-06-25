@@ -48,7 +48,7 @@ fun RemButton(screenHeight: Dp, itemValue: String, onNavigateToRemScreen: (Strin
 
     Box(modifier = Modifier
         .fillMaxWidth()
-        .height(screenHeight * 0.28f * 0.25f)
+        .height(screenHeight * 0.24f * 0.3f)
         .padding(horizontal = 15.dp)
         .clip(RoundedCornerShape(10.dp))
         .clickable { onNavigateToRemScreen(itemValue) }

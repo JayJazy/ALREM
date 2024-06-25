@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jayys.alrem.component.RepeatDialog
+import com.jayys.alrem.dialog.RepeatDialog
 import com.jayys.alrem.component.SettingItem
-import com.jayys.alrem.component.VolumeDialog
+import com.jayys.alrem.dialog.VolumeDialog
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.screen.alarmadd.update.settingDataToUpdatedAlarmData

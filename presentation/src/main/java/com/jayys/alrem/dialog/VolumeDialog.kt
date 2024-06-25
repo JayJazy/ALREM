@@ -1,11 +1,10 @@
-package com.jayys.alrem.component
+package com.jayys.alrem.dialog
 
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.os.Build
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

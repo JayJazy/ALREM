@@ -8,6 +8,9 @@ sealed class ScreenRoute(val route : String) {
 
     data object MainScreen : ScreenRoute("MainScreen")
 
+    data object PreferencesScreen : ScreenRoute("PreferencesScreen")
+
+
     data object AlarmAddScreen : ScreenRoute("AlarmAddScreen/{updateAlarmData}/{settingData}"){
         fun createRoute(updateAlarmData : AlarmEntity,  settingData : SettingData) : String {
             val updateAlarmDataJson = Uri.encode(Gson().toJson(updateAlarmData))
@@ -29,4 +32,5 @@ sealed class ScreenRoute(val route : String) {
             return "RemScreen/$itemValue"
         }
     }
+
 }

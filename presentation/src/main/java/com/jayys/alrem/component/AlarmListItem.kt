@@ -58,7 +58,7 @@ fun AlarmListItem(
 )
 {
     var expanded by remember { mutableStateOf(false) }
-
+    Log.d("TAG_VALUE", "${alarm.alarmDate}")
     Box(modifier = Modifier
         .fillMaxWidth()
         .height(screenHeight * 0.2f)
@@ -84,7 +84,7 @@ fun AlarmListItem(
                         verticalArrangement = Arrangement.Center
                     ) {
 
-                        Text(text = getDays(alarm.alarmDate),
+                        Text(text = getDays(alarm.alarmDate, alarm.alarmDayOfWeek),
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.White,
                             fontSize = 15.sp,
@@ -168,8 +168,6 @@ fun AlarmListItem(
 
 
 
-
-
 private fun getTime(alarmDate: List<Date>): String {
 
     val calendar = Calendar.getInstance().apply { time = alarmDate.first() }
@@ -182,18 +180,25 @@ private fun getTime(alarmDate: List<Date>): String {
 }
 
 
-private fun getDays(alarmDate: List<Date>): String {
+private fun getDays(alarmDate: List<Date>, alarmDayOfWeek: List<Boolean>): String {
     val dayOfWeekFormatter = SimpleDateFormat("E", Locale.KOREAN)
     val allDays = setOf("일", "월", "화", "수", "목", "금", "토")
+
+    val emptyDay = allDays.filterIndexed { index, _ -> alarmDayOfWeek[index] }
 
     val selectedDaysFromDates = alarmDate.map { date ->
         Calendar.getInstance().apply { time = date }
         dayOfWeekFormatter.format(date)
     }.toSet()
 
-    return if (selectedDaysFromDates == allDays) {
+    return if (emptyDay.isEmpty()){
+        "하루"
+    }
+    else if (selectedDaysFromDates == allDays) {
         "매일"
     } else {
         selectedDaysFromDates.joinToString(separator = "  ")
     }
+
+
 }

@@ -12,6 +12,7 @@ import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.screen.alarmadd.AlarmAddScreen
 import com.jayys.alrem.screen.main.MainScreen
 import com.jayys.alrem.screen.music.MusicScreen
+import com.jayys.alrem.screen.preferences.PreferencesScreen
 import com.jayys.alrem.screen.rem.RemScreen
 
 @Composable
@@ -22,6 +23,8 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
         composable(route = ScreenRoute.MainScreen.route)
         {
             MainScreen(
+                onNavigateToPreferencesScreen = { navController.navigate(ScreenRoute.PreferencesScreen.route) },
+
                 onNavigateToAlarmAddScreen = { updateAlarmData, settingData ->
                 val route = ScreenRoute.AlarmAddScreen.createRoute(updateAlarmData, settingData)
                 navController.navigate(route) },
@@ -30,6 +33,14 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
                     val route = ScreenRoute.RemScreen.createRoute(itemValue)
                     navController.navigate(route) })
         }
+
+
+        composable(route = ScreenRoute.PreferencesScreen.route)
+        {
+            PreferencesScreen()
+        }
+
+
 
         composable(
             route = ScreenRoute.AlarmAddScreen.route,
