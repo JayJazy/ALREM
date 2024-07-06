@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="solution0">
+         하루에 20-30분 정도의 짧은 낮잠으로 부족한 수면을 보충하는 것이 도움 될 수 있어요
+    </string>
+
+    <string name="solution1">
+        적절한 카페인 섭취는 괜찮아요\n대신 오후 3시 이후에는 수면에 방해될 수 있으므로 피하는 것이 좋아요
+    </string>
+
+    <string name="solution2">
+        가벼운 식사와 간식으로 에너지를 유지하는 게 좋아요\n중요한 일은 집중력이 높은 시간대에 처리하는 게 좋아요
+    </string>
+
+    <string name="solution3">
+        수면 시간이 5시간 이하가 된다면 피로감이 증가하고 집중력과 기억력이 저하되며 감정 조절이 어려워질 수 있어요
+    </string>
+
+
+    <string name="solution4">
+        충분한 수면을 위해 잠들기 전 긴장을 푸는 루틴을 만드는 것이 좋습니다\n가벼운 명상이나 스트레칭, 따뜻한 목욕 등으로 긴장을 풀어주면 숙면에 도움 돼요
+    </string>
+
+
+</resources>

@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.jayys.alrem"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
 
     testImplementation(libs.junit.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -92,3 +95,4 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 }
+

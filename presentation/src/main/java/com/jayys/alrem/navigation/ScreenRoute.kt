@@ -6,6 +6,8 @@ import com.jayys.alrem.entity.AlarmEntity
 
 sealed class ScreenRoute(val route : String) {
 
+    data object OnBoardingScreen : ScreenRoute("OnBoardingScreen")
+
     data object MainScreen : ScreenRoute("MainScreen")
 
     data object PreferencesScreen : ScreenRoute("PreferencesScreen")

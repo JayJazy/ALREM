@@ -49,7 +49,7 @@ fun PermissionDialog(onDismiss: () -> Unit)
 
 
                 Text(text = "권한이 허용되어 있지 않으면 알람이 제대로 동작하지 않을 수 있습니다.\n\n" +
-                        "권한 항목에 들어가서 허용되지 않은 권한을 모두 허용해 주세요.\n", color = Color.White)
+                        "권한 항목에서 허용되지 않은 권한을 모두 허용해 주세요.\n", color = Color.White)
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(

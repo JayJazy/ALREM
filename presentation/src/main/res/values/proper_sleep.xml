@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="solution5">
+            충분한 수면 시간이 이루어지고 있어요\n충분한 수면은 뇌의 기억력과 집중력을 향상시키고 전반적인 정신 건강을 향상시켜요
+    </string>
+
+
+    <string name="solution6">
+        충분한 수면은 면역 체계를 강화하고, 심혈관 질환, 당뇨병, 비만 등의 만성 질환을 예방하는 데 도움이 돼요
+    </string>
+
+
+    <string name="solution7">
+        조용하고 어두우며 시원한 환경을 만드는게 좋아요\n편안한 침구를 사용하고 침실 온도는 18-20도를 맞춰 수면 시간을 유지하는 게 좋아요
+    </string>
+
+
+    <string name="solution8">
+        규칙적인 운동은 수면의 질을 높이지만, 자기 전 격렬한 운동은 피하는 걸 권장해요\n카페인과 알코올 섭취를 줄이고, 자기 3-4시간 전에는 피하는 게 좋아요
+
+    </string>
+
+
+
+</resources>

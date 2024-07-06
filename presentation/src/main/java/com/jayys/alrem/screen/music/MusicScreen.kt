@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jayys.alrem.PermissionManager
+import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.viemodel.SettingDataViewModel

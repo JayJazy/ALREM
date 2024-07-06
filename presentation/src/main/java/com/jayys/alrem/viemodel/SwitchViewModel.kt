@@ -6,7 +6,6 @@ import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.usecase.LoadSwitchUseCase
 import com.jayys.alrem.usecase.SaveSwitchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,25 +18,49 @@ class SwitchViewModel @Inject constructor(
     private val loadSwitchUseCase: LoadSwitchUseCase
 ) : ViewModel()
 {
-
     private val _switchStates = MutableStateFlow<Map<Int, Boolean>>(emptyMap())
     val switchStates: StateFlow<Map<Int, Boolean>> = _switchStates.asStateFlow()
 
-    fun saveSwitchState(position: Int, isChecked: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        saveSwitchUseCase.invoke(position, isChecked)
-        val updatedMap = _switchStates.value.toMutableMap().apply {
-            this[position] = isChecked
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            _switchStates.value = loadSwitchUseCase.loadAll()
         }
-        _switchStates.value = updatedMap
     }
 
-    fun loadSwitchStates(userList: List<AlarmEntity>) = viewModelScope.launch(Dispatchers.IO) {
-        val states = mutableMapOf<Int, Boolean>()
-        userList.forEach { user ->
-            val isChecked = loadSwitchUseCase.invoke(user.id)
-            states[user.id] = isChecked
+    private fun handleException(e: Exception, errorMessage: String) {
+        _error.value = errorMessage
+        e.printStackTrace()
+    }
+
+
+    fun saveSwitchState(position: Int, isChecked: Boolean) = viewModelScope.launch {
+        try {
+            saveSwitchUseCase.invoke(position, isChecked)
+            val updatedMap = _switchStates.value.toMutableMap().apply {
+                this[position] = isChecked
+            }
+            _switchStates.value = updatedMap
+        } catch (e: Exception) {
+            handleException(e, "스위치 상태를 저장하는 중 에러가 발생했습니다.")
         }
-        _switchStates.value = states
+    }
+
+    fun loadSwitchStates(alarmList: List<AlarmEntity>) = viewModelScope.launch {
+        try {
+            val states = loadSwitchUseCase.loadAll().toMutableMap()
+            alarmList.forEach { alarm ->
+                if (!states.containsKey(alarm.id)) {
+                    states[alarm.id] = true
+                }
+            }
+            _switchStates.value = states
+        } catch (e: Exception) {
+            handleException(e, "알람 목록을 불러오는 중 에러가 발생했습니다.")
+        }
     }
 
 }
+

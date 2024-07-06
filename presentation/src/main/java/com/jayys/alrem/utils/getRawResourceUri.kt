@@ -1,4 +1,4 @@
-package com.jayys.alrem.component
+package com.jayys.alrem.utils
 
 import android.content.Context
 import com.jayys.alrem.R

@@ -14,13 +14,16 @@ interface AlarmDao{
     @Query("SELECT * FROM alarm_table ORDER BY id DESC")
     fun getAllAlarms() : Flow<List<AlarmData>>
 
+    @Query("SELECT COALESCE(MAX(Id), 0) FROM alarm_table")
+    fun getMaxId() : Int
+
 
     /** 추가 **/
     @Insert
     fun addAlarm(alarm : AlarmData)
 
 
-    /** 업데이트 **/
+    /** 변경 **/
     @Update
     fun updateAlarm(alarm : AlarmData)
 
@@ -32,7 +35,5 @@ interface AlarmDao{
 
     @Query("DELETE FROM alarm_table")
     suspend fun deleteAllAlarms()
-
-
 
 }

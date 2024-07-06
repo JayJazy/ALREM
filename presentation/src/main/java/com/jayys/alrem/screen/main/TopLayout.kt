@@ -25,7 +25,10 @@ import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
 
 @Composable
-fun TopLayout(screenHeight: Dp, onNavigateToPreferencesScreen: () -> Unit)
+fun TopLayout(
+    screenHeight: Dp,
+    onNavigateToPreferencesScreen: () -> Unit
+)
 {
 
     Box(modifier = Modifier

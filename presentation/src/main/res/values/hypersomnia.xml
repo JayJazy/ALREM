@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="solution9">
+        아침에 일어나자마자 밝은 햇볕을 쬐는게 좋아요\n하루 중 활동량을 늘리고 적절한 운동을 하는 것도 과다 수면을 예방하는 방법이에요
+    </string>
+
+
+    <string name="solution10">
+        과도한 수면은 무기력감이나 우울증의 신호일 수 있으므로 주의가 필요해요\n만성적인 과다 수면으로 일상생활에 지장이 있다면 전문가의 상담을 받는 걸 권해드려요
+    </string>
+
+
+    <string name="solution11">
+        지나친 수면은 오히려 피로감을 줄 수 있고 낮 동안의 졸림을 증가시킬 수 있어요\n일부 연구에서는 과도한 수면이 건강 문제와 연결될 수 있다고 해요
+    </string>
+
+
+</resources>

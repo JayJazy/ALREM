@@ -50,7 +50,7 @@ fun TitleLayout(screenHeight: Dp, settingDataViewModel: SettingDataViewModel)
             value = settingDataViewModel.alarmName,
             onValueChange =
             {
-                if (it.length <= 23) { settingDataViewModel.alarmName = it }
+                if (it.length <= 24) { settingDataViewModel.alarmName = it }
             },
             label = {
                 Text("알람 제목", style = MaterialTheme.typography.bodyMedium, color = Color.Gray) },

@@ -33,12 +33,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jayys.alrem.R
 import com.jayys.alrem.dialog.PermissionDialog
 
 
 @Composable
-fun PreferencesScreen()
+fun PreferencesScreen(onNavigateBackToMainScreen : () -> Unit)
 {
     val context = LocalContext.current
     var showPermissionDialog by remember { mutableStateOf(false) }
@@ -63,7 +64,7 @@ fun PreferencesScreen()
                     Box(modifier = Modifier
                         .weight(1f)
                         .padding(start = 4.dp), contentAlignment = Alignment.CenterStart){
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = { onNavigateBackToMainScreen() }) {
                             Icon(painter = painterResource(id = R.drawable.back_icon), contentDescription = "뒤로 가기", tint = Color.Gray)
                         }
                     }
@@ -100,13 +101,18 @@ fun PreferencesScreen()
                     {
                         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
                             data = Uri.parse("mailto:")
-                            putExtra(Intent.EXTRA_EMAIL, arrayOf("android299@naver.com"))  // 받는 사람 이메일 주소
+                            putExtra(
+                                Intent.EXTRA_EMAIL,
+                                arrayOf("android299@naver.com")
+                            )  // 받는 사람 이메일 주소
                         }
                         val chooser = Intent.createChooser(emailIntent, "이메일 클라이언트를 선택하세요")
                         if (emailIntent.resolveActivity(context.packageManager) != null) {
                             context.startActivity(chooser)
                         } else {
-                            Toast.makeText(context, "이메일 클라이언트 앱을 설치해야 합니다.", Toast.LENGTH_SHORT).show()
+                            Toast
+                                .makeText(context, "이메일 클라이언트 앱을 설치해야 합니다.", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     },
                     contentAlignment = Alignment.Center){

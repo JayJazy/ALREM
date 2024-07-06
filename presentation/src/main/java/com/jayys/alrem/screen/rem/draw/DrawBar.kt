@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,14 +28,14 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun DrawBar(randomTime: List<Int>, maxChartHeight: Dp, isRemPage: Boolean)
+fun DrawBar(latestSleepingTime: List<Long>, maxChartHeight: Dp, isRemPage: Boolean)
 {
-    val timeInDecimals = randomTime.map { seconds ->
+    val timeInDecimals = latestSleepingTime.map { seconds ->
         val hours = seconds / 3600
         val minutes = (seconds % 3600) / 60
         val decimalTime = hours + minutes / 100.0
         String.format("%.2f", decimalTime).toDouble()
-    }
+    }.reversed()
 
     Row(
         modifier = Modifier

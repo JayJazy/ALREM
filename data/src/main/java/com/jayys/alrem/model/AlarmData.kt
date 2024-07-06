@@ -7,7 +7,7 @@ import java.util.Date
 
 @Entity(tableName = "alarm_table")
 data class AlarmData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     val id : Int,
     val pageNum : Int,
     val title : String,

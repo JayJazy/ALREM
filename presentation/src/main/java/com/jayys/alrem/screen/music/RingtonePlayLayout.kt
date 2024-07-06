@@ -54,7 +54,7 @@ private var tempRingtone: Ringtone? = null
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RingtonePlay(
+fun RingtonePlayLayout(
     settingDataViewModel: SettingDataViewModel,
     pagerState: PagerState,
     updateAlarmData: AlarmEntity,

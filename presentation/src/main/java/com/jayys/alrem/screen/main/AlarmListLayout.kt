@@ -8,13 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
 import com.jayys.alrem.component.AddButton
 import com.jayys.alrem.component.AlarmListItem
-import com.jayys.alrem.component.getRawResourceUri
+import com.jayys.alrem.utils.getRawResourceUri
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.viemodel.AlarmDataViewModel
@@ -25,6 +28,8 @@ import com.jayys.alrem.viemodel.SwitchViewModel
 @Composable
 fun AlarmListLayout(
     screenHeight: Dp,
+    alarmError: String?,
+    switchError: String?,
     alarmList: List<AlarmEntity>,
     switchStates: Map<Int, Boolean>,
     settingDataViewModel: SettingDataViewModel,
@@ -39,18 +44,28 @@ fun AlarmListLayout(
             .fillMaxWidth()
             .height(screenHeight * 0.58f))
         {
-            LazyColumn{
-                items(alarmList){ alarm : AlarmEntity ->
-                    val isChecked = switchStates[alarm.id] ?: true
-                    AlarmListItem(screenHeight, alarm, isChecked, switchViewModel, alarmDataViewModel, onNavigateToAlarmAddScreen)
+            when {
+                alarmError != null -> {
+                    Text(text = "$alarmError\n앱을 다시 시작해 주세요", fontSize = 20.sp, color = Color.White)
+                }
+                switchError != null -> {
+                    Text(text = "$switchError\n앱을 다시 시작해 주세요", fontSize = 20.sp, color = Color.White)
+                }
+                else -> {
+                    LazyColumn {
+                        items(alarmList) { alarm: AlarmEntity ->
+                            val isChecked = switchStates[alarm.id] ?: true
+                            AlarmListItem(screenHeight, alarm, isChecked, switchViewModel, alarmDataViewModel, onNavigateToAlarmAddScreen)
+                        }
+                    }
                 }
             }
-
         }
 
         AddButton(
             modifier = Modifier,
-            text = "알 람 추 가", screenHeight = screenHeight
+            text = "알 람 추 가",
+            screenHeight = screenHeight
         ) { onNavigateToAlarmAddScreen(dummyAlarmData(context), settingDataViewModel.createSettingData()) }
 
     }

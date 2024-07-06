@@ -6,4 +6,6 @@ import javax.inject.Inject
 class LoadSwitchUseCase @Inject constructor(private val alarmRepository: AlarmRepository) {
 
     suspend operator fun invoke(position : Int) = alarmRepository.loadSwitchState(position)
+
+    suspend fun loadAll() = alarmRepository.loadAllSwitchStates()
 }

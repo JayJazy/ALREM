@@ -33,13 +33,20 @@ fun settingDataToUpdatedAlarmData(settingDataViewModel: SettingDataViewModel, id
         }
     } else {
         selectedDays.map { day ->
-            Calendar.getInstance().apply {
-                set(Calendar.DAY_OF_WEEK, dayOfWeekMap[day] ?: throw IllegalArgumentException("Invalid day of week: $day"))
+            val today = Calendar.getInstance()
+            val targetDay = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, settingDataViewModel.hour)
                 set(Calendar.MINUTE, settingDataViewModel.min)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
+                set(Calendar.DAY_OF_WEEK, dayOfWeekMap[day] ?: throw IllegalArgumentException("Invalid day of week: $day"))
+
+                // 오늘 이후의 날짜로 설정
+                if (before(today)) {
+                    add(Calendar.WEEK_OF_YEAR, 1)
+                }
             }.time
+            targetDay
         }
     }
 

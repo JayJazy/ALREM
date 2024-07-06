@@ -1,7 +1,13 @@
 package com.jayys.alrem.screen.rem
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.icu.util.Calendar
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,9 +31,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jayys.alrem.component.getRawResourceUri
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jayys.alrem.broadcastreceiver.AlarmReceiver
+import com.jayys.alrem.utils.getRawResourceUri
 import com.jayys.alrem.entity.AlarmEntity
+import com.jayys.alrem.utils.setAlarm
 import com.jayys.alrem.viemodel.AlarmDataViewModel
+import com.jayys.alrem.viemodel.SwitchViewModel
 import java.util.Date
 
 @Composable
@@ -35,10 +47,14 @@ fun CalculateRemLayout(
     selectedHour: Int,
     selectedMin: Int,
     itemValue: String,
+    lifecycleOwner: LifecycleOwner,
     onNavigateToMainScreen: () -> Unit,
-    alarmDataViewModel: AlarmDataViewModel = hiltViewModel()
+    alarmDataViewModel: AlarmDataViewModel,
+    switchViewModel: SwitchViewModel = hiltViewModel()
 )
 {
+    val maxId by alarmDataViewModel.maxId.collectAsStateWithLifecycle(lifecycleOwner.lifecycle)
+
     val context = LocalContext.current
 
     val titleLine1 = if (itemValue == "sun") "기상 시간 : ${selectedHour}시 ${selectedMin}분"
@@ -98,10 +114,29 @@ fun CalculateRemLayout(
                             .height(screenHeight * 0.5f * 0.15f)
                             .clickable
                             {
-                                val timeList = listOf(selectedHour, selectedMin, calculatedH, calculatedM)
-                                if(itemValue == "sun"){ sunAddAlarm(alarmDataViewModel, timeList, context) }
-                                else { moonAddAlarm(alarmDataViewModel, timeList, context) }
-                                onNavigateToMainScreen()
+                                val timeList =
+                                    listOf(selectedHour, selectedMin, calculatedH, calculatedM)
+                                if (itemValue == "sun") {
+                                    sunAddAlarm(
+                                        alarmDataViewModel,
+                                        switchViewModel,
+                                        maxId,
+                                        timeList,
+                                        context
+                                    )
+                                } else {
+                                    moonAddAlarm(
+                                        alarmDataViewModel,
+                                        switchViewModel,
+                                        maxId,
+                                        timeList,
+                                        context
+                                    )
+                                }
+
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    onNavigateToMainScreen()
+                                }, 200)
                             },
                             contentAlignment = Alignment.Center)
                         {
@@ -165,12 +200,14 @@ fun addTime(hour: Int, min: Int, addHour: Int, addMin: Int): Triple<Int, Int, St
 
 fun sunAddAlarm(
     alarmDataViewModel: AlarmDataViewModel,
+    switchViewModel: SwitchViewModel,
+    maxId: Int,
     timeList: List<Int>,
     context: Context
 )
 {
-    alarmDataViewModel.addAlarm(AlarmEntity(
-        id = 0,
+    val alarm = AlarmEntity(
+        id = maxId+1,
         pageNum = 0,
         title = "수면 시간 : ${timeList[2]}시 ${timeList[3]}분",
         alarmDate = createDates(timeList[0], timeList[1]),
@@ -178,24 +215,35 @@ fun sunAddAlarm(
         bellName = "dawn",
         bellRingtone = getRawResourceUri(context),
         bell = true,
-        bellVolume = 3,
+        bellVolume = 5,
         vibration = true,
         tts = false,
         ttsVolume = 3,
         repeat = false,
         repeatMinute = 5,
         rem = true
-    ))
+    )
+
+    alarmDataViewModel.addAlarm(alarm)
+
+    switchViewModel.saveSwitchState(maxId+1, true)
+
+    setGoToBedTime(context, timeList[2], timeList[3])
+
+    setAlarm(alarm, context)
+
 }
 
 fun moonAddAlarm(
     alarmDataViewModel: AlarmDataViewModel,
+    switchViewModel: SwitchViewModel,
+    maxId: Int,
     timeList: List<Int>,
     context: Context
 )
 {
-    alarmDataViewModel.addAlarm(AlarmEntity(
-        id = 0,
+    val alarm = AlarmEntity(
+        id = maxId+1,
         pageNum = 0,
         title = "수면 시간 : ${timeList[0]}시 ${timeList[1]}분",
         alarmDate = createDates(timeList[2], timeList[3]),
@@ -203,14 +251,22 @@ fun moonAddAlarm(
         bellName = "dawn",
         bellRingtone = getRawResourceUri(context),
         bell = true,
-        bellVolume = 3,
+        bellVolume = 5,
         vibration = true,
         tts = false,
         ttsVolume = 3,
         repeat = false,
         repeatMinute = 5,
         rem = true
-    ))
+    )
+
+    alarmDataViewModel.addAlarm(alarm)
+
+    switchViewModel.saveSwitchState(maxId+1, true)
+
+    setGoToBedTime(context, timeList[0], timeList[1])
+
+    setAlarm(alarm, context)
 }
 
 
@@ -237,4 +293,41 @@ fun createDates(hour: Int, minute: Int): List<Date>
     }
 
     return dates
+}
+
+
+fun setGoToBedTime(context: Context, hour: Int, min: Int)
+{
+    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+    val now = Calendar.getInstance()
+    val calendar = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, hour)
+        set(Calendar.MINUTE, min)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }
+    if (calendar.before(now)) {
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+    }
+
+    val intent = Intent(context, AlarmReceiver::class.java).apply {
+        putExtra("requestCode", 0)
+        putExtra("action", "goToBedTime")
+    }
+
+    val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+    try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, null), pendingIntent)
+            }
+        } else {
+            alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, null), pendingIntent)
+        }
+    } catch (e: SecurityException) {
+        e.printStackTrace()
+    }
+
 }

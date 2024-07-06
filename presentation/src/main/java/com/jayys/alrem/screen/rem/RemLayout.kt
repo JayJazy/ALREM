@@ -14,6 +14,7 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,11 +28,13 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jayys.alrem.component.RemButton
-import kotlinx.coroutines.launch
+import com.jayys.alrem.entity.RemEntity
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -39,12 +42,16 @@ import kotlinx.coroutines.launch
 fun RemLayout(
     screenHeight: Dp,
     pagerState: PagerState,
+    remError: String?,
+    remData: List<RemEntity>,
     onNavigateToRemSelectScreen: (String) -> Unit
 )
 {
     val scaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     var showText by remember { mutableStateOf(false) }
+
+
 
     LaunchedEffect(scaffoldState.bottomSheetState) {
         snapshotFlow { scaffoldState.bottomSheetState.currentValue }
@@ -71,7 +78,14 @@ fun RemLayout(
             Column(
                 modifier = Modifier.fillMaxWidth().height(screenHeight * 0.66f)
             ) {
-                RemGraphLayout(screenHeight, showText)
+                if (remError != null) {
+                    Text(text = "${remError}\n앱을 다시 시작해 주세요", fontSize = 20.sp, color = Color.White)
+                }
+                else
+                {
+                    RemGraphLayout(screenHeight, showText, remData)
+                }
+
             }
         },
         sheetPeekHeight = 0.dp,
@@ -109,7 +123,7 @@ fun RemLayout(
                     .background(MaterialTheme.colorScheme.onBackground))
                 {
                     val maxHeight = screenHeight * 0.42f
-                    RemBarChartLayout(maxHeight, pagerState, scaffoldState, coroutineScope)
+                    RemBarChartLayout(maxHeight, pagerState, scaffoldState, coroutineScope, remData)
                 }
             }
         }

@@ -2,19 +2,17 @@ package com.jayys.alrem.viemodel
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.jayys.alrem.R
-import com.jayys.alrem.component.getRawResourceUri
+import com.jayys.alrem.utils.getRawResourceUri
 import com.jayys.alrem.navigation.SettingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,6 +32,7 @@ class SettingDataViewModel @Inject constructor(
     fun setSelectedUri(uri: Uri) {
         _selectedUri.value = uri
     }
+
 
     var originalBellName = "dawn"
     var isUpdate = false

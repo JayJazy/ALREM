@@ -1,5 +1,6 @@
 package com.jayys.alrem.navigation
 
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -7,27 +8,45 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
-import com.jayys.alrem.PermissionManager
+import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.screen.alarmadd.AlarmAddScreen
 import com.jayys.alrem.screen.main.MainScreen
 import com.jayys.alrem.screen.music.MusicScreen
+import com.jayys.alrem.screen.onboarding.OnBoardingScreen
 import com.jayys.alrem.screen.preferences.PreferencesScreen
 import com.jayys.alrem.screen.rem.RemScreen
 
+
 @Composable
-fun ScreenNavHost(permissionManager: PermissionManager) {
+fun ScreenNavHost(permissionManager: PermissionManager)
+{
+
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = ScreenRoute.MainScreen.route)
+
+    NavHost(navController = navController, startDestination =  ScreenRoute.MainScreen.route)
     {
+
+        composable(route = ScreenRoute.OnBoardingScreen.route) {
+            OnBoardingScreen(
+                onFinish = {
+                    navController.navigate(ScreenRoute.MainScreen.route) {
+                        popUpTo(ScreenRoute.OnBoardingScreen.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+
         composable(route = ScreenRoute.MainScreen.route)
         {
             MainScreen(
+                permissionManager = permissionManager,
+
                 onNavigateToPreferencesScreen = { navController.navigate(ScreenRoute.PreferencesScreen.route) },
 
                 onNavigateToAlarmAddScreen = { updateAlarmData, settingData ->
-                val route = ScreenRoute.AlarmAddScreen.createRoute(updateAlarmData, settingData)
-                navController.navigate(route) },
+                    val route = ScreenRoute.AlarmAddScreen.createRoute(updateAlarmData, settingData)
+                    navController.navigate(route) },
 
                 onNavigateToRemScreen = { itemValue ->
                     val route = ScreenRoute.RemScreen.createRoute(itemValue)
@@ -37,9 +56,8 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
 
         composable(route = ScreenRoute.PreferencesScreen.route)
         {
-            PreferencesScreen()
+            PreferencesScreen(onNavigateBackToMainScreen = { navController.navigate(ScreenRoute.MainScreen.route) })
         }
-
 
 
         composable(
@@ -68,6 +86,7 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
                 onNavigateToMainScreen = {
                     navController.navigate(ScreenRoute.MainScreen.route) {
                         popUpTo(ScreenRoute.AlarmAddScreen.route) { inclusive = true }
+                        restoreState = true
                     }
                 }
             )
@@ -95,7 +114,7 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
                 updateAlarmData = updateAlarmData,
                 onNavigateBackToAlarmAddScreen =
                 {
-                    updatedAlarmData, updatedSettingData ->
+                        updatedAlarmData, updatedSettingData ->
                     val route = ScreenRoute.AlarmAddScreen.createRoute(updatedAlarmData, updatedSettingData)
                     navController.navigate(route) { popUpTo(ScreenRoute.MusicScreen.route) { inclusive = true } }
                 })
@@ -107,13 +126,16 @@ fun ScreenNavHost(permissionManager: PermissionManager) {
             arguments = listOf( navArgument("itemValue") { type = NavType.StringType } )
         )
         {
-            backStackEntry ->
+                backStackEntry ->
             val itemValue = backStackEntry.arguments?.getString("itemValue")
 
             RemScreen(
                 itemValue = itemValue ?: "",
                 onNavigateToMainScreen = {
-                    navController.navigate(ScreenRoute.MainScreen.route) { popUpTo(ScreenRoute.MusicScreen.route) { inclusive = true }}
+                    navController.navigate(ScreenRoute.MainScreen.route) {
+                        popUpTo(ScreenRoute.MusicScreen.route) { inclusive = true }
+                        restoreState = true
+                    }
                 })
         }
     }

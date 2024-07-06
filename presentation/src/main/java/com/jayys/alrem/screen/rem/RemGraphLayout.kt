@@ -1,5 +1,7 @@
 package com.jayys.alrem.screen.rem
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -8,15 +10,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,20 +25,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import com.jayys.alrem.R
+import com.jayys.alrem.entity.RemEntity
 import com.jayys.alrem.screen.rem.draw.DrawGraphDataRange
 import com.jayys.alrem.screen.rem.draw.drawGraph
 import com.jayys.alrem.screen.rem.draw.DrawGraphGrid
 import java.util.Calendar
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun RemGraphLayout(screenHeight: Dp, showText: Boolean)
+fun RemGraphLayout(screenHeight: Dp, showText: Boolean, remData: List<RemEntity>)
 {
     val calendar = Calendar.getInstance()
     val initialYear = calendar.get(Calendar.YEAR)
     val initialMonth = calendar.get(Calendar.MONTH) + 1
 
-    var average by remember { mutableDoubleStateOf(0.0) }
+    var average by remember { mutableLongStateOf(0) }
     var currentYear by remember { mutableIntStateOf(initialYear) }
     var currentMonth by remember { mutableIntStateOf(initialMonth) }
 
@@ -97,7 +99,7 @@ fun RemGraphLayout(screenHeight: Dp, showText: Boolean)
                 .weight(0.9f)
         ) {
             DrawGraphGrid()
-            average = drawGraph(constraints)
+            average = drawGraph(constraints, remData, currentYear, currentMonth)
         }
     }
 

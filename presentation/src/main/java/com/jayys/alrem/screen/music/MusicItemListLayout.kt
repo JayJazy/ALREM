@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jayys.alrem.PermissionManager
+import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.screen.music.appmusic.AppMusicLayout
@@ -44,9 +44,7 @@ fun MusicItemListLayout(
     settingDataViewModel: SettingDataViewModel,
     onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
 ) {
-    CompositionLocalProvider(
-        LocalLifecycleOwner provides androidx.compose.ui.platform.LocalLifecycleOwner.current,
-    ) {
+    CompositionLocalProvider(LocalLifecycleOwner provides androidx.compose.ui.platform.LocalLifecycleOwner.current) {
         val lifecycleOwner = LocalLifecycleOwner.current
         settingDataViewModel.bellNameToRingtoneNameAsStateFlow()
         val ringtoneName by settingDataViewModel.ringtoneName.collectAsStateWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)

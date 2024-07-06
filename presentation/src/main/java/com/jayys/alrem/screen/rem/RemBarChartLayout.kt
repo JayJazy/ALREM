@@ -1,5 +1,7 @@
 package com.jayys.alrem.screen.rem
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jayys.alrem.R
+import com.jayys.alrem.entity.RemEntity
 import com.jayys.alrem.screen.rem.draw.DrawBar
 import com.jayys.alrem.screen.rem.draw.DrawBarChartDataRange
 import com.jayys.alrem.screen.rem.draw.DrawBarChartGrid
@@ -34,18 +37,25 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
+data class CustomMonthDay(
+    val month: Int,
+    val day: Int
+)
+
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RemBarChartLayout(
     maxHeight: Dp,
     pagerState: PagerState,
     scaffoldState: BottomSheetScaffoldState,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    remData: List<RemEntity>
 ) {
 
     val maxChartHeight = maxHeight * 0.65f
-
-    val randomTime = listOf(30240, 19080, 27420, 34320, 15120)
+    val latestSleepingTime = remData.sortedByDescending { it.remDate }.take(5).map { it.sleepingTime }
+    val latestDate = remData.sortedByDescending { it.remDate }.take(5).map { CustomMonthDay(it.remDate.monthValue, it.remDate.dayOfMonth) }
 
     val isRemPage by remember { derivedStateOf { pagerState.currentPage == 1 } }
 
@@ -86,7 +96,7 @@ fun RemBarChartLayout(
                     .height(maxChartHeight))
                 {
                     DrawBarChartGrid(maxChartHeight)
-                    DrawBar(randomTime, maxChartHeight, isRemPage)
+                    DrawBar(latestSleepingTime, maxChartHeight, isRemPage)
                 }
             }
 
@@ -100,11 +110,14 @@ fun RemBarChartLayout(
                         .padding(top = 5.dp),
                         horizontalArrangement = Arrangement.SpaceAround,
                         verticalAlignment = Alignment.CenterVertically){
-                        Text(text = "12.18", color = Color.White, style = MaterialTheme.typography.bodyMedium)
-                        Text(text = "12.18", color = Color.White, style = MaterialTheme.typography.bodyMedium)
-                        Text(text = "12.18", color = Color.White, style = MaterialTheme.typography.bodyMedium)
-                        Text(text = "12.18", color = Color.White, style = MaterialTheme.typography.bodyMedium)
-                        Text(text = "12.18", color = Color.White, style = MaterialTheme.typography.bodyMedium)
+                        for(i in latestDate.size -1  downTo 0)
+                        {
+                            Text(
+                                text = "${latestDate[i].month}.${latestDate[i].day}",
+                                color = Color.White,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
             }
