@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,20 +30,42 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
+import com.jayys.alrem.dialog.IgnoreBatteryDialog
 import com.jayys.alrem.dialog.PermissionDialog
+import com.jayys.alrem.permission.PermissionManager
 
 
 @Composable
-fun PreferencesScreen(onNavigateBackToMainScreen : () -> Unit)
+fun PreferencesScreen(
+    permissionManager: PermissionManager,
+    onNavigateBackToMainScreen : () -> Unit
+)
 {
     val context = LocalContext.current
     var showPermissionDialog by remember { mutableStateOf(false) }
+
+    var isVisible by remember { mutableStateOf(permissionManager.checkIgnoreBatteryOptimizations()) }
+    var showDialog by remember { mutableStateOf(false) }
+
+    if(showDialog)
+    {
+        IgnoreBatteryDialog(onDismiss = { showDialog = false }, onConfirm = {
+            if (permissionManager.checkAndRequestIgnoreBatteryOptimizations()) {
+                isVisible = true
+            }
+            showDialog = false
+        })
+    }
+
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(MaterialTheme.colorScheme.background)){
@@ -50,32 +73,53 @@ fun PreferencesScreen(onNavigateBackToMainScreen : () -> Unit)
 
         BoxWithConstraints {
             val screenHeight = maxHeight
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = statusBarHeight)
-                .height(screenHeight * 0.08f)
-                .background(MaterialTheme.colorScheme.onBackground), contentAlignment = Alignment.Center)
-            {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Box(modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 4.dp), contentAlignment = Alignment.CenterStart){
-                        IconButton(onClick = { onNavigateBackToMainScreen() }) {
-                            Icon(painter = painterResource(id = R.drawable.back_icon), contentDescription = "뒤로 가기", tint = Color.Gray)
+            Column {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = statusBarHeight)
+                    .height(screenHeight * 0.08f)
+                    .background(MaterialTheme.colorScheme.onBackground), contentAlignment = Alignment.Center)
+                {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Box(modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 4.dp), contentAlignment = Alignment.CenterStart){
+                            IconButton(onClick = { onNavigateBackToMainScreen() }) {
+                                Icon(painter = painterResource(id = R.drawable.back_icon), contentDescription = "뒤로 가기", tint = Color.Gray)
+                            }
                         }
-                    }
 
-                    Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center){
-                        Text(text = "설정", color = Color.White)
-                    }
+                        Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center){
+                            Text(text = "설정", color = Color.White)
+                        }
 
-                    Box(modifier = Modifier.weight(1f))
+                        Box(modifier = Modifier.weight(1f))
+                    }
+                }
+
+                if(!isVisible){
+                    Row(modifier = Modifier
+                        .fillMaxWidth().height(85.dp)
+                        .padding(vertical = 15.dp).padding(horizontal = 30.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color(0xFFFFD5D5).copy(0.8f))
+                        .clickable { if(!permissionManager.checkIgnoreBatteryOptimizations()) { showDialog = true } }, verticalAlignment = Alignment.CenterVertically)
+                    {
+                        Icon(painter = painterResource(id = R.drawable.error_icon),
+                            contentDescription = "문제",
+                            tint = Color.Red,
+                            modifier = Modifier.padding(start = 20.dp, end = 10.dp))
+                        Text(text = "알람이 울리지 않아요", color = Color.Red, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    }
                 }
             }
+
+
+
 
             Column(
                 modifier = Modifier
@@ -103,8 +147,8 @@ fun PreferencesScreen(onNavigateBackToMainScreen : () -> Unit)
                             data = Uri.parse("mailto:")
                             putExtra(
                                 Intent.EXTRA_EMAIL,
-                                arrayOf("android299@naver.com")
-                            )  // 받는 사람 이메일 주소
+                                arrayOf("jayys2407@gmail.com")
+                            )
                         }
                         val chooser = Intent.createChooser(emailIntent, "이메일 클라이언트를 선택하세요")
                         if (emailIntent.resolveActivity(context.packageManager) != null) {

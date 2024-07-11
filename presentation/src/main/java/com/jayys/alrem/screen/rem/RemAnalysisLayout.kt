@@ -20,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
-import kotlin.random.Random
 
 
 @Composable
@@ -52,7 +51,7 @@ fun RemAnalysisLayout(average: Long, showText: Boolean)
 
     val solutionText = if (hours <= 0 && minutes <= 0) solutionToSleep(context, "없음")
     else if( hours < 7) solutionToSleep(context, "부족")
-    else if (hours < 9) solutionToSleep(context, "적절")
+    else if (hours in 7..9) solutionToSleep(context, "적절")
     else solutionToSleep(context, "과다")
 
     Column(
@@ -96,11 +95,11 @@ fun solutionToSleep(context: Context, level: String): String {
     {
         "없음" -> (100..101)
 
-        "부족" -> (0..5)
+        "부족" -> (0..4)
 
-        "적절" -> (5..9)
+        "적절" -> (5..8)
 
-        "과다" -> (9..12)
+        "과다" -> (9..11)
 
         else -> (100..101)
     }

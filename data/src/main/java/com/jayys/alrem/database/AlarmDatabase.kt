@@ -1,17 +1,15 @@
 package com.jayys.alrem.database
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.jayys.alrem.dao.AlarmDao
 import com.jayys.alrem.dao.RemDao
 import com.jayys.alrem.model.AlarmData
-import com.jayys.alrem.model.BooleanListConverter
-import com.jayys.alrem.model.DateConverter
-import com.jayys.alrem.model.DateListConverter
-import com.jayys.alrem.model.LocalDateTimeConverter
+import com.jayys.alrem.converter.BooleanListConverter
+import com.jayys.alrem.converter.DateConverter
+import com.jayys.alrem.converter.DateListConverter
+import com.jayys.alrem.converter.LocalDateTimeConverter
 import com.jayys.alrem.model.RemData
 
 

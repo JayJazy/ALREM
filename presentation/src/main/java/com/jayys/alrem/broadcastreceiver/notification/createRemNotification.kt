@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.jayys.alrem.MainActivity
 import com.jayys.alrem.R
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
@@ -36,9 +37,10 @@ fun createRemNotification(context: Context, alarm: AlarmEntity)
 
 
     val notification = NotificationCompat.Builder(context, "$CHANNEL_ID$requestCode")
-        .setContentTitle("알람")
+        .setContentTitle("수면 기록 알림")
         .setContentText("알림을 클릭해서 잠들었던 시간을 설정해 주세요")
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.alrem_notification)
+        .setColor(ContextCompat.getColor(context, R.color.MainBackground))
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setAutoCancel(true)
         .setOngoing(true)

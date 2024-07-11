@@ -102,12 +102,22 @@ fun SettingItemsLayout(
                     0 -> { {
                             if (settingDataViewModel.isUpdate)
                             {
-                                val alarm = settingDataToUpdatedAlarmData(settingDataViewModel, updateAlarmData.id)
+                                val alarm = settingDataToUpdatedAlarmData(
+                                    context,
+                                    settingDataViewModel,
+                                    updateAlarmData.id,
+                                    false
+                                )
                                 onNavigateToMusicScreen(alarm, settingDataViewModel.createSettingData())
                             }
                             else
                             {
-                                val alarm = settingDataToUpdatedAlarmData(settingDataViewModel, 0)
+                                val alarm = settingDataToUpdatedAlarmData(
+                                    context,
+                                    settingDataViewModel,
+                                    0,
+                                    false
+                                )
                                 onNavigateToMusicScreen(alarm, settingDataViewModel.createSettingData())
                             }
 

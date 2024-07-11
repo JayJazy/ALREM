@@ -13,20 +13,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,6 +38,7 @@ import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 import com.jayys.alrem.utils.getRawResourceUri
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.utils.setAlarm
+import com.jayys.alrem.utils.twelveHoursTimeFormatter
 import com.jayys.alrem.viemodel.AlarmDataViewModel
 import com.jayys.alrem.viemodel.SwitchViewModel
 import java.util.Date
@@ -57,11 +59,12 @@ fun CalculateRemLayout(
 
     val context = LocalContext.current
 
-    val titleLine1 = if (itemValue == "sun") "기상 시간 : ${selectedHour}시 ${selectedMin}분"
-    else "수면 시간 : ${selectedHour}시 ${selectedMin}분"
+    val selectedTime = twelveHoursTimeFormatter(selectedHour)
+    val titleLine1 = if (itemValue == "sun") "일어나고 싶은 시간 : ${selectedTime.first} ${selectedTime.second}시 ${selectedMin}분\n"
+    else "잠자고 싶은 시간 : ${selectedTime.first} ${selectedTime.second}시 ${selectedMin}분\n"
 
-    val titleLine2 = if (itemValue == "sun") "기상 시간 기준 잠들기 좋은 시간대를 추천해 드릴게요"
-    else "수면 시간 기준 일어나기 좋은 시간대를 추천해 드릴게요"
+    val titleLine2 = if (itemValue == "sun") "잠들고 싶은 시간을 골라주세요"
+    else "일어나고 싶은 시간을 골라주세요"
 
     val standardTime = listOf(
         Pair(4, 45),
@@ -77,84 +80,80 @@ fun CalculateRemLayout(
 
     val combinedTimes = calculatedTimes.zip(standardTime)
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(screenHeight * 0.5f)
-            .clip(RoundedCornerShape(10.dp))
-    ){
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
+    Box(modifier = Modifier.fillMaxSize())
+    {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
 
-                Text(
-                    text = titleLine1,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 15.sp
-                )
-                Spacer(modifier = Modifier.height(screenHeight * 0.5f * 0.02f))
-                Text(
-                    text = titleLine2,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 15.sp
-                )
+            Spacer(modifier = Modifier.height(screenHeight * 0.12f))
+            Text(
+                text = titleLine1,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            Text(
+                text = titleLine2,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
 
-                Spacer(modifier = Modifier.height(screenHeight * 0.5f * 0.05f))
+            Spacer(modifier = Modifier.height(screenHeight * 0.1f))
 
-                LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(combinedTimes) { (calculated, standard) ->
-                        val (calculatedH, calculatedM, day) = calculated
-                        val (standardH, standardM) = standard
+            LazyColumn(modifier = Modifier.height(screenHeight * 0.5f).fillMaxWidth()) {
+                items(combinedTimes) { (calculated, standard) ->
+                    val (calculatedH, calculatedM, day) = calculated
+                    val (standardH, standardM) = standard
 
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .height(screenHeight * 0.5f * 0.15f)
-                            .clickable
-                            {
-                                val timeList =
-                                    listOf(selectedHour, selectedMin, calculatedH, calculatedM)
-                                if (itemValue == "sun") {
-                                    sunAddAlarm(
-                                        alarmDataViewModel,
-                                        switchViewModel,
-                                        maxId,
-                                        timeList,
-                                        context
-                                    )
-                                } else {
-                                    moonAddAlarm(
-                                        alarmDataViewModel,
-                                        switchViewModel,
-                                        maxId,
-                                        timeList,
-                                        context
-                                    )
-                                }
-
-                                Handler(Looper.getMainLooper()).postDelayed({
-                                    onNavigateToMainScreen()
-                                }, 200)
-                            },
-                            contentAlignment = Alignment.Center)
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(screenHeight * 0.1f)
+                        .clickable
                         {
-                            Text(
-                                text = String.format("%s %02d시 %02d분  (%02d : %02d 수면)", day, calculatedH, calculatedM, standardH, standardM),
-                                color = Color.White,
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontSize = 18.sp
-                            )
-                        }
+                            val timeList =
+                                listOf(selectedHour, selectedMin, calculatedH, calculatedM)
+                            if (itemValue == "sun") {
+                                sunAddAlarm(
+                                    alarmDataViewModel,
+                                    switchViewModel,
+                                    maxId,
+                                    timeList,
+                                    context
+                                )
+                            } else {
+                                moonAddAlarm(
+                                    alarmDataViewModel,
+                                    switchViewModel,
+                                    maxId,
+                                    timeList,
+                                    context
+                                )
+                            }
 
-                        Spacer(modifier = Modifier.height(screenHeight * 0.5f * 0.05f))
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                onNavigateToMainScreen()
+                            }, 200)
+                        },
+                        contentAlignment = Alignment.Center)
+                    {
+                        val setTime = twelveHoursTimeFormatter(calculatedH)
+                        Text(
+                            text = String.format("%s %s %02d시 %02d분  (%02d : %02d 수면)", day, setTime.first, setTime.second, calculatedM, standardH, standardM),
+                            color = Color.White,
+                            style = MaterialTheme.typography.bodySmall,
+                            fontSize = 20.sp
+                        )
                     }
                 }
-
             }
-        }
 
+        }
+    }
 }
 
 

@@ -116,16 +116,18 @@ fun drawGraph(
         val height = size.height
         val interval = width / 30
 
-        val positionMap = when (timeInDecimals.size) {
+        val limitedTimeInDecimals = timeInDecimals.take(31)
+
+        val positionMap = when (limitedTimeInDecimals.size) {
             in 2..31 -> {
-                timeInDecimals.mapIndexed { index, value ->
+                limitedTimeInDecimals.mapIndexed { index, value ->
                     val x = interval * index
                     val y = height - (height * (value / 15.0))
                     x to y
                 }
             }
             1 -> {
-                val value = timeInDecimals.firstOrNull() ?: 0.0
+                val value = limitedTimeInDecimals.firstOrNull() ?: 0.0
                 val y = height - (height * (value / 15.0))
                 listOf(width / 30 * 1 to y)
             }
@@ -173,7 +175,7 @@ fun drawGraph(
                 positionMap.indexOf(it)
             }
             nearestPointIndex?.let { index ->
-                sleepingTime = timeInDecimals[index]
+                sleepingTime = limitedTimeInDecimals[index]
                 wakeUpDate = selectedDate[index]
             }
         }
@@ -226,9 +228,10 @@ fun drawGraph(
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
                         Text(text = "${wakeUpDate.year}년 ${wakeUpDate.monthValue}월 ${wakeUpDate.dayOfMonth}일 (${mappingDayOfWeek(wakeUpDate.dayOfWeek)})",
                             color = Color.White,
-                            fontSize = 14.sp)
+                            fontSize = 16.sp,
+                            style = MaterialTheme.typography.bodySmall)
                     }
-                    Spacer(modifier = Modifier.height(height * 0.1f))
+                    Spacer(modifier = Modifier.height(height * 0.13f))
 
 
                     val bedTimeHour = if(bedTime.hour > 12) "오후 ${bedTime.hour - 12}시"
@@ -236,19 +239,25 @@ fun drawGraph(
                     else "오전 ${bedTime.hour}시"
 
                     val bedTimeMin = if (bedTime.minute == 0) "" else "${bedTime.minute}분"
-                    Text(text = "취침 시간 : $bedTimeHour $bedTimeMin", color = Color.White, fontSize = 14.sp, modifier = Modifier.padding(start = 8.dp))
+                    Text(text = "취침 시간 : $bedTimeHour $bedTimeMin", color = Color.White, fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(start = 8.dp))
 
 
-                    Spacer(modifier = Modifier.height(height * 0.05f))
+                    Spacer(modifier = Modifier.height(height * 0.08f))
                     val wakeUpTimeHour = if(wakeUpDate.hour > 12) "오후 ${wakeUpDate.hour - 12}시"
                     else if (wakeUpDate.hour == 12) "오후 ${wakeUpDate.hour}시"
                     else "오전 ${wakeUpDate.hour}시"
 
                     val wakeUpTimeMin = if (wakeUpDate.minute == 0) "" else "${wakeUpDate.minute}분"
-                    Text(text = "기상 시간 : $wakeUpTimeHour $wakeUpTimeMin", color = Color.White, fontSize = 14.sp, modifier = Modifier.padding(start = 8.dp))
+                    Text(text = "기상 시간 : $wakeUpTimeHour $wakeUpTimeMin", color = Color.White, fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(start = 8.dp))
 
-                    Spacer(modifier = Modifier.height(height * 0.05f))
-                    Text(text = "수면 시간 : $sleepingTimeText", color = MaterialTheme.colorScheme.onPrimary, fontSize = 14.sp, modifier = Modifier.padding(start = 8.dp))
+                    Spacer(modifier = Modifier.height(height * 0.08f))
+                    Text(text = "수면 시간 : $sleepingTimeText", color = MaterialTheme.colorScheme.onPrimary, fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(start = 8.dp))
                 }
 
             }

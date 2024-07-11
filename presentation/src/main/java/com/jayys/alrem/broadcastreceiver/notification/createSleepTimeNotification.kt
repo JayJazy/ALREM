@@ -2,8 +2,8 @@ package com.jayys.alrem.broadcastreceiver.notification
 
 import android.app.NotificationManager
 import android.content.Context
-import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.jayys.alrem.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -26,7 +26,8 @@ fun createSleepTimeNotification(context: Context)
     val notification = NotificationCompat.Builder(context, "$CHANNEL_ID$requestCode")
         .setContentTitle("잠잘 시간이에요")
         .setContentText("취침 시간 : $formattedTime")
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.alrem_notification)
+        .setColor(ContextCompat.getColor(context, R.color.MainBackground))
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setAutoCancel(true)
         .setOngoing(false)

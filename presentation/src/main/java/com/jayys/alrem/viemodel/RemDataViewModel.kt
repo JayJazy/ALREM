@@ -3,14 +3,13 @@ package com.jayys.alrem.viemodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jayys.alrem.entity.RemEntity
-import com.jayys.alrem.usecase.AddRemUseCase
-import com.jayys.alrem.usecase.GetAllRemsUseCase
+import com.jayys.alrem.usecase.rem.AddRemUseCase
+import com.jayys.alrem.usecase.rem.GetAllRemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
 
 @Composable
 fun ToggleButton(
@@ -26,6 +25,6 @@ fun ToggleButton(
         modifier = modifier.clip(CircleShape),
         contentPadding = PaddingValues()
     ) {
-        Text(day, color = textColor, fontFamily = MaterialTheme.typography.bodyMedium.fontFamily)
+        Text(day, color = textColor, fontFamily = MaterialTheme.typography.bodySmall.fontFamily)
     }
 }

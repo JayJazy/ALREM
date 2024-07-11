@@ -1,7 +1,6 @@
 package com.jayys.alrem.dialog
 
 import android.view.LayoutInflater
-import android.widget.NumberPicker
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.jayys.alrem.R
+import com.jayys.alrem.databinding.NumberpickerBinding
 
 
 @Composable
@@ -53,15 +52,17 @@ fun RepeatDialog(
 
                 AndroidView(
                     factory = { context ->
-                        val view = LayoutInflater.from(context).inflate(R.layout.numberpicker, null, false)
-                        val numberPicker = view.findViewById<NumberPicker>(R.id.numberPicker)
-                        numberPicker.minValue = 1
-                        numberPicker.maxValue = 59
-                        numberPicker.value = initialValue
-                        numberPicker.setOnValueChangedListener { _, _, minute ->
-                            selectedMinute = minute
+                        val binding = NumberpickerBinding.inflate(LayoutInflater.from(context), null, false)
+
+                        binding.numberPicker.apply {
+                            minValue = 1
+                            maxValue = 59
+                            value = initialValue
+                            setOnValueChangedListener { _, _, minute ->
+                                selectedMinute = minute
+                            }
                         }
-                        view
+                        binding.root
                     },
                     modifier = Modifier.wrapContentHeight()
                 )

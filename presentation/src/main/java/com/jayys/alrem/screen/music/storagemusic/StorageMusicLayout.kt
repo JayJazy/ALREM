@@ -14,7 +14,10 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,6 +26,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
+import com.jayys.alrem.screen.music.RingtoneData
 import com.jayys.alrem.screen.music.RingtoneItemView
 import com.jayys.alrem.screen.music.RingtonePlayLayout
 import com.jayys.alrem.viemodel.SettingDataViewModel
@@ -37,21 +41,24 @@ fun StorageMusicLayout(
     permissionManager: PermissionManager,
     updateAlarmData: AlarmEntity,
     onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
-)
-{
-    LaunchedEffect(Unit) {
-        permissionManager.checkAndRequestStoragePermissions()
-    }
-
+) {
     val context = LocalContext.current
-    val ringtoneList = getStorageMusicList(context)
+    var ringtoneList by remember { mutableStateOf<List<RingtoneData>>(emptyList()) }
     val selectedUri by settingDataViewModel.selectedUri.collectAsStateWithLifecycle()
     val scaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
+    LaunchedEffect(Unit) {
+        permissionManager.checkAndRequestStoragePermissions()
+        ringtoneList = getStorageMusicList(context)
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
-            items(ringtoneList) { item ->
+            items(
+                items = ringtoneList,
+                key = { it.contentUri.toString() }
+            ) { item ->
                 RingtoneItemView(item, settingDataViewModel) { uri ->
                     settingDataViewModel.setSelectedUri(uri)
                     coroutineScope.launch {
@@ -64,14 +71,19 @@ fun StorageMusicLayout(
         if (selectedUri != null) {
             BottomSheetScaffold(
                 scaffoldState = scaffoldState,
-                sheetContent =
-                {
+                sheetContent = {
                     Box(
                         modifier = Modifier
                             .height(180.dp)
-                            .fillMaxWidth(), contentAlignment = Alignment.Center
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        RingtonePlayLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
+                        RingtonePlayLayout(
+                            settingDataViewModel,
+                            pagerState,
+                            updateAlarmData,
+                            onNavigateBackToAlarmAddScreen
+                        )
                     }
                 },
                 sheetPeekHeight = 0.dp,

@@ -1,10 +1,8 @@
 package com.jayys.alrem.viemodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jayys.alrem.usecase.LoadWakeUpTimeUseCase
+import com.jayys.alrem.usecase.datastore.LoadWakeUpTimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel

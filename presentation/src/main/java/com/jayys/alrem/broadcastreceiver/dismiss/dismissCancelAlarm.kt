@@ -11,7 +11,7 @@ import android.os.Looper
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 import com.jayys.alrem.broadcastreceiver.notification.createRemNotification
 import com.jayys.alrem.entity.AlarmEntity
-import com.jayys.alrem.usecase.SaveSwitchUseCase
+import com.jayys.alrem.usecase.datastore.SaveSwitchUseCase
 import com.jayys.alrem.utils.cancelExistingAlarm
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

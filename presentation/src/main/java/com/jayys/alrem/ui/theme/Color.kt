@@ -12,4 +12,6 @@ val focusColor = Color(0xFFFFE68E)      // onPrimary
 
 val pinkColor = Color(0xFFE494FF)       // secondary
 
+val switchColor = Color(0xFFFFB734)     // onSecondary
+
 val underlineColor = Color(0xFF474747)  // onSurface

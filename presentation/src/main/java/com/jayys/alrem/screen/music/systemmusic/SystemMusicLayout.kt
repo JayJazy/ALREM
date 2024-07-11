@@ -12,8 +12,12 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
+import com.jayys.alrem.screen.music.RingtoneData
 import com.jayys.alrem.screen.music.RingtoneItemView
 import com.jayys.alrem.screen.music.RingtonePlayLayout
 import com.jayys.alrem.viemodel.SettingDataViewModel
@@ -34,36 +39,48 @@ fun SystemMusicLayout(
     pagerState: PagerState,
     updateAlarmData: AlarmEntity,
     onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
-)
-{
+) {
     val context = LocalContext.current
-    val ringtoneList = getSystemMusicList(context)
+    var ringtoneList by remember { mutableStateOf(emptyList<RingtoneData>()) }
     val selectedUri by settingDataViewModel.selectedUri.collectAsStateWithLifecycle()
     val scaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-    Box(modifier = Modifier.fillMaxSize()){
+    LaunchedEffect(Unit) {
+        ringtoneList = getSystemMusicList(context)
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
-            items(ringtoneList) { item ->
+            items(
+                items = ringtoneList,
+                key = { it.contentUri.toString() }
+            ) { item ->
                 RingtoneItemView(item, settingDataViewModel) { uri ->
                     settingDataViewModel.setSelectedUri(uri)
-                    coroutineScope.launch{
+                    coroutineScope.launch {
                         scaffoldState.bottomSheetState.expand()
                     }
                 }
             }
         }
 
-        if(selectedUri != null)
-        {
+        if (selectedUri != null) {
             BottomSheetScaffold(
                 scaffoldState = scaffoldState,
-                sheetContent =
-                {
-                    Box(modifier = Modifier
-                        .height(180.dp)
-                        .fillMaxWidth(), contentAlignment = Alignment.TopCenter){
-                        RingtonePlayLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
+                sheetContent = {
+                    Box(
+                        modifier = Modifier
+                            .height(180.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.TopCenter
+                    ) {
+                        RingtonePlayLayout(
+                            settingDataViewModel,
+                            pagerState,
+                            updateAlarmData,
+                            onNavigateBackToAlarmAddScreen
+                        )
                     }
                 },
                 sheetPeekHeight = 0.dp,

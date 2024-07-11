@@ -19,16 +19,18 @@ import com.jayys.alrem.screen.rem.RemScreen
 
 
 @Composable
-fun ScreenNavHost(permissionManager: PermissionManager)
+fun ScreenNavHost(permissionManager: PermissionManager, startDestination: String)
 {
-
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination =  ScreenRoute.MainScreen.route)
+    NavHost(
+        navController = navController,
+        startDestination =  startDestination)
     {
 
         composable(route = ScreenRoute.OnBoardingScreen.route) {
             OnBoardingScreen(
+                permissionManager = permissionManager,
                 onFinish = {
                     navController.navigate(ScreenRoute.MainScreen.route) {
                         popUpTo(ScreenRoute.OnBoardingScreen.route) { inclusive = true }
@@ -56,7 +58,10 @@ fun ScreenNavHost(permissionManager: PermissionManager)
 
         composable(route = ScreenRoute.PreferencesScreen.route)
         {
-            PreferencesScreen(onNavigateBackToMainScreen = { navController.navigate(ScreenRoute.MainScreen.route) })
+            PreferencesScreen(
+                permissionManager = permissionManager,
+                onNavigateBackToMainScreen = { navController.navigate(ScreenRoute.MainScreen.route) }
+            )
         }
 
 
@@ -138,5 +143,6 @@ fun ScreenNavHost(permissionManager: PermissionManager)
                     }
                 })
         }
+
     }
 }

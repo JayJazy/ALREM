@@ -119,7 +119,7 @@ fun AlarmListItem(
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Color.White,
                             uncheckedThumbColor = Color.White,
-                            checkedTrackColor = Color(0xFFF36CFF),
+                            checkedTrackColor = MaterialTheme.colorScheme.onSecondary,
                             uncheckedBorderColor = Color.Gray,
                             uncheckedTrackColor = Color.Transparent
                         )

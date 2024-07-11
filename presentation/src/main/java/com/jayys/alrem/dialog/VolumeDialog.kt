@@ -3,7 +3,6 @@ package com.jayys.alrem.dialog
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
-import android.os.Build
 import android.speech.tts.TextToSpeech
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -114,26 +113,23 @@ fun VolumeDialog(
 fun ttsPlay(context: Context, sliderPosition: Float, maxVolume: Int) {
     val newVolume = sliderPosition * maxVolume
 
-    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-    {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("HH시 mm분")
-        val currentTime = current.format(formatter)
+    val current = LocalDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("HH시 mm분")
+    val currentTime = current.format(formatter)
 
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        tts = TextToSpeech(context, TextToSpeech.OnInitListener {
-            if (it == TextToSpeech.SUCCESS) {
-                audioManager.setStreamVolume(
-                    AudioManager.STREAM_ALARM, (audioManager.getStreamMaxVolume(
-                        AudioManager.STREAM_ALARM
-                    ) * newVolume.toInt() / maxVolume), 0
-                )
-                tts?.setAudioAttributes(
-                    AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build()
-                )
-                tts?.speak("현재 시간은 $currentTime 입니다", TextToSpeech.QUEUE_FLUSH, null, null)
-                tts?.playSilentUtterance(1000, TextToSpeech.QUEUE_ADD, null)
-            }
-        })
+    val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    tts = TextToSpeech(context) { status ->
+        if (status == TextToSpeech.SUCCESS) {
+            audioManager.setStreamVolume(
+                AudioManager.STREAM_ALARM, (audioManager.getStreamMaxVolume(
+                    AudioManager.STREAM_ALARM
+                ) * newVolume.toInt() / maxVolume), 0
+            )
+            tts?.setAudioAttributes(
+                AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build()
+            )
+            tts?.speak("현재 시간은 $currentTime 입니다", TextToSpeech.QUEUE_FLUSH, null, null)
+            tts?.playSilentUtterance(1000, TextToSpeech.QUEUE_ADD, null)
+        }
     }
 }

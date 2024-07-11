@@ -1,11 +1,18 @@
 package com.jayys.alrem.screen.alarmadd.update
 
+import android.content.Context
 import com.jayys.alrem.entity.AlarmEntity
+import com.jayys.alrem.utils.calculateAlarmTimes
 import com.jayys.alrem.viemodel.SettingDataViewModel
 import java.util.Calendar
 
 
-fun settingDataToUpdatedAlarmData(settingDataViewModel: SettingDataViewModel, id: Int) : AlarmEntity
+fun settingDataToUpdatedAlarmData(
+    context: Context,
+    settingDataViewModel: SettingDataViewModel,
+    id: Int,
+    isCreateOrUpdate: Boolean
+) : AlarmEntity
 {
     val weekdays = listOf("일", "월", "화", "수", "목", "금", "토")
     val selectedDays = weekdays.filterIndexed { index, _ -> settingDataViewModel.dayOfWeekList[index] }
@@ -31,7 +38,8 @@ fun settingDataToUpdatedAlarmData(settingDataViewModel: SettingDataViewModel, id
                 set(Calendar.MILLISECOND, 0)
             }.time
         }
-    } else {
+    }
+    else {
         selectedDays.map { day ->
             val today = Calendar.getInstance()
             val targetDay = Calendar.getInstance().apply {
@@ -49,6 +57,11 @@ fun settingDataToUpdatedAlarmData(settingDataViewModel: SettingDataViewModel, id
             targetDay
         }
     }
+
+    if(isCreateOrUpdate){
+        calculateAlarmTimes(context, selectedDays, allDaysSelected, selectedDates, dayOfWeekMap, settingDataViewModel)
+    }
+
 
 
     return AlarmEntity(

@@ -1,61 +1,59 @@
 package com.jayys.alrem.screen.rem
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import com.jayys.alrem.R
+import com.jayys.alrem.viemodel.AlarmDataViewModel
 
 
 @Composable
-fun RemImageLayout(screenHeight: Dp, itemValue: String)
+fun RemImageLayout(
+    screenHeight: Dp,
+    itemValue: String,
+    lifecycleOwner: LifecycleOwner,
+    onNavigateToMainScreen: () -> Unit,
+    alarmDataViewModel: AlarmDataViewModel
+)
 {
-    val morningImageResIds = listOf(
-        R.drawable.morning1,
-        R.drawable.morning2,
-        R.drawable.morning3
-    )
+    val imageResId = if(itemValue == "sun") R.drawable.morning
+    else R.drawable.night
 
-    val nightImageResIds = listOf(
-        R.drawable.night1,
-        R.drawable.night2
-    )
+    var currentLayout by remember { mutableStateOf("RemSelectTimeLayout") }
+    var selectedHour by remember { mutableIntStateOf(0) }
+    var selectedMinute by remember { mutableIntStateOf(0) }
 
-    val randomImageResId = if(itemValue == "sun") morningImageResIds.random()
-    else nightImageResIds.random()
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(screenHeight * 0.5f)
-    ) {
+    Box(modifier = Modifier.fillMaxSize())
+    {
         Image(
-            painter = painterResource(id = randomImageResId),
+            painter = painterResource(id = imageResId),
             contentDescription = "사진",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().graphicsLayer(alpha = 0.4f)
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(screenHeight * 0.5f * 0.1f)
-                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                .background(MaterialTheme.colorScheme.background)
-                .align(Alignment.BottomCenter)
-        )
+
+        when (currentLayout) {
+            "RemSelectTimeLayout" -> RemSelectTimeLayout(screenHeight, itemValue) { hour, minute ->
+                selectedHour = hour
+                selectedMinute = minute
+                currentLayout = "CalculateRemLayout"
+            }
+            "CalculateRemLayout" -> CalculateRemLayout(screenHeight, selectedHour, selectedMinute, itemValue, lifecycleOwner, onNavigateToMainScreen, alarmDataViewModel)
+        }
     }
 
 }

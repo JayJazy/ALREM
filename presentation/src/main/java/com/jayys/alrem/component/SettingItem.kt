@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
@@ -94,7 +95,7 @@ fun SettingItem(
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
                         uncheckedThumbColor = Color.White,
-                        checkedTrackColor = Color(0xFFF36CFF),
+                        checkedTrackColor = MaterialTheme.colorScheme.onSecondary,
                         uncheckedBorderColor = Color.Gray,
                         uncheckedTrackColor = Color.Transparent
                     ),
@@ -125,9 +126,10 @@ fun SettingItem(
                     .height(IntrinsicSize.Max)
                     .background(Color(0xFFFFEEFE), shape = RoundedCornerShape(8.dp))
             ) {
-                Text(text = "알람이 울렸을 때 잠든 시간을 설정할 수 있어요\n" +
+                Text(text = "알람을 끄고 잠든 시간을 설정하세요\n" +
                         "설정이 완료되면 수면 시간이 기록돼요",
                     style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp))
             }
         }

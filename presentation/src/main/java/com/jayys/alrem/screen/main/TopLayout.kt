@@ -1,9 +1,9 @@
 package com.jayys.alrem.screen.main
 
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,22 +30,29 @@ fun TopLayout(
     onNavigateToPreferencesScreen: () -> Unit
 )
 {
-
     Box(modifier = Modifier
         .fillMaxWidth()
         .height(screenHeight * 0.15f))
     {
         Row(modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 45.dp, start = 30.dp, end = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            .padding(top = 35.dp, start = 25.dp, end = 5.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Box{
-                Text("ALREM", fontSize = 40.sp, color = Color.White, style = MaterialTheme.typography.bodyMedium)
+            Box(modifier = Modifier
+                .weight(0.35f)
+                .fillMaxWidth()) {
+                Text("ALREM", fontSize = 33.sp, color = Color.White, style = MaterialTheme.typography.bodyLarge)
             }
 
-            Box{
+
+            Box(modifier = Modifier
+                .weight(0.35f)
+                .fillMaxSize())
+
+            Box(modifier = Modifier
+                .weight(0.25f)
+                .fillMaxWidth()){
                 Button(
                     onClick =
                     {

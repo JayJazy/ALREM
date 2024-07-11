@@ -7,7 +7,6 @@ import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Build
-import androidx.core.content.getSystemService
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 import com.jayys.alrem.entity.AlarmEntity
 

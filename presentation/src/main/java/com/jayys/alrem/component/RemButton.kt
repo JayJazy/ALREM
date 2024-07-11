@@ -60,7 +60,6 @@ fun RemButton(
             val allPermissionsGranted = permissionManager.checkAndRequestExactAlarmPermissions() &&
                     permissionManager.checkAndRequestNotificationPermissions() &&
                     permissionManager.checkAndRequestOverlayPermission() &&
-                    permissionManager.checkAndRequestIgnoreBatteryOptimizations() &&
                     permissionManager.checkAndRequestNotificationServicePermissions()
             if (allPermissionsGranted) {
                 onNavigateToRemScreen(itemValue)
@@ -85,7 +84,7 @@ fun RemButton(
             Text(
                 text = itemText,
                 modifier = Modifier.padding(start = 16.dp),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 color = Color.White
             )
 

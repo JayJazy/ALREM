@@ -73,7 +73,7 @@ fun RingtonePlayLayout(
     val ringtone = RingtoneManager.getRingtone(context, selectedUri)
 
     LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }.collect { page ->
+        snapshotFlow { pagerState.currentPage }.collect {
             isPlaying = false
             ringtoneStop()
         }
@@ -167,10 +167,10 @@ fun RingtonePlayLayout(
             {
                 saveSettingData(settingDataViewModel, sliderPosition, maxVolume, pagerState)
                 val alarm = if (settingDataViewModel.isUpdate) {
-                    settingDataToUpdatedAlarmData(settingDataViewModel, updateAlarmData.id)
+                    settingDataToUpdatedAlarmData(context, settingDataViewModel, updateAlarmData.id, false)
                 }
                 else {
-                    settingDataToUpdatedAlarmData(settingDataViewModel, 0)
+                    settingDataToUpdatedAlarmData(context, settingDataViewModel, 0, false)
                 }
                 onNavigateBackToAlarmAddScreen(alarm, settingDataViewModel.createSettingData())
             },

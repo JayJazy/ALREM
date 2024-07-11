@@ -2,7 +2,7 @@ package com.jayys.alrem.mapper
 
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.model.AlarmData
-import java.util.Date
+
 
 object AlarmMapper : Mapper<AlarmData, AlarmEntity>{
     override fun AlarmData.mapToDomainModel(): AlarmEntity {

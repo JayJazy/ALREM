@@ -3,7 +3,7 @@
 
     <style name="Theme.ALREMSplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/MainBackground</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/alrem_logo_foreground</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo_foreground</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/Theme.ALREM</item>
     </style>
@@ -15,12 +15,14 @@
 
         <!-- Navigation Bar 색 설정 -->
         <item name="android:navigationBarColor">@color/MainBackground</item>
+
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="TimePicker" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textSize">32sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily">@font/gwangwon_gyoyook</item>
+        <item name="android:fontFamily">@font/gwangwon_gyoyook_light</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="colorControlNormal">#00FFFFFF</item>

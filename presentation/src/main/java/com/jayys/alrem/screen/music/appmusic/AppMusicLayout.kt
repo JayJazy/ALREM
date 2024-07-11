@@ -11,14 +11,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,18 +37,19 @@ fun AppMusicLayout(
     pagerState: PagerState,
     updateAlarmData: AlarmEntity,
     onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
-)
-{
+) {
     val context = LocalContext.current
-    val ringtoneList = getAppMusicList(context)
+    val ringtoneList by remember { mutableStateOf(getAppMusicList(context)) }
     val selectedUri by settingDataViewModel.selectedUri.collectAsStateWithLifecycle()
     val scaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
-
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
-            items(ringtoneList) { item ->
+            items(
+                items = ringtoneList,
+                key = { it.contentUri.toString() }
+            ) { item ->
                 RingtoneItemView(item, settingDataViewModel) { uri ->
                     settingDataViewModel.setSelectedUri(uri)
                     coroutineScope.launch {
@@ -61,14 +62,19 @@ fun AppMusicLayout(
         if (selectedUri != null) {
             BottomSheetScaffold(
                 scaffoldState = scaffoldState,
-                sheetContent =
-                {
+                sheetContent = {
                     Box(
                         modifier = Modifier
                             .height(180.dp)
-                            .fillMaxWidth(), contentAlignment = Alignment.Center
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        RingtonePlayLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
+                        RingtonePlayLayout(
+                            settingDataViewModel,
+                            pagerState,
+                            updateAlarmData,
+                            onNavigateBackToAlarmAddScreen
+                        )
                     }
                 },
                 sheetPeekHeight = 0.dp,
@@ -76,5 +82,4 @@ fun AppMusicLayout(
             )
         }
     }
-
 }

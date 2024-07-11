@@ -3,8 +3,8 @@ package com.jayys.alrem.viemodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jayys.alrem.entity.AlarmEntity
-import com.jayys.alrem.usecase.LoadSwitchUseCase
-import com.jayys.alrem.usecase.SaveSwitchUseCase
+import com.jayys.alrem.usecase.datastore.LoadSwitchUseCase
+import com.jayys.alrem.usecase.datastore.SaveSwitchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
 import com.jayys.alrem.entity.RemEntity
 import com.jayys.alrem.screen.rem.draw.DrawBar
@@ -42,7 +43,6 @@ data class CustomMonthDay(
     val day: Int
 )
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RemBarChartLayout(
@@ -71,8 +71,19 @@ fun RemBarChartLayout(
                 .padding(end = 12.dp),
                 contentAlignment = Alignment.CenterEnd)
             {
-                IconButton(onClick = { coroutineScope.launch { scaffoldState.bottomSheetState.expand() } }) {
-                    Icon(painter = painterResource(id = R.drawable.detail_icon), contentDescription = "자세히", tint = Color.White)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                   Text(text = "최근 5일 수면 기록", fontSize = 18.sp, color = Color.White,
+                       modifier = Modifier.padding(start = 30.dp),
+                       style = MaterialTheme.typography.bodySmall)
+
+                    IconButton(onClick = { coroutineScope.launch { scaffoldState.bottomSheetState.expand() } }) {
+                        Icon(painter = painterResource(id = R.drawable.detail_icon), contentDescription = "자세히", tint = Color.White)
+                    }
                 }
             }
 

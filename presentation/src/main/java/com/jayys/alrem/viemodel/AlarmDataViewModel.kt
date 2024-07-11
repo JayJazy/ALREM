@@ -3,18 +3,17 @@ package com.jayys.alrem.viemodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jayys.alrem.entity.AlarmEntity
-import com.jayys.alrem.usecase.AddAlarmUseCase
-import com.jayys.alrem.usecase.DeleteAlarmUseCase
-import com.jayys.alrem.usecase.DeleteAllAlarmsUseCase
-import com.jayys.alrem.usecase.GetAllAlarmsUseCase
-import com.jayys.alrem.usecase.GetMaxIdUseCase
-import com.jayys.alrem.usecase.UpdateAlarmUseCase
+import com.jayys.alrem.usecase.alarm.AddAlarmUseCase
+import com.jayys.alrem.usecase.alarm.DeleteAlarmUseCase
+import com.jayys.alrem.usecase.alarm.DeleteAllAlarmsUseCase
+import com.jayys.alrem.usecase.alarm.GetAllAlarmsUseCase
+import com.jayys.alrem.usecase.alarm.GetMaxIdUseCase
+import com.jayys.alrem.usecase.alarm.UpdateAlarmUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -59,7 +58,7 @@ class AlarmDataViewModel @Inject constructor(
         try {
             _maxId.value = getMaxIdUseCase.invoke()
         } catch (e: Exception) {
-            handleException(e, "알람을 생성하는 중 에러가 발생했습니다.")
+            handleException(e, "새 알람을 만들기 전 에러가 발생했습니다.")
         }
     }
 

@@ -40,6 +40,7 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
+        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -91,6 +92,9 @@ dependencies {
 
     // gson
     implementation(libs.gson)
+
+    // adMob
+    implementation (libs.play.services.ads)
 
     implementation(project(":domain"))
     implementation(project(":data"))

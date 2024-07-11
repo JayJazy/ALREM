@@ -2,8 +2,8 @@ package com.jayys.alrem.viemodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jayys.alrem.usecase.LoadSleepOfTimeUseCase
-import com.jayys.alrem.usecase.SaveSleepOfTimeUseCase
+import com.jayys.alrem.usecase.datastore.LoadSleepOfTimeUseCase
+import com.jayys.alrem.usecase.datastore.SaveSleepOfTimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,15 +23,15 @@ class TimeOfSleepViewModel @Inject constructor(
 
     init { loadTimeOfSleep() }
 
-    fun setTimeOfSleep(value: Boolean) {
+    fun setTimeOfSleep(state: Boolean) {
         viewModelScope.launch {
-            saveSleepOfTimeUseCase(value)
+            saveSleepOfTimeUseCase(state)
         }
     }
 
     private fun loadTimeOfSleep() = viewModelScope.launch {
-        loadSleepOfTimeUseCase().collect { value ->
-            _timeOfSleep.value = value
+        loadSleepOfTimeUseCase().collect { state ->
+            _timeOfSleep.value = state
         }
     }
 }

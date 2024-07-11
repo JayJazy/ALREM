@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.component.AddButton
@@ -19,7 +18,6 @@ import com.jayys.alrem.utils.setAlarm
 import com.jayys.alrem.viemodel.AlarmDataViewModel
 import com.jayys.alrem.viemodel.SettingDataViewModel
 import com.jayys.alrem.viemodel.SwitchViewModel
-import kotlin.system.exitProcess
 
 
 @Composable
@@ -40,7 +38,7 @@ fun AlarmAddLayout(
         {
             cancelExistingAlarm(updateAlarmData.id, context)
 
-            val alarm = settingDataToUpdatedAlarmData(settingDataViewModel, updateAlarmData.id)
+            val alarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, updateAlarmData.id, true)
 
             switchViewModel.saveSwitchState(updateAlarmData.id, true)
 
@@ -54,7 +52,7 @@ fun AlarmAddLayout(
         }
         else
         {
-            val alarm = settingDataToUpdatedAlarmData(settingDataViewModel, maxId+1)
+            val alarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, maxId+1, true)
 
             switchViewModel.saveSwitchState(maxId+1, true)
 

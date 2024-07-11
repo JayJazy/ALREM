@@ -41,14 +41,8 @@ fun alarmVibration(context : Context)
     else
     {
         val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibrationEffect = VibrationEffect.createWaveform(timing, amp, -1)
+        vibrator.vibrate(vibrationEffect)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val vibrationEffect = VibrationEffect.createWaveform(timing, amp, -1)
-            vibrator.vibrate(vibrationEffect)
-        }
-        else
-        {
-            vibrator.vibrate(timing, 15)
-        }
     }
 }

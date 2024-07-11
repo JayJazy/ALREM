@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 
@@ -33,7 +31,6 @@ class NotificationMonitorService : NotificationListenerService() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
         super.onNotificationRemoved(sbn)
 

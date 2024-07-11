@@ -1,7 +1,6 @@
 package com.jayys.alrem.screen.rem
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
 import com.jayys.alrem.entity.RemEntity
 import com.jayys.alrem.screen.rem.draw.DrawGraphDataRange
@@ -32,7 +33,6 @@ import com.jayys.alrem.screen.rem.draw.DrawGraphGrid
 import java.util.Calendar
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RemGraphLayout(screenHeight: Dp, showText: Boolean, remData: List<RemEntity>)
 {
@@ -71,7 +71,9 @@ fun RemGraphLayout(screenHeight: Dp, showText: Boolean, remData: List<RemEntity>
             Icon(painter = painterResource(id = R.drawable.previous_icon), contentDescription = "previous", tint = Color.White)
         }
 
-        Text(text = " ${currentYear}년 ${currentMonth}월 ", color = Color.White)
+        Text(text = " ${currentYear}년 ${currentMonth}월 ", color = Color.White,
+            fontSize = 18.sp,
+            style = MaterialTheme.typography.bodySmall)
 
         IconButton(onClick = { updateMonth(true) }) {
             Icon(painter = painterResource(id = R.drawable.next_icon), contentDescription = "next", tint = Color.White)

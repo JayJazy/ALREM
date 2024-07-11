@@ -11,21 +11,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.viemodel.AlarmDataViewModel
-import com.jayys.alrem.viemodel.SwitchViewModel
 
 
 @Composable
@@ -37,19 +36,20 @@ fun RemScreen(
 {
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    var currentLayout by remember { mutableStateOf("RemSelectTimeLayout") }
-    var selectedHour by remember { mutableStateOf(0) }
-    var selectedMinute by remember { mutableStateOf(0) }
-
     LaunchedEffect(Unit){
         alarmDataViewModel.getMaxId()
     }
 
     CompositionLocalProvider(LocalLifecycleOwner provides lifecycleOwner){
+        val alarmError by alarmDataViewModel.error.collectAsStateWithLifecycle(lifecycleOwner.lifecycle)
+
         Box(modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background))
         {
+            if(alarmError != null){
+                Text(text = "$alarmError\n앱을 다시 시작해 주세요", fontSize = 20.sp, color = Color.Black)
+            }
             BoxWithConstraints {
 
                 val screenHeight = maxHeight
@@ -63,16 +63,7 @@ fun RemScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    RemImageLayout(screenHeight, itemValue)
-
-                    when (currentLayout) {
-                        "RemSelectTimeLayout" -> RemSelectTimeLayout(screenHeight, itemValue) { hour, minute ->
-                            selectedHour = hour
-                            selectedMinute = minute
-                            currentLayout = "CalculateRemLayout"
-                        }
-                        "CalculateRemLayout" -> CalculateRemLayout(screenHeight, selectedHour, selectedMinute, itemValue, lifecycleOwner, onNavigateToMainScreen, alarmDataViewModel)
-                    }
+                    RemImageLayout(screenHeight, itemValue, lifecycleOwner, onNavigateToMainScreen, alarmDataViewModel)
                 }
             }
         }

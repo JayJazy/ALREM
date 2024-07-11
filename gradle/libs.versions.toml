@@ -25,6 +25,7 @@ material3-android = "1.2.1"
 constraintlayout = "2.1.4"
 gson = "2.10"
 lifecycleRuntimeCompose = "2.8.1"
+play-services-ads = "23.2.0"
 
 
 
@@ -80,6 +81,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3-android" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "play-services-ads" }
 
 
 

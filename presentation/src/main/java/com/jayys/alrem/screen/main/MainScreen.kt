@@ -1,7 +1,6 @@
 package com.jayys.alrem.screen.main
 
 import android.app.Activity
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -94,10 +93,6 @@ fun MainScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background))
         {
-            if(wakeupError != null){
-                Text(text = "$wakeupError\n앱을 다시 시작해 주세요", fontSize = 20.sp, color = Color.White)
-            }
-
             BoxWithConstraints {
                 val screenHeight = maxHeight
                 val pagerState = rememberPagerState(initialPage = settingDataViewModel.pageNumber){2}
@@ -107,6 +102,9 @@ fun MainScreen(
                 ) {
                     TopLayout(screenHeight, onNavigateToPreferencesScreen)
                     TopItemLayout(screenHeight, pagerState)
+                    if(wakeupError != null){
+                        Text(text = "$wakeupError\n앱을 다시 시작해 주세요", fontSize = 20.sp, color = Color.White)
+                    }
                     AlarmAndRemLayout(
                         screenHeight,
                         alarmError,

@@ -2,6 +2,7 @@ package com.jayys.alrem.permission
 
 import android.app.Activity
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,7 @@ class PermissionManager(private val activity: Activity) {
     companion object {
         const val REQUEST_CODE_POST_NOTIFICATIONS_PERMISSION = 1000
         const val REQUEST_CODE_PERMISSION = 1001
+        const val WAKE_LOCK_PERMISSION_REQUEST_CODE = 1002
     }
 
     private val packageName = activity.packageName
@@ -34,23 +36,31 @@ class PermissionManager(private val activity: Activity) {
                 return false
             }
         }
+        else
+        {
+            if (activity.checkSelfPermission(android.Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.WAKE_LOCK), WAKE_LOCK_PERMISSION_REQUEST_CODE)
+                return false
+            }
+        }
         return true
     }
 
-
-    fun checkAndRequestNotificationPermissions() : Boolean{
+    // Notification 알림
+    fun checkAndRequestNotificationPermissions() : Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    activity,
-                    android.Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                // 권한이 없다면, 사용자에게 권한 요청
-                ActivityCompat.requestPermissions(
-                    activity,
-                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
-                    REQUEST_CODE_POST_NOTIFICATIONS_PERMISSION
-                )
+            if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), REQUEST_CODE_POST_NOTIFICATIONS_PERMISSION)
+                return false
+            }
+        }
+        else
+        {
+            val notificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (!notificationManager.areNotificationsEnabled()) {
+                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName)
+                activity.startActivity(intent)
                 return false
             }
         }
@@ -58,6 +68,7 @@ class PermissionManager(private val activity: Activity) {
     }
 
 
+    // Notification 감지
     fun checkAndRequestNotificationServicePermissions(): Boolean {
         val cn = ComponentName(activity, NotificationMonitorService::class.java)
         val flat = Settings.Secure.getString(activity.contentResolver, "enabled_notification_listeners")
@@ -86,7 +97,7 @@ class PermissionManager(private val activity: Activity) {
     }
 
 
-    // 베터리 최적화 무시
+    // 배터리 최적화 무시
     fun checkAndRequestIgnoreBatteryOptimizations() : Boolean {
         val powerManager = activity.getSystemService(Context.POWER_SERVICE) as PowerManager
         if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
@@ -95,6 +106,12 @@ class PermissionManager(private val activity: Activity) {
             return false
         }
         return true
+    }
+
+    // 배터리 최적화 무시 체크
+    fun checkIgnoreBatteryOptimizations() : Boolean{
+        val powerManager = activity.getSystemService(Context.POWER_SERVICE) as PowerManager
+        return powerManager.isIgnoringBatteryOptimizations(packageName)
     }
 
 
