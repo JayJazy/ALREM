@@ -47,3 +47,10 @@
 * 푸시 알림에 대한 이슈 대응<br><br>
 * 데이터를 활용해 그래프 적용<br><br>
 * 그 외 데이터 처리 최적화<br><br>
+
+<br><br>
+## 8. Eighth Commit ( UI Design, implement functions, bug fixes, optimization )
+* 온 보딩 화면 개발<br><br>
+* 권한 설정 리팩토링<br><br>
+* 버그 수정<br><br>
+* UI 수정<br><br>
