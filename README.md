@@ -54,3 +54,8 @@
 * 권한 설정 리팩토링<br><br>
 * 버그 수정<br><br>
 * UI 수정<br><br>
+
+<br><br>
+## 9. Version 1.0 ( release, proguard )
+* release 모드 변경<br><br>
+* proguard-rules.pro 작성<br><br>
