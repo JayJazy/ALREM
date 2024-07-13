@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.android.gms.ads.MobileAds
 import com.jayys.alrem.navigation.ScreenNavHost
 import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.ui.theme.ALREMTheme
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
             onBoardingViewModel.startDestination.value == null
         }
 
+        MobileAds.initialize(this) {}
 
         val timeOfSleep = intent?.getBooleanExtra("TimeOfSleep", false) ?: false
 
