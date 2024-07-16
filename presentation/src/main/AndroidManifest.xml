@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 진동 권한 -->
+
+
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> <!-- 알람 권한 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 낮은 버전 알람 권한 -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- 알림 권한 -->
@@ -11,8 +14,6 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
-    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 진동 권한 -->
 
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" /> <!-- 전체 화면 -->
 

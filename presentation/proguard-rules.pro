@@ -63,17 +63,15 @@
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
-# Keep Android architecture components
+# ViewModel
 -keep class * extends androidx.lifecycle.ViewModel { *; }
--keep class * extends androidx.lifecycle.AndroidViewModel { *; }
--keep class androidx.lifecycle.LiveData { *; }
+
 
 # Keep any class or method annotated with these
 -keep @androidx.annotation.Keep class *
 -keepclassmembers class * {
     @androidx.annotation.Keep *;
 }
-
 
 
 # google Ads

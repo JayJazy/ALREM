@@ -20,8 +20,6 @@ class RemDataViewModel @Inject constructor(
     private val getAllRemsUseCase: GetAllRemsUseCase
 ) : ViewModel() {
 
-    init { getAllRems() }
-
     private var _remData = MutableStateFlow<List<RemEntity>>(emptyList())
     val remData = _remData.asStateFlow()
 

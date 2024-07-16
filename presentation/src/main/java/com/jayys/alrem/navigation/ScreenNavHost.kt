@@ -1,6 +1,7 @@
 package com.jayys.alrem.navigation
 
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -28,6 +29,7 @@ fun ScreenNavHost(permissionManager: PermissionManager, startDestination: String
         startDestination =  startDestination)
     {
 
+        Log.d("TAG_VALUE", "Nav : $startDestination")
         composable(route = ScreenRoute.OnBoardingScreen.route) {
             OnBoardingScreen(
                 permissionManager = permissionManager,
@@ -42,8 +44,6 @@ fun ScreenNavHost(permissionManager: PermissionManager, startDestination: String
         composable(route = ScreenRoute.MainScreen.route)
         {
             MainScreen(
-                permissionManager = permissionManager,
-
                 onNavigateToPreferencesScreen = { navController.navigate(ScreenRoute.PreferencesScreen.route) },
 
                 onNavigateToAlarmAddScreen = { updateAlarmData, settingData ->

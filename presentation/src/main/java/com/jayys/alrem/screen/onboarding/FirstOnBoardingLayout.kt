@@ -32,7 +32,7 @@ fun FirstOnBoardingLayout()
 
         Image(
             painter = painterResource(id = R.drawable.wakeup),
-            contentDescription = "onBoarding",
+            contentDescription = "FirstOnBoarding",
             modifier = Modifier.size(300.dp))
 
         Spacer(modifier = Modifier.height(50.dp))

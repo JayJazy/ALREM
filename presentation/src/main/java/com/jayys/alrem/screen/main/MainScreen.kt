@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.component.AdvertisementLayout
 import com.jayys.alrem.dialog.TimeOfSleepDialog
@@ -40,7 +39,6 @@ import com.jayys.alrem.viemodel.WakeUpTimeViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
-    permissionManager: PermissionManager,
     onNavigateToPreferencesScreen: () -> Unit,
     onNavigateToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit,
     onNavigateToRemScreen: (String) -> Unit,
@@ -54,19 +52,11 @@ fun MainScreen(
 {
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(Unit) {
-        alarmDataViewModel.getAllAlarms()
+    LaunchedEffect(Unit)
+    {
         wakeUpTimeViewModel.loadWakeUpTime()
         remDataViewModel.getAllRems()
-
-        permissionManager.checkAndRequestOverlayPermission()
-        permissionManager.checkAndRequestNotificationPermissions()
-        permissionManager.checkAndRequestNotificationServicePermissions()
-
-        //permissionManager.checkAndRequestExactAlarmPermissions()
-        //permissionManager.checkAndRequestIgnoreBatteryOptimizations()
     }
-
 
     CompositionLocalProvider(LocalLifecycleOwner provides lifecycleOwner){
         val alarmError by alarmDataViewModel.error.collectAsStateWithLifecycle(lifecycleOwner.lifecycle)

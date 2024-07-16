@@ -32,7 +32,7 @@ fun SecondOnBoardingLayout()
 
         Image(
             painter = painterResource(id = R.drawable.chart),
-            contentDescription = "onBoarding",
+            contentDescription = "SecondOnBoarding",
             modifier = Modifier.size(300.dp))
 
         Spacer(modifier = Modifier.height(50.dp))

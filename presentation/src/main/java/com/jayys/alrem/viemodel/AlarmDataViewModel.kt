@@ -44,7 +44,7 @@ class AlarmDataViewModel @Inject constructor(
         e.printStackTrace()
     }
 
-    fun getAllAlarms() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getAllAlarms() = viewModelScope.launch(Dispatchers.IO) {
         try {
             getAllAlarmsUseCase.invoke().collect { alarms ->
                 _alarmData.value = alarms

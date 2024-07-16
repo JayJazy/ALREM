@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.google.gson.Gson
+import com.jayys.alrem.DestinationAlarm
 import com.jayys.alrem.R
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 import com.jayys.alrem.entity.AlarmEntity
@@ -21,6 +23,15 @@ fun createNormalNotification(context: Context, alarm: AlarmEntity) {
     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     val contentTitle= alarm.title.ifEmpty { "알람" }
+
+    val gson = Gson()
+    val alarmJson = gson.toJson(alarm)
+    val intent = Intent(context, DestinationAlarm::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        putExtra("alarm", alarmJson)
+    }
+    val pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
 
     val dismissIntent = Intent(context, AlarmReceiver::class.java).apply {
         putExtra("requestCode", requestCode)
@@ -38,6 +49,7 @@ fun createNormalNotification(context: Context, alarm: AlarmEntity) {
         .setOngoing(true)
         .setCategory(NotificationCompat.CATEGORY_ALARM)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+        .setContentIntent(pendingIntent)
         .addAction(requestCode,"알람 해제", dismissPendingIntent)
         .build()
 

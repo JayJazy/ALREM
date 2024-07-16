@@ -56,6 +56,12 @@
 * UI 수정<br><br>
 
 <br><br>
-## 9. Version 1.0 ( release, proguard )
+## 9. Version 1.0.0 ( release, proguard )
 * release 모드 변경<br><br>
 * proguard-rules.pro 작성<br><br>
+
+
+<br><br>
+## 10. Version 1.0.1 ( bug fixes )
+* 진동 버그 수정<br><br>
+* 알림 기능 수정<br><br>

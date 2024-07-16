@@ -1,5 +1,6 @@
 package com.jayys.alrem.viemodel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
