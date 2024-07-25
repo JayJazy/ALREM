@@ -3,7 +3,6 @@ package com.jayys.alrem.permission
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.NotificationManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,7 +12,6 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.jayys.alrem.service.NotificationMonitorService
 
 
 class PermissionManager(private val activity: Activity) {
@@ -69,8 +67,9 @@ class PermissionManager(private val activity: Activity) {
 
 
     // Notification 감지
+    /*
     fun checkAndRequestNotificationServicePermissions(): Boolean {
-        val cn = ComponentName(activity, NotificationMonitorService::class.java)
+        val cn = ComponentName(activity, AlarmNotificationListener::class.java)
         val flat = Settings.Secure.getString(activity.contentResolver, "enabled_notification_listeners")
         val isEnabled = flat != null && flat.contains(cn.flattenToString())
 
@@ -80,9 +79,7 @@ class PermissionManager(private val activity: Activity) {
             return false
         }
         return true
-    }
-
-
+    }*/
 
 
 

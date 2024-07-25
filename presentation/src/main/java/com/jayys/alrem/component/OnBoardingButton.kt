@@ -74,6 +74,5 @@ fun checkPermissions(permissionManager: PermissionManager): Boolean {
 
     return permissionManager.checkAndRequestExactAlarmPermissions() &&
             permissionManager.checkAndRequestNotificationPermissions() &&
-            permissionManager.checkAndRequestOverlayPermission() &&
-            permissionManager.checkAndRequestNotificationServicePermissions()
+            permissionManager.checkAndRequestOverlayPermission()
 }

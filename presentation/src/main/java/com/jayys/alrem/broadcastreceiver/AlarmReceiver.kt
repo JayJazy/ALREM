@@ -5,17 +5,14 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
-import com.jayys.alrem.DestinationAlarm
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmBell
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmRepeat
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmTTS
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmVibration
-import com.jayys.alrem.broadcastreceiver.dismiss.dismissCancelAlarm
-import com.jayys.alrem.broadcastreceiver.dismiss.dismissCancelNotification
 import com.jayys.alrem.broadcastreceiver.notification.createNormalNotification
 import com.jayys.alrem.broadcastreceiver.notification.createSleepTimeNotification
+import com.jayys.alrem.destination.DestinationAlarmActivity
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.usecase.alarm.GetAllAlarmsUseCase
 import com.jayys.alrem.usecase.datastore.SaveSwitchUseCase
@@ -28,7 +25,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDateTime
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -42,20 +38,13 @@ class AlarmReceiver : BroadcastReceiver(), CoroutineScope {
     @Inject
     lateinit var getAllAlarmsUseCase: GetAllAlarmsUseCase
 
-    @Inject
-    lateinit var saveSwitchUseCase: SaveSwitchUseCase
-
-    @Inject
-    lateinit var saveWakeUpTimeUseCase: SaveWakeUpTimeUseCase
-
-
     override fun onReceive(context: Context?, intent: Intent?) {
         val requestCode = intent?.getIntExtra("requestCode", -1)
         val action = intent?.getStringExtra("action")
 
-        context?.let{
+        context?.let{ ctx ->
             if (requestCode == 0 || action == "goToBedTime") {
-                createSleepTimeNotification(context)
+                createSleepTimeNotification(ctx)
                 return
             }
         }
@@ -67,47 +56,35 @@ class AlarmReceiver : BroadcastReceiver(), CoroutineScope {
                         .map { alarmList -> alarmList.firstOrNull { it.id == requestCode } }
                         .firstOrNull()
                 }
-                alarm?.let {
+                alarm?.let { alarmData ->
                     context?.let { context ->
-                        when (action) {
-                            "dismiss" -> {
-                                val dismissIntent = Intent("com.jayys.alrem.ACTION_NOTIFICATION_DISMISSED")
-                                LocalBroadcastManager.getInstance(context).sendBroadcast(dismissIntent)
-
-                                withContext(Dispatchers.IO)
-                                {
-                                    saveWakeUpTimeUseCase.invoke(LocalDateTime.now().withSecond(0).withNano(0))
-                                }
-
-                                dismissCancelNotification(context, it)
-                                dismissCancelAlarm(context, it, saveSwitchUseCase)
-                            }
-                            "createNormalNotification$requestCode" -> {
-                                createNormalNotification(context, it)
-                            }
-                            else -> {
-
-                                context.startActivity(startActivityIntent(context, it))
-
-                                createNormalNotification(context, it)
-
-                                checkAlarmProperties(context, it)
-                            }
-                        }
+                        context.startActivity(startActivityIntent(context, alarmData))
+                        createNormalNotification(context, alarmData)
+                        saveCurrentAlarm(context, alarmData)
+                        checkAlarmProperties(context, alarmData)
                     }
+
                 }
             } catch (e: Exception) {
                 Log.e("AlarmReceiver", "예외 발생: ${e.message}")
             }
         }
+
+
     }
 
-
+    private fun saveCurrentAlarm(context: Context, alarm: AlarmEntity) {
+        val sharedPref = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("currentAlarm", Gson().toJson(alarm))
+            apply()
+        }
+    }
 
     private fun startActivityIntent(context: Context, alarm: AlarmEntity): Intent{
         val gson = Gson()
         val alarmJson = gson.toJson(alarm)
-        return Intent(context, DestinationAlarm::class.java).apply {
+        return Intent(context, DestinationAlarmActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
             putExtra("alarm", alarmJson)
         }

@@ -1,5 +1,6 @@
 package com.jayys.alrem.broadcastreceiver.notification
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -14,10 +15,10 @@ fun createChannel(requestCode: Int, context: Context, channelID: String)
         enableLights(true)
         enableVibration(true)
         setShowBadge(false)
+        lockscreenVisibility = Notification.VISIBILITY_PUBLIC
     }
     val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(channel)
-
 
 }

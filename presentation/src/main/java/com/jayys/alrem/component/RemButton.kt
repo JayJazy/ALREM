@@ -59,8 +59,7 @@ fun RemButton(
         .clickable {
             val allPermissionsGranted = permissionManager.checkAndRequestExactAlarmPermissions() &&
                     permissionManager.checkAndRequestNotificationPermissions() &&
-                    permissionManager.checkAndRequestOverlayPermission() &&
-                    permissionManager.checkAndRequestNotificationServicePermissions()
+                    permissionManager.checkAndRequestOverlayPermission()
             if (allPermissionsGranted) {
                 onNavigateToRemScreen(itemValue)
             }

@@ -41,10 +41,10 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                 .padding(top = 5.dp)
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
+                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(100.dp))
 
 
                 Row(modifier = rowModifier.clickable
@@ -63,7 +63,7 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                         .fillMaxWidth()
                         .padding(horizontal = 35.dp))
 
-                Spacer(modifier = Modifier.height(25.dp))
+                Spacer(modifier = Modifier.height(40.dp))
 
 
                 Row(modifier = rowModifier.clickable
@@ -83,7 +83,7 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                         .padding(horizontal = 35.dp))
 
 
-                Spacer(modifier = Modifier.height(25.dp))
+                Spacer(modifier = Modifier.height(40.dp))
 
 
                 Row(modifier = rowModifier.clickable
@@ -102,28 +102,6 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                         .fillMaxWidth()
                         .padding(horizontal = 35.dp))
 
-
-                Spacer(modifier = Modifier.height(25.dp))
-
-
-                Row(modifier = rowModifier.clickable
-                {
-                    permissionManager.checkAndRequestNotificationServicePermissions()
-                }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically)
-                {
-                    Text(text = "알림 접근", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-
-                    Icon(painter = painterResource(id = R.drawable.entry_icon), contentDescription = "진입", tint = Color.White)
-                }
-                Text(text = "알림 상태를 관리합니다 ( 알림이 지워지는 휴대폰 업데이트 문제로 알람을 해제하기 전까지 알림이 지워지지 않도록 합니다 )",
-                    color = Color.White,
-                    fontSize = 14.sp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 35.dp))
-
-
-                Spacer(modifier = Modifier.height(20.dp))
             }
 
 

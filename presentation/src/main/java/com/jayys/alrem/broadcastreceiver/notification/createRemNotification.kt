@@ -29,13 +29,6 @@ fun createRemNotification(context: Context, alarm: AlarmEntity)
     val pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
 
-    val dismissIntent = Intent(context, AlarmReceiver::class.java).apply {
-        putExtra("action", "dismissNotification")
-    }
-    val dismissPendingIntent = PendingIntent.getBroadcast(context, requestCode, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-
-
-
     val notification = NotificationCompat.Builder(context, "$CHANNEL_ID$requestCode")
         .setContentTitle("수면 기록 알림")
         .setContentText("알림을 클릭해서 잠들었던 시간을 설정해 주세요")
@@ -45,7 +38,6 @@ fun createRemNotification(context: Context, alarm: AlarmEntity)
         .setAutoCancel(true)
         .setOngoing(true)
         .setContentIntent(pendingIntent)
-        .setDeleteIntent(dismissPendingIntent)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .build()
 

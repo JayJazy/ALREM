@@ -20,9 +20,6 @@ class OnBoardingViewModel @Inject constructor(
     private val loadOnBoardingUseCase: LoadOnBoardingUseCase
 ) : ViewModel() {
 
-    private val _onBoardingState = MutableStateFlow(true)
-    val onBoardingState: StateFlow<Boolean> = _onBoardingState.asStateFlow()
-
     private val _startDestination = mutableStateOf<String?>(null)
     val startDestination = _startDestination
 
@@ -30,7 +27,6 @@ class OnBoardingViewModel @Inject constructor(
 
     fun setOnBoardingState(state : Boolean) = viewModelScope.launch {
         saveOnBoardingUseCase.invoke(state)
-        _onBoardingState.value = state
     }
 
     private fun loadOnBoardingState() = viewModelScope.launch {
@@ -43,7 +39,6 @@ class OnBoardingViewModel @Inject constructor(
             {
                 ScreenRoute.OnBoardingScreen.route
             }
-            _onBoardingState.value = false
         }
     }
 }

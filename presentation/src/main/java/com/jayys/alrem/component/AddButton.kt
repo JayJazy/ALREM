@@ -37,8 +37,7 @@ fun AddButton(modifier: Modifier, text: String, screenHeight: Dp, navigate: () -
         {
             val allPermissionsGranted = permissionManager.checkAndRequestExactAlarmPermissions() &&
                     permissionManager.checkAndRequestNotificationPermissions() &&
-                    permissionManager.checkAndRequestOverlayPermission() &&
-                    permissionManager.checkAndRequestNotificationServicePermissions()
+                    permissionManager.checkAndRequestOverlayPermission()
             if (allPermissionsGranted) {
                 navigate()
             }

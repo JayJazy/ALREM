@@ -26,6 +26,10 @@ constraintlayout = "2.1.4"
 gson = "2.10"
 lifecycleRuntimeCompose = "2.8.1"
 play-services-ads = "23.2.0"
+junitKtx = "1.2.1"
+uiTestJunit4Android = "1.6.8"
+mockito = "4.0.0"
+
 
 
 
@@ -34,6 +38,9 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 junit-test = { module = "junit:junit", version.ref = "junit" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
 
 androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycle-runtime-ktx"}
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -83,6 +90,8 @@ androidx-material3-android = { group = "androidx.compose.material3", name = "mat
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "play-services-ads" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+
 
 
 
