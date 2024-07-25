@@ -65,3 +65,8 @@
 ## 10. Version 1.0.1 ( bug fixes )
 * 진동 버그 수정<br><br>
 * 알림 기능 수정<br><br>
+
+<br><br>
+## 10. Version 1.0.2 ( bug fixes )
+* 권한 삭제<br><br>
+* 알람 버그 수정<br><br>
