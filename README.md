@@ -104,6 +104,11 @@
 * 권한 삭제<br><br>
 * 알람 버그 수정<br><br>
 
+<br>
+
+### 12. Version 1.0.3 ( bug fixes )
+* 알람 설정 안전성 개선<br><br>
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
