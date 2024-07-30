@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -60,7 +61,7 @@ fun DestinationLayout(
     alarm: AlarmEntity,
     dismissAlarm: DismissAlarm,
     saveSwitchUseCase: SaveSwitchUseCase,
-    saveWakeUpTimeUseCase: SaveWakeUpTimeUseCase
+    saveWakeUpTimeUseCase: SaveWakeUpTimeUseCase,
 )
 {
     val context = LocalContext.current
@@ -96,7 +97,7 @@ fun DestinationLayout(
     }
 
     val cancelPendingIntent = dismissAlarm.getCancelPendingIntent(alarm.id, context)
-    val resetAlarmPendingIntent = PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+    val resetAlarmPendingIntent = PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_IMMUTABLE)
 
     if(selectedDays.isNotEmpty())
     {
@@ -167,12 +168,14 @@ fun DestinationLayout(
                             initAlarm(context, selectedDays, alarmManager, notificationManager, cancelPendingIntent, resetAlarmPendingIntent, alarm, calendar)
                         }
                         finally {
-                            val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-                            activityManager.appTasks.forEach { it.finishAndRemoveTask() }
-                            if (context is Activity) {
-                                context.finishAffinity()
-                            }
-                            exitProcess(0)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                                activityManager.appTasks.forEach { it.finishAndRemoveTask() }
+                                if (context is Activity) {
+                                    context.finishAffinity()
+                                }
+                                exitProcess(0)
+                            }, 200)
                         }
                     } },
                 modifier = Modifier.size(110.dp),

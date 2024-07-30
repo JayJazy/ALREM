@@ -13,7 +13,7 @@ import com.jayys.alrem.converter.LocalDateTimeConverter
 import com.jayys.alrem.model.RemData
 
 
-@Database(entities = [AlarmData::class, RemData::class], version = 8, exportSchema = false)
+@Database(entities = [AlarmData::class, RemData::class], version = 11, exportSchema = false)
 @TypeConverters(DateConverter::class, DateListConverter::class, LocalDateTimeConverter::class, BooleanListConverter::class)
 abstract class AlarmDatabase : RoomDatabase() {
 

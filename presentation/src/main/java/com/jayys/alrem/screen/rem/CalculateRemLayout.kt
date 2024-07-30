@@ -229,7 +229,7 @@ fun sunAddAlarm(
 
     setGoToBedTime(context, timeList[2], timeList[3])
 
-    setAlarm(alarm, context)
+    setAlarm(alarm, context, false)
 
 }
 
@@ -265,7 +265,7 @@ fun moonAddAlarm(
 
     setGoToBedTime(context, timeList[0], timeList[1])
 
-    setAlarm(alarm, context)
+    setAlarm(alarm, context, false)
 }
 
 

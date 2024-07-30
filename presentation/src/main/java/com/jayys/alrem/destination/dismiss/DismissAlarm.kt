@@ -14,7 +14,7 @@ class DismissAlarm @Inject constructor() {
 
     fun getCancelPendingIntent(id: Int, context: Context): PendingIntent {
         val intent = Intent(context, AlarmReceiver::class.java)
-        return PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        return PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     fun resetCalendar(alarm: AlarmEntity, selectedDays: List<String>): Calendar {

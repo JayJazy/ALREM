@@ -109,7 +109,7 @@ fun AlarmListItem(
                             switchViewModel.saveSwitchState(alarm.id, newState)
                             if(newState)
                             {
-                                setAlarm(alarm, context)
+                                setAlarm(alarm, context, true)
                             }
                             else
                             {

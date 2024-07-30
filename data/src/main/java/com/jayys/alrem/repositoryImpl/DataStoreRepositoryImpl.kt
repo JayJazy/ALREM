@@ -27,7 +27,7 @@ class DataStoreRepositoryImpl @Inject constructor(
     @Named("WakeUpDataStore") private val wakeUpDataStore: DataStore<Preferences>,
     @Named("OnBoardingDataStore") private val onBoardingDataStore: DataStore<Preferences>,
     @Named("SleepOfTimeDataStore") private val sleepOfTimeDataStore: DataStore<Preferences>
-) : DataStoreRepository{
+) : DataStoreRepository {
 
     private val switchStatesCache = mutableMapOf<Int, Boolean>()
 

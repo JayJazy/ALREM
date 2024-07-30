@@ -28,14 +28,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().setKeepOnScreenCondition {
+            onBoardingViewModel.startDestination.value == null
+        }
 
         if (isAlarmRinging()) {
             redirectToDestinationAlarm()
             return
-        }
-
-        installSplashScreen().setKeepOnScreenCondition {
-            onBoardingViewModel.startDestination.value == null
         }
 
         MobileAds.initialize(this) {}

@@ -11,7 +11,7 @@ import java.util.Calendar
 
 
 
-fun setAlarm(alarm: AlarmEntity, context: Context) {
+fun setAlarm(alarm: AlarmEntity, context: Context, isAlreadyAlarm: Boolean) {
 
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
@@ -26,7 +26,14 @@ fun setAlarm(alarm: AlarmEntity, context: Context) {
         putExtra("requestCode", alarm.id)
     }
 
-    val pendingIntent = PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+    val pendingIntent = if(isAlreadyAlarm){
+        PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+    }
+    else{
+        PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+    }
+
 
     try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

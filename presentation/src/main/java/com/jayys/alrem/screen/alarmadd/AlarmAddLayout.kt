@@ -36,33 +36,40 @@ fun AlarmAddLayout(
     {
         if (settingDataViewModel.isUpdate)
         {
-            cancelExistingAlarm(updateAlarmData.id, context)
+            try
+            {
+                cancelExistingAlarm(updateAlarmData.id, context)
 
-            val alarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, updateAlarmData.id, true)
+                val alarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, updateAlarmData.id, true)
 
-            switchViewModel.saveSwitchState(updateAlarmData.id, true)
+                switchViewModel.saveSwitchState(updateAlarmData.id, true)
 
-            alarmDataViewModel.updateAlarm(alarm)
+                alarmDataViewModel.updateAlarm(alarm)
 
-            setAlarm(alarm, context)
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                onNavigateToMainScreen()
-            },200)
+                setAlarm(alarm, context, true)
+            }
+            finally {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    onNavigateToMainScreen()
+                },200)
+            }
         }
         else
         {
-            val alarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, maxId+1, true)
+            try {
+                val alarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, maxId+1, true)
 
-            switchViewModel.saveSwitchState(maxId+1, true)
+                switchViewModel.saveSwitchState(maxId+1, true)
 
-            alarmDataViewModel.addAlarm(alarm)
+                alarmDataViewModel.addAlarm(alarm)
 
-            setAlarm(alarm, context)
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                onNavigateToMainScreen()
-            },200)
+                setAlarm(alarm, context, false)
+            }
+            finally {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    onNavigateToMainScreen()
+                },200)
+            }
         }
     }
 }
