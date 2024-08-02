@@ -1,10 +1,10 @@
 package com.jayys.alrem.usecase.datastore
 
 
-import com.jayys.alrem.repository.DataStoreRepository
+import com.jayys.alrem.repository.OnBoardingStateRepository
 import javax.inject.Inject
 
-class SaveOnBoardingUseCase @Inject constructor(private val dataStoreRepository: DataStoreRepository) {
+class SaveOnBoardingUseCase @Inject constructor(private val onBoardingStateRepository: OnBoardingStateRepository) {
 
-    suspend operator fun invoke(state : Boolean) = dataStoreRepository.saveOnBoardingState(state)
+    suspend operator fun invoke(state : Boolean) = onBoardingStateRepository.saveOnBoardingState(state)
 }

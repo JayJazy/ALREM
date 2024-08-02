@@ -1,7 +1,7 @@
 package com.jayys.alrem.di
 
 import com.jayys.alrem.repository.AlarmRepository
-import com.jayys.alrem.repository.DataStoreRepository
+import com.jayys.alrem.repository.SwitchStateRepository
 import com.jayys.alrem.usecase.alarm.GetAllAlarmsUseCase
 import com.jayys.alrem.usecase.datastore.SaveSwitchUseCase
 import dagger.Module
@@ -23,7 +23,7 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesSaveSwitchUseCase(dataStoreRepository: DataStoreRepository): SaveSwitchUseCase {
-        return SaveSwitchUseCase(dataStoreRepository)
+    fun providesSaveSwitchUseCase(switchStateRepository: SwitchStateRepository): SaveSwitchUseCase {
+        return SaveSwitchUseCase(switchStateRepository)
     }
 }
