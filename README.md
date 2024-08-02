@@ -114,6 +114,11 @@
 ### 13. Splash API & Contents Label
 * 구글 플레이 안정성 및 호환성 문제 수정<br><br>
 
+<br>
+
+### 14. Separation of Concerns ( Version 1.0.4 )
+* 단일 책임 원칙을 위해 DataStoreRepository 관심사 분리<br><br>
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
