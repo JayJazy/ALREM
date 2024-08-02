@@ -109,6 +109,11 @@
 ### 12. Version 1.0.3 ( bug fixes )
 * 알람 설정 안전성 개선<br><br>
 
+<br>
+
+### 13. Splash API & Contents Label
+* 구글 플레이 안정성 및 호환성 문제 수정<br><br>
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
