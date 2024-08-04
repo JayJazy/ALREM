@@ -119,6 +119,12 @@
 ### 14. Separation of Concerns ( Version 1.0.4 )
 * 단일 책임 원칙을 위해 DataStoreRepository 관심사 분리<br><br>
 
+<br>
+
+### 15. Fix dismissAlarm & Add TestCode
+* 알람 재설정 문제 수정<br><br>
+* 알람 재설정 시 테스트 코드 작성<br><br>
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
