@@ -134,10 +134,20 @@
 | Design | <img src="https://github.com/user-attachments/assets/8e19e0bd-6035-4deb-a91b-a36cf62bd2a3" alt="ALREM Figma" width="700"/> |
 
 
+
+<br><br>
+
+## 4. Before Refactoring - UI & Description
+| <div align="center">UI</div> | <div align="center">Description</div> |
+|:--|:--|
+| <table><tr><td><img src="https://github.com/user-attachments/assets/3a8419e6-4727-4142-9e79-402ad5b7e35b" alt="image1" width="100"/></td><td><img src="https://github.com/user-attachments/assets/355f4aaa-3c1f-4e01-ba4c-94d875642afd" alt="image2" width="100"/></td><td><img src="https://github.com/user-attachments/assets/dd64ba45-b493-43c1-8c2a-9a1be8b32449" alt="image3" width="100"/></td></tr></table> | 사용자가 쉽게 알람을 설정하고 기본적인 알람 기능을 사용할 수 있습니다. <br><br> 내부 저장소의 음악 파일을 알람음으로 활용할 수 있습니다. |
+| <table><tr><td><img src="https://github.com/user-attachments/assets/4236a17e-c242-42d1-84c9-b33b14500db9" alt="image4" width="100"/></td><td><img src="https://github.com/user-attachments/assets/80b38826-6082-452e-a3ad-4e0736bafa2b" alt="image5" width="100"/></td></tr></table>| 사용자는 블루투스 연결을 통해 임베디드 시스템과 통신 지원을 합니다. <br><br> 알람 트리거 시 IoT 연동을 통해 조명 시스템을 자동 활성화합니다. <br><br> 작동 영상 : [시연 영상 보기](https://youtu.be/S33DSy2EuAQ) |
+
+
 <br><br>
 
 
-## 4. UI & Description
+## 5. After Refactoring - UI & Description
 | <div align="center">UI</div> | <div align="center">Description</div> |
 |:--|:--|
 | <table><tr><td><img src="https://github.com/user-attachments/assets/12b2a7c0-ae76-4b2f-9ad3-31b715e1cdf4" alt="Screenshot_20240716_162031_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/24c89952-44e9-4fc6-8b90-0d86e0510b45" alt="Screenshot_20240716_162036_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/461cb5eb-5d2c-4700-954d-68475946c745" alt="Screenshot_20240716_162040_ALREM" width="100"/></td></tr></table> | ALREM을 사용하기 전 기본적인 내용을 가이드 합니다. <br><br> ALREM을 이용하기 전 사전에 권한을 설정할 수 있도록 합니다. |
@@ -147,7 +157,7 @@
 
 <br><br>
 
-## 5. Sources
+## 6. Sources
 * 폰트 : [FontSource](https://www.clipartkorea.co.kr/)
 * 아이콘 : [Sun](https://www.flaticon.com/kr/authors/rizky-maulidhani)
 * 아이콘 : [Moon](https://www.freepik.com/)
