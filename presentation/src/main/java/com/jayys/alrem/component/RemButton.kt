@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jayys.alrem.R
@@ -41,6 +42,12 @@ fun RemButton(
         "sun" -> painterResource(id = R.drawable.sun_icon)
         "moon" -> painterResource(id = R.drawable.moon_icon)
         else -> painterResource(id = R.drawable.ic_launcher_foreground)
+    }
+
+    val iconContentDescription = when(itemValue){
+        "sun" -> stringResource(id = R.string.description_sun_icon)
+        "moon" -> stringResource(id = R.string.description_moon_icon)
+        else -> stringResource(id = R.string.description_android_icon)
     }
 
     val itemText = when(itemValue){
@@ -75,7 +82,7 @@ fun RemButton(
         ) {
             Icon(
                 painter = iconPainter,
-                contentDescription = "아이콘 설명",
+                contentDescription = iconContentDescription,
                 tint = Color.Unspecified,
                 modifier = Modifier.size(24.dp)
             )

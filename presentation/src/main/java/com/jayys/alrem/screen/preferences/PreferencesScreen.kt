@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -89,7 +90,9 @@ fun PreferencesScreen(
                             .weight(1f)
                             .padding(start = 4.dp), contentAlignment = Alignment.CenterStart){
                             IconButton(onClick = { onNavigateBackToMainScreen() }) {
-                                Icon(painter = painterResource(id = R.drawable.back_icon), contentDescription = "뒤로 가기", tint = Color.Gray)
+                                Icon(painter = painterResource(id = R.drawable.back_icon),
+                                    contentDescription = stringResource(id = R.string.description_back_button),
+                                    tint = Color.Gray)
                             }
                         }
 
@@ -103,14 +106,20 @@ fun PreferencesScreen(
 
                 if(!isVisible){
                     Row(modifier = Modifier
-                        .fillMaxWidth().height(85.dp)
-                        .padding(vertical = 15.dp).padding(horizontal = 30.dp)
+                        .fillMaxWidth()
+                        .height(85.dp)
+                        .padding(vertical = 15.dp)
+                        .padding(horizontal = 30.dp)
                         .clip(RoundedCornerShape(20.dp))
                         .background(Color(0xFFFFD5D5).copy(0.8f))
-                        .clickable { if(!permissionManager.checkIgnoreBatteryOptimizations()) { showDialog = true } }, verticalAlignment = Alignment.CenterVertically)
+                        .clickable {
+                            if (!permissionManager.checkIgnoreBatteryOptimizations()) {
+                                showDialog = true
+                            }
+                        }, verticalAlignment = Alignment.CenterVertically)
                     {
                         Icon(painter = painterResource(id = R.drawable.error_icon),
-                            contentDescription = "문제",
+                            contentDescription = stringResource(id = R.string.description_problem_icon),
                             tint = Color.Red,
                             modifier = Modifier.padding(start = 20.dp, end = 10.dp))
                         Text(text = "알람이 울리지 않아요", color = Color.Red, fontSize = 13.sp, fontWeight = FontWeight.Bold)

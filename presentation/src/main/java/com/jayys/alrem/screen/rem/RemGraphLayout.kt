@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
@@ -68,7 +69,9 @@ fun RemGraphLayout(screenHeight: Dp, showText: Boolean, remData: List<RemEntity>
         horizontalArrangement = Arrangement.Start)
     {
         IconButton(onClick = { updateMonth(false) }) {
-            Icon(painter = painterResource(id = R.drawable.previous_icon), contentDescription = "previous", tint = Color.White)
+            Icon(painter = painterResource(id = R.drawable.previous_icon),
+                contentDescription = stringResource(id = R.string.description_previous),
+                tint = Color.White)
         }
 
         Text(text = " ${currentYear}년 ${currentMonth}월 ", color = Color.White,
@@ -76,7 +79,9 @@ fun RemGraphLayout(screenHeight: Dp, showText: Boolean, remData: List<RemEntity>
             style = MaterialTheme.typography.bodySmall)
 
         IconButton(onClick = { updateMonth(true) }) {
-            Icon(painter = painterResource(id = R.drawable.next_icon), contentDescription = "next", tint = Color.White)
+            Icon(painter = painterResource(id = R.drawable.next_icon),
+                contentDescription = stringResource(id = R.string.description_next),
+                tint = Color.White)
         }
     }
 
@@ -107,7 +112,9 @@ fun RemGraphLayout(screenHeight: Dp, showText: Boolean, remData: List<RemEntity>
 
     Spacer(modifier = Modifier.height(screenHeight * 0.06f))
 
-    Box(modifier = Modifier.fillMaxWidth().height(screenHeight * 0.25f), contentAlignment = Alignment.TopStart){
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(screenHeight * 0.25f), contentAlignment = Alignment.TopStart){
         RemAnalysisLayout(average = average, showText)
     }
 

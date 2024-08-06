@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -78,11 +79,13 @@ fun SettingItem(
                 if (showRemButton) {
                     IconButton(
                         onClick = { showPopup = true},
-                        modifier = Modifier.padding(top = 1.dp).size(23.dp)
+                        modifier = Modifier
+                            .padding(top = 1.dp)
+                            .size(23.dp)
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.help_icon),
-                            contentDescription = "rem 수면 기록 안내",
+                            contentDescription = stringResource(id = R.string.description_help_rem),
                             tint = Color.Gray
                         )
                     }

@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -48,8 +49,8 @@ fun TopItemLayout(screenHeight: Dp, pagerState: PagerState)
     }
 
     val boxData = listOf(
-        Pair("알 람", painterResource(id = R.drawable.alarm_icon)),
-        Pair("수 면", painterResource(id = R.drawable.rem_icon))
+        Triple("알 람", painterResource(id = R.drawable.alarm_icon), stringResource(id = R.string.description_alarm_icon)),
+        Triple("수 면", painterResource(id = R.drawable.rem_icon), stringResource(id = R.string.description_rem_icon))
     )
 
     Box(
@@ -68,7 +69,7 @@ fun TopItemLayout(screenHeight: Dp, pagerState: PagerState)
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            boxData.forEachIndexed { index, (boxName, icon) ->
+            boxData.forEachIndexed { index, (boxName, icon, iconDescription) ->
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -88,8 +89,8 @@ fun TopItemLayout(screenHeight: Dp, pagerState: PagerState)
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Icon(
-                            icon,
-                            contentDescription = null,
+                            painter = icon,
+                            contentDescription = iconDescription,
                             modifier = Modifier.size(24.dp),
                             tint = Color.White
                         )

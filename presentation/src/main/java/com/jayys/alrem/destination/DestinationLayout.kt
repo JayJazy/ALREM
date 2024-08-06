@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -182,7 +183,7 @@ fun DestinationLayout(
                 interactionSource = interactionSource
             ) {
                 Icon(painter = painterResource(id = R.drawable.alarm_off_icon),
-                    contentDescription = "alarm_off",
+                    contentDescription = stringResource(id = R.string.description_alarm_off),
                     tint = iconTint)
             }
         }

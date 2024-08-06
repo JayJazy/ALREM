@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.LifecycleOwner
 import com.jayys.alrem.R
@@ -31,6 +32,9 @@ fun RemImageLayout(
     val imageResId = if(itemValue == "sun") R.drawable.morning
     else R.drawable.night
 
+    val imageDescription = if(itemValue == "sun") stringResource(id = R.string.description_morning_image)
+    else stringResource(id = R.string.description_night_image)
+
     var currentLayout by remember { mutableStateOf("RemSelectTimeLayout") }
     var selectedHour by remember { mutableIntStateOf(0) }
     var selectedMinute by remember { mutableIntStateOf(0) }
@@ -40,9 +44,11 @@ fun RemImageLayout(
     {
         Image(
             painter = painterResource(id = imageResId),
-            contentDescription = "사진",
+            contentDescription = imageDescription,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize().graphicsLayer(alpha = 0.4f)
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer(alpha = 0.4f)
         )
 
 

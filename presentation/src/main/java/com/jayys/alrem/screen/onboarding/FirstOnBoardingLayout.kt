@@ -15,6 +15,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
@@ -24,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
 
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FirstOnBoardingLayout() {
     Column(
@@ -36,7 +36,7 @@ fun FirstOnBoardingLayout() {
 
         Image(
             painter = painterResource(id = R.drawable.wakeup),
-            contentDescription = "알람 설정을 통해 새로운 하루를 시작하는 이미지",
+            contentDescription = stringResource(id = R.string.description_first_onboarding_image),
             modifier = Modifier.size(300.dp)
         )
 

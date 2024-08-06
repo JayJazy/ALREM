@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,7 +55,10 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                 {
                     Text(text = "알림", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
-                    Icon(painter = painterResource(id = R.drawable.entry_icon), contentDescription = "진입", tint = Color.White)
+                    Icon(painter = painterResource(id = R.drawable.entry_icon),
+                        contentDescription = stringResource(
+                        id = R.string.description_entry_button
+                    ), tint = Color.White)
                 }
                 Text(text = "앱이 알림을 보낼 수 있도록 합니다",
                     color = Color.White,
@@ -73,7 +77,9 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                 {
                     Text(text = "알람 및 리마인더", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
-                    Icon(painter = painterResource(id = R.drawable.entry_icon), contentDescription = "진입", tint = Color.White)
+                    Icon(painter = painterResource(id = R.drawable.entry_icon),
+                        contentDescription = stringResource(id = R.string.description_entry_button),
+                        tint = Color.White)
                 }
                 Text(text = "정확한 시간의 알람을 실행하고 진동 기능을 사용하기 위해 필요합니다",
                     color = Color.White,
@@ -93,7 +99,9 @@ fun LastOnBoardingLayout(permissionManager: PermissionManager) {
                 {
                     Text(text = "다른 앱 위에 표시", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
-                    Icon(painter = painterResource(id = R.drawable.entry_icon), contentDescription = "진입", tint = Color.White)
+                    Icon(painter = painterResource(id = R.drawable.entry_icon),
+                        contentDescription = stringResource(id = R.string.description_entry_button),
+                        tint = Color.White)
                 }
                 Text(text = "알람이 울렸을 때 알람 화면이 보이도록 합니다",
                     color = Color.White,

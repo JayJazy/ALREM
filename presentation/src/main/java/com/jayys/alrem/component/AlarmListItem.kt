@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -149,10 +150,14 @@ fun AlarmListItem(
                     Box(modifier = Modifier
                         .weight(0.2f)){
                         IconButton(onClick = { expanded = true }) {
-                            Icon(painter = painterResource(id = R.drawable.more_icon), contentDescription = "알람 더보기", tint = Color.White)
+                            Icon(painter = painterResource(id = R.drawable.more_icon),
+                                tint = Color.White,
+                                contentDescription = stringResource(id = R.string.description_more_alarm))
                         }
 
-                        DropdownMenu(modifier = Modifier.wrapContentSize().background(MaterialTheme.colorScheme.primary),
+                        DropdownMenu(modifier = Modifier
+                            .wrapContentSize()
+                            .background(MaterialTheme.colorScheme.primary),
                             expanded = expanded,
                             onDismissRequest = { expanded = false }) {
                             DropdownMenuItem(
@@ -162,7 +167,10 @@ fun AlarmListItem(
                                     alarmDataViewModel.deleteAlarm(alarm.id)
                                     expanded = false
                                 },
-                                leadingIcon = { Icon(painterResource(id = R.drawable.delete_icon), contentDescription = "휴지통", tint = Color.White)},
+                                leadingIcon = {
+                                    Icon(painter = painterResource(id = R.drawable.delete_icon),
+                                        tint = Color.White,
+                                        contentDescription = stringResource(id = R.string.description_delete))},
                                 text =
                                 {
                                     Text(text = "알람 삭제  ", color = Color.White)

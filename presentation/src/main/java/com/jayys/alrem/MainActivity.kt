@@ -16,6 +16,7 @@ import com.jayys.alrem.ui.theme.ALREMTheme
 import com.jayys.alrem.viemodel.OnBoardingViewModel
 import com.jayys.alrem.viemodel.TimeOfSleepViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.system.exitProcess
 
 
 @AndroidEntryPoint
@@ -30,9 +31,6 @@ class MainActivity : ComponentActivity() {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 onBoardingViewModel.startDestination.value == null
-            }
-            setOnExitAnimationListener { splashScreenView ->
-                splashScreenView.remove()
             }
         }
 
@@ -75,6 +73,9 @@ class MainActivity : ComponentActivity() {
             }
             startActivity(intent)
             finish()
+        }
+        else {
+            exitProcess(0)
         }
     }
 }

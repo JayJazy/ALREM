@@ -18,8 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.permission.PermissionManager
@@ -66,10 +64,9 @@ fun OnBoardingButton(
                     pagerState.animateScrollToPage(pagerState.currentPage + 1)
                 }
             }
-        }.semantics { contentDescription = "OnBoarding Button" }, contentAlignment = Alignment.Center)
+        }, contentAlignment = Alignment.Center)
     {
-        Text(text = text, color = textColor, style = MaterialTheme.typography.titleSmall, fontSize = 18.sp,
-            modifier = Modifier.semantics { contentDescription = "Button Text" })
+        Text(text = text, color = textColor, style = MaterialTheme.typography.titleSmall, fontSize = 18.sp)
     }
 }
 

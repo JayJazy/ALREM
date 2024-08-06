@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="description_more_alarm">알람 더보기 ( 삭제 )</string>
+
+    <string name="description_delete">알람 삭제</string>
+
+    <string name="description_sun_icon">태양 아이콘</string>
+
+    <string name="description_moon_icon">달 아이콘</string>
+
+    <string name="description_android_icon">안드로이드 아이콘</string>
+
+    <string name="description_help_rem">rem 수면 기록 안내</string>
+
+    <string name="description_alarm_off">알람 종료</string>
+
+    <string name="description_play_button">소리 재생</string>
+
+    <string name="description_stop_button">소리 정지</string>
+
+    <string name="description_volume_icon">볼륨 아이콘</string>
+
+    <string name="description_clear_button">모두 지우기</string>
+
+    <string name="description_alarm_icon">알람 아이콘</string>
+
+    <string name="description_rem_icon">렘 아이콘</string>
+
+    <string name="description_inquiry_icon">설정 및 문의 사항</string>
+
+
+    <string name="description_first_onboarding_image">기지개를 펴는 이미지</string>
+
+    <string name="description_second_onboarding_image">rem 그래프를 보여주는 이미지</string>
+
+    <string name="description_entry_button">바로가기 버튼</string>
+
+    <string name="description_back_button">뒤로가기 버튼</string>
+
+    <string name="description_problem_icon">문제 상황</string>
+
+    <string name="description_more_rem_data">수면 기록 자세히 보기</string>
+
+    <string name="description_previous">이전 버튼</string>
+
+    <string name="description_next">다음 버튼</string>
+
+
+    <string name="description_morning_image">다음 버튼</string>
+
+    <string name="description_night_image">다음 버튼</string>
+
+</resources>
