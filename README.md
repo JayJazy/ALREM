@@ -125,6 +125,11 @@
 * 알람 재설정 문제 수정<br><br>
 * 알람 재설정 시 테스트 코드 작성<br><br>
 
+<br>
+
+### 16. Improve Safety & Accessibility ( Version 1.0.5 )
+* 안전성 및 접근성 개선<br><br>
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
