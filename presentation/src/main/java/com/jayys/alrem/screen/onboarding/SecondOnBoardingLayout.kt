@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,7 +27,7 @@ import com.jayys.alrem.R
 fun SecondOnBoardingLayout()
 {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics { contentDescription = "두 번째 온보딩 화면" },
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -38,11 +40,20 @@ fun SecondOnBoardingLayout()
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        Text(text = "수면 시간을 기록 할 수 있어요\n\n" +
-                "나의 평균 수면 시간을 확인하고 수면 기록을 바탕으로 수면 주기를 개선하세요",
+        Text(
+            text = "수면 시간을 기록 할 수 있어요",
             color = Color.White,
             fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 16.dp))
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "나의 평균 수면 시간을 확인하고 수면 기록을 바탕으로 수면 주기를 개선하세요",
+            color = Color.White,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }

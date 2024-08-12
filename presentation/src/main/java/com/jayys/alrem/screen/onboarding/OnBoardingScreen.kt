@@ -15,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jayys.alrem.component.OnBoardingButton
@@ -33,7 +35,7 @@ fun OnBoardingScreen(
     val pagerState = rememberPagerState(initialPage = 0) { 3 }
 
     Column(modifier = Modifier
-        .fillMaxSize()
+        .fillMaxSize().semantics { contentDescription = "온보딩 화면" }
         .background(MaterialTheme.colorScheme.background)) {
         HorizontalPager(
             state = pagerState,

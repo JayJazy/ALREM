@@ -28,7 +28,7 @@ import com.jayys.alrem.R
 @Composable
 fun FirstOnBoardingLayout() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics { contentDescription = "첫 번째 온보딩 화면" },
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -43,12 +43,18 @@ fun FirstOnBoardingLayout() {
         Spacer(modifier = Modifier.height(50.dp))
 
         Text(
-            text = "다양한 알람음 설정을 통해 매일 새로운 하루를 시작하세요\n\n" +
-                    "반복적인 시간 알람으로 눈뜨지 않아도 시간을 알 수 있어요",
+            text = "다양한 알람음 설정을 통해 매일 새로운 하루를 시작하세요",
             color = Color.White,
             fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "반복적인 시간 알람으로 눈뜨지 않아도 시간을 알 수 있어요",
+            color = Color.White,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
         )
     }
 }
