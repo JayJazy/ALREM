@@ -130,6 +130,12 @@
 ### 16. Improve Safety & Accessibility ( Version 1.0.5 )
 * 안전성 및 접근성 개선<br><br>
 
+<br>
+
+### 17. Modify Contents Label ( Version 1.0.6 )
+* 콘텐츠 라벨 수정<br><br>
+
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
