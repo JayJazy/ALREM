@@ -41,6 +41,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
@@ -51,6 +52,7 @@ import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.usecase.datastore.SaveSwitchUseCase
 import com.jayys.alrem.usecase.datastore.SaveWakeUpTimeUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.util.Calendar
@@ -70,9 +72,17 @@ fun DestinationLayout(
     val coroutineScope = rememberCoroutineScope()
 
     var calendar by remember { mutableStateOf(Calendar.getInstance()) }
+    var currentDateTime by remember { mutableStateOf(LocalDateTime.now()) }
+
+    LaunchedEffect(Unit)
+    {
+        while (true){
+            delay(1000)
+            currentDateTime = LocalDateTime.now()
+        }
+    }
 
 
-    val currentDateTime = LocalDateTime.now()
     val month = currentDateTime.monthValue
     val day = currentDateTime.dayOfMonth
     var hour = currentDateTime.hour
@@ -225,3 +235,4 @@ fun DestinationLayout(
         )
     }
 }
+

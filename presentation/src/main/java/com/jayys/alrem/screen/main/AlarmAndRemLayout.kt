@@ -9,7 +9,6 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import androidx.core.text.htmlEncode
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.entity.RemEntity
 import com.jayys.alrem.navigation.SettingData
