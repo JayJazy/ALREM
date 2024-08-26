@@ -135,6 +135,10 @@
 ### 17. Modify Contents Label ( Version 1.0.6 )
 * 콘텐츠 라벨 수정<br><br>
 
+<br>
+
+### 18. Fix CurrentDateTime
+* 알람 화면 현재 시간 실시간 반영<br><br>
 
 <br><br>
 
