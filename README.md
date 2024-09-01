@@ -140,6 +140,12 @@
 ### 18. Fix CurrentDateTime
 * 알람 화면 현재 시간 실시간 반영<br><br>
 
+<br>
+
+### 19. Rearrange Onboarding
+* 온보딩 화면 위치 재정렬<br><br>
+
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
