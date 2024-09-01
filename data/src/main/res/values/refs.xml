@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="clear_icon" />
+    <drawable name="alarm_icon" />
+    <drawable name="rem_icon" />
+    <drawable name="setting" />
+    <drawable name="stop_icon" />
+    <drawable name="play_icon" />
+    <drawable name="volume_icon" />
+    <drawable name="wakeup" />
+    <drawable name="entry_icon" />
+    <drawable name="chart" />
+    <drawable name="back_icon" />
+    <drawable name="error_icon" />
+    <drawable name="detail_icon" />
+    <drawable name="previous_icon" />
+    <drawable name="next_icon" />
+    <drawable name="morning" />
+    <drawable name="night" />
+    <drawable name="alarm_off_icon" />
+    <drawable name="more_icon" />
+    <drawable name="delete_icon" />
+    <drawable name="sun_icon" />
+    <drawable name="moon_icon" />
+    <drawable name="ic_launcher_foreground" />
+    <drawable name="help_icon" />
+</resources>
