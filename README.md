@@ -150,6 +150,10 @@
 ### 20. Confirm Unsaved Changes
 * 변경사항 저장 확인 다이얼로그 추가<br><br>
 
+<br>
+
+### 21. Modify Toggle Button Text Color ( Version 1.0.7 )
+* 요일 설정 버튼 글자 색 변경<br><br>
 
 <br><br>
 
