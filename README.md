@@ -152,7 +152,7 @@
 
 <br>
 
-### 21. Modify Toggle Button Text Color ( Version 1.0.7 )
+### 21. Modify Toggle Button Text Color ( Version 1.0.8 )
 * 요일 설정 버튼 글자 색 변경<br><br>
 
 <br><br>
