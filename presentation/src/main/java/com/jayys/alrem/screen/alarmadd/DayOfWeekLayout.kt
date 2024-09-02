@@ -41,11 +41,19 @@ fun DayOfWeekLayout(screenHeight: Dp, settingDataViewModel: SettingDataViewModel
             weekdays.forEachIndexed { index, day ->
                 val modifier = Modifier.padding(horizontal = 4.dp)
                 val buttonColor = if (toggleStates[index]) MaterialTheme.colorScheme.onPrimary else Color(0xFF4D4D4D)
-                val textColor = when(index)
-                {
-                    0 -> Color.Red
-                    6 -> Color.Blue
-                    else -> Color.Black
+                val textColor = if(toggleStates[index]) {
+                    when(index)
+                    {
+                        0 -> Color.Red
+                        6 -> Color.Blue
+                        else -> Color.Black
+                    }
+                } else {
+                    when(index){
+                        0 -> Color.Red
+                        6 -> Color.Blue
+                        else -> Color.White
+                    }
                 }
                 ToggleButton(
                     day = day,
