@@ -145,6 +145,11 @@
 ### 19. Rearrange Onboarding
 * 온보딩 화면 위치 재정렬<br><br>
 
+<br>
+
+### 20. Confirm Unsaved Changes
+* 변경사항 저장 확인 다이얼로그 추가<br><br>
+
 
 <br><br>
 
