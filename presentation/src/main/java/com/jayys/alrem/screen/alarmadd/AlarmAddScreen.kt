@@ -12,13 +12,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.component.AdvertisementLayout
+import com.jayys.alrem.dialog.AskForBackDialog
 import com.jayys.alrem.entity.AlarmEntity
+import com.jayys.alrem.screen.alarmadd.update.settingDataToUpdatedAlarmData
 import com.jayys.alrem.viemodel.AlarmDataViewModel
 import com.jayys.alrem.viemodel.SettingDataViewModel
 import com.jayys.alrem.viemodel.SwitchViewModel
@@ -36,6 +43,8 @@ fun AlarmAddScreen(
 {
     settingDataViewModel.separateSettingData(settingData)
     val lifecycleOwner = LocalLifecycleOwner.current
+    var showDialog by remember { mutableStateOf(false)}
+    val context = LocalContext.current
 
     LaunchedEffect(Unit){
         alarmDataViewModel.getMaxId()
@@ -68,8 +77,24 @@ fun AlarmAddScreen(
         }
 
         BackHandler(enabled = true, onBack = {
-            onNavigateToMainScreen()
+            val currentAlarm = settingDataToUpdatedAlarmData(context, settingDataViewModel, updateAlarmData.id, false)
+            if(updateAlarmData == currentAlarm){
+                onNavigateToMainScreen()
+            }
+            else {
+                showDialog = true
+            }
         })
+    }
+
+    if(showDialog){
+        AskForBackDialog(
+            onDismiss = { showDialog = false },
+            onConfirm = {
+                showDialog = false
+                onNavigateToMainScreen()
+            }
+        )
     }
 
 }
