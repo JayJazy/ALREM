@@ -155,6 +155,12 @@
 ### 21. Modify Toggle Button Text Color ( Version 1.0.8 )
 * 요일 설정 버튼 글자 색 변경<br><br>
 
+
+<br>
+
+### 22. Optimize and Update gradles
+* gradle 버전 업데이트 및 정리<br><br>
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
