@@ -40,11 +40,15 @@
 # Keep Hilt
 -keep class dagger.hilt.** { *; }
 -keepclassmembers class * {
-    @dagger.hilt.* <fields>;
+@dagger.hilt.* <fields>;
 }
 -keepclassmembers class * {
     @dagger.hilt.* <methods>;
 }
+-keep class com.jayys.alrem.di.** { *; }
+-keep class hilt_aggregated_deps.** { *; }
+-keep class dagger.hilt.internal.aggregatedroot.codegen.** { *; }
+-keep class * extends dagger.hilt.internal.aggregatedroot.codegen._com_jayys_alrem_MyApp { *; }
 
 # Keep Coroutines
 -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}

@@ -1,6 +1,5 @@
 package com.jayys.alrem.screen.music.systemmusic
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +31,7 @@ import com.jayys.alrem.viemodel.SettingDataViewModel
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SystemMusicLayout(
     settingDataViewModel: SettingDataViewModel,

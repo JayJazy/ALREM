@@ -5,7 +5,6 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.Ringtone
 import android.media.RingtoneManager
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -55,7 +54,6 @@ import java.nio.charset.StandardCharsets
 
 private var tempRingtone: Ringtone? = null
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RingtonePlayLayout(
     settingDataViewModel: SettingDataViewModel,
@@ -202,7 +200,7 @@ fun ringtoneStop()
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+
 fun saveSettingData(
     settingDataViewModel: SettingDataViewModel,
     sliderPosition: Float,

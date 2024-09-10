@@ -1,7 +1,6 @@
 package com.jayys.alrem.screen.music
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,8 +19,6 @@ import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.viemodel.SettingDataViewModel
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MusicScreen(
     permissionManager : PermissionManager,

@@ -2,7 +2,6 @@ package com.jayys.alrem.screen.main
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.component.AdvertisementLayout
@@ -36,7 +35,6 @@ import com.jayys.alrem.viemodel.TimeOfSleepViewModel
 import com.jayys.alrem.viemodel.WakeUpTimeViewModel
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
     onNavigateToPreferencesScreen: () -> Unit,

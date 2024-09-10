@@ -15,8 +15,6 @@ import com.jayys.alrem.broadcastreceiver.notification.createSleepTimeNotificatio
 import com.jayys.alrem.destination.DestinationAlarmActivity
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.usecase.alarm.GetAllAlarmsUseCase
-import com.jayys.alrem.usecase.datastore.SaveSwitchUseCase
-import com.jayys.alrem.usecase.datastore.SaveWakeUpTimeUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

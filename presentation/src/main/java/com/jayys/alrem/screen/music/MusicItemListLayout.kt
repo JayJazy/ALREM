@@ -1,7 +1,6 @@
 
 package com.jayys.alrem.screen.music
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,7 +33,6 @@ import com.jayys.alrem.screen.music.systemmusic.SystemMusicLayout
 import com.jayys.alrem.viemodel.SettingDataViewModel
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MusicItemListLayout(
     screenHeight: Dp,
@@ -44,7 +42,7 @@ fun MusicItemListLayout(
     settingDataViewModel: SettingDataViewModel,
     onNavigateBackToAlarmAddScreen: (AlarmEntity, SettingData) -> Unit
 ) {
-    CompositionLocalProvider(LocalLifecycleOwner provides androidx.compose.ui.platform.LocalLifecycleOwner.current) {
+    CompositionLocalProvider(LocalLifecycleOwner provides LocalLifecycleOwner.current) {
         val lifecycleOwner = LocalLifecycleOwner.current
         settingDataViewModel.bellNameToRingtoneNameAsStateFlow()
         val ringtoneName by settingDataViewModel.ringtoneName.collectAsStateWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
@@ -74,7 +72,7 @@ fun MusicItemListLayout(
                 .background(MaterialTheme.colorScheme.onBackground)
         )
         {
-            HorizontalPager(state = pagerState, beyondBoundsPageCount = 3) { page ->
+            HorizontalPager(state = pagerState, beyondViewportPageCount = 3) { page ->
                 when (page) {
                     0 -> AppMusicLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)
                     1 -> SystemMusicLayout(settingDataViewModel, pagerState, updateAlarmData, onNavigateBackToAlarmAddScreen)

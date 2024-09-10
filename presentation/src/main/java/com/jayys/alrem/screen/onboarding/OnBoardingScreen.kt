@@ -1,6 +1,5 @@
 package com.jayys.alrem.screen.onboarding
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +23,7 @@ import com.jayys.alrem.component.OnBoardingButton
 import com.jayys.alrem.permission.PermissionManager
 import com.jayys.alrem.viemodel.OnBoardingViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun OnBoardingScreen(
     permissionManager: PermissionManager,

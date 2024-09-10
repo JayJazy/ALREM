@@ -1,6 +1,6 @@
 package com.jayys.alrem.screen.rem
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,7 +37,7 @@ import com.jayys.alrem.component.RemButton
 import com.jayys.alrem.entity.RemEntity
 
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RemLayout(
     screenHeight: Dp,

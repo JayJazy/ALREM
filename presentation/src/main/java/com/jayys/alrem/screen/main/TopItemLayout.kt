@@ -1,6 +1,5 @@
 package com.jayys.alrem.screen.main
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import com.jayys.alrem.R
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TopItemLayout(screenHeight: Dp, pagerState: PagerState)
 {

@@ -19,6 +19,7 @@ object UseCaseModule {
     @Singleton
     fun providesGetAllAlarmsUseCase(alarmRepository: AlarmRepository): GetAllAlarmsUseCase {
         return GetAllAlarmsUseCase(alarmRepository)
+
     }
 
     @Provides

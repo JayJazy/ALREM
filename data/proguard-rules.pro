@@ -58,6 +58,9 @@
 -keepclassmembers class * {
     @dagger.hilt.* <methods>;
 }
+-keep class com.jayys.alrem.di.** { *; }
+-keep class hilt_aggregated_deps.** { *; }
+-keep class dagger.hilt.internal.aggregatedroot.codegen.** { *; }
 
 # Coroutines
 -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}

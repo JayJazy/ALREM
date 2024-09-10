@@ -1,6 +1,5 @@
 package com.jayys.alrem.screen.main
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,7 +16,7 @@ import com.jayys.alrem.viemodel.AlarmDataViewModel
 import com.jayys.alrem.viemodel.SettingDataViewModel
 import com.jayys.alrem.viemodel.SwitchViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun AlarmAndRemLayout(
     screenHeight: Dp,
@@ -39,7 +38,7 @@ fun AlarmAndRemLayout(
         .fillMaxWidth()
         .height(screenHeight * 0.66f))
     {
-        HorizontalPager(state = pagerState, beyondBoundsPageCount = 2) { page ->
+        HorizontalPager(state = pagerState, beyondViewportPageCount = 2) { page ->
             when (page) {
                 0 -> AlarmListLayout(
                     screenHeight,

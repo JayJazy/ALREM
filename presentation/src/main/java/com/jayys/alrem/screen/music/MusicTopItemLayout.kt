@@ -1,6 +1,5 @@
 package com.jayys.alrem.screen.music
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 
-
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MusicTopItemLayout(screenHeight: Dp, pagerState: PagerState) {
     val boxData = listOf("앱 음악", "시스템 음악", "내부 음악")
