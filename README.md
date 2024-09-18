@@ -161,6 +161,14 @@
 ### 22. Optimize and Update gradles
 * gradle 버전 업데이트 및 정리<br><br>
 
+
+<br>
+
+### 23. Reschedule alarms after reboot
+* 재부팅 후 알람 재설정<br><br>
+
+
+
 <br><br>
 
 ## 3. Multi Modules ( MVVM Clean Architecture ) & Design
