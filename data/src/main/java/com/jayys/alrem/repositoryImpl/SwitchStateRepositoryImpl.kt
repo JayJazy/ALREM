@@ -10,24 +10,44 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 import javax.inject.Named
 
 class SwitchStateRepositoryImpl @Inject constructor(
     @Named("SwitchDataStore") private val switchDataStore: DataStore<Preferences>
-) : SwitchStateRepository{
+) : SwitchStateRepository {
 
     private val switchStatesCache = mutableMapOf<Int, Boolean>()
-
+    private val mutex = Mutex()
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     init {
+        runBlocking {
+            loadInitialData()
+        }
+
         scope.launch {
             switchDataStore.data.collect { preferences ->
-                preferences.asMap().forEach { (key, value) ->
-                    if (value is Boolean) {
-                        switchStatesCache[key.name.toInt()] = value
+                mutex.withLock {
+                    preferences.asMap().forEach { (key, value) ->
+                        if (value is Boolean) {
+                            switchStatesCache[key.name.toInt()] = value
+                        }
                     }
+                }
+            }
+        }
+    }
+
+    private suspend fun loadInitialData() {
+        val preferences = switchDataStore.data.first()
+        mutex.withLock {
+            preferences.asMap().forEach { (key, value) ->
+                if (value is Boolean) {
+                    switchStatesCache[key.name.toInt()] = value
                 }
             }
         }
@@ -37,17 +57,20 @@ class SwitchStateRepositoryImpl @Inject constructor(
         switchDataStore.edit { preferences ->
             preferences[booleanPreferencesKey(position.toString())] = isChecked
         }
-        switchStatesCache[position] = isChecked
+        mutex.withLock {
+            switchStatesCache[position] = isChecked
+        }
     }
 
-    override suspend fun loadSwitchState(position: Int) : Boolean {
-        return switchStatesCache[position] ?: run {
-            val preferences = switchDataStore.data.first()
-            preferences[booleanPreferencesKey(position.toString())] ?: true
+    override suspend fun loadSwitchState(position: Int): Boolean {
+        return mutex.withLock {
+            switchStatesCache[position] ?: true
         }
     }
 
     override suspend fun loadAllSwitchStates(): Map<Int, Boolean> {
-        return switchStatesCache.toMap()
+        return mutex.withLock {
+            switchStatesCache.toMap()
+        }
     }
 }

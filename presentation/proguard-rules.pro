@@ -83,3 +83,15 @@
     public *;
 }
 
+# Keep WorkManager-related classes
+   -keep class * extends androidx.work.Worker
+   -keep class * extends androidx.work.ListenableWorker {
+       public <init>(android.content.Context,androidx.work.WorkerParameters);
+   }
+
+   # Keep Hilt-related classes
+   -keep class androidx.hilt.work.HiltWorkerFactory
+   -keep class * extends androidx.hilt.work.HiltWorkerFactory
+
+   # Keep your worker classes
+   -keep class com.jayys.alrem.broadcastreceiver.alarmreset.AlarmResetWorker { *; }

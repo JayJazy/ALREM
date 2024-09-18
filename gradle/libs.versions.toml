@@ -18,8 +18,8 @@ annotation = "1.8.2"
 
 # Compose
 activity-compose = "1.9.2"
-compose = "1.7.0"
-compose-bom = "2024.09.00"
+compose = "1.7.1"
+compose-bom = "2024.09.01"
 
 
 # Material
@@ -29,10 +29,10 @@ material = "1.12.0"
 # Test
 junit = "4.13.2"
 junitKtx = "1.2.1"
-uiTestJunit4Android = "1.7.0"
+uiTestJunit4Android = "1.7.1"
 mockito = "4.0.0"
 androidx-test-ext-junit = "1.2.1"
-espresso-core = "3.6.1"
+espresso-core = "3.5.0"
 
 
 # Lifecycle
@@ -52,6 +52,8 @@ navigation = "2.8.0"
 
 # DependencyInjection
 hilt = "2.51.1"
+hiltWork = "1.2.0"
+hiltCommon = "1.2.0"
 
 
 # Utilities
@@ -60,6 +62,8 @@ gson = "2.10.1"
 
 # GoogleServices
 play-services-ads = "23.3.0"
+
+
 
 
 
@@ -119,7 +123,9 @@ datastore = { module = "androidx.datastore:datastore-preferences", version = "1.
 
 # Dependency Injection
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltWork" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+androidx-hilt-common = { group = "androidx.hilt", name = "hilt-common", version.ref = "hiltCommon" }
 javax-inject = { module = "javax.inject:javax.inject", version = "1" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
 
@@ -129,6 +135,7 @@ splash = { module = "androidx.core:core-splashscreen", version = "1.0.1" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
+
 
 
 

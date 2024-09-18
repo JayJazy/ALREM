@@ -109,6 +109,8 @@ dependencies {
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.ui.test.junit4.android)
 
+
+
     testImplementation(libs.mockito.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -128,6 +130,11 @@ dependencies {
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
+    implementation(libs.androidx.hilt.common)
+
+    // WorkManager
+    implementation(libs.androidx.work.runtime)
 
     // lifecycle
     implementation (libs.lifecycle.runtime.compose)

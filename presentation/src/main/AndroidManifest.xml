@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 진동 권한 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 재부팅 수신 권한 -->
 
+    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 진동 권한 -->
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> <!-- 알람 권한 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 낮은 버전 알람 권한 -->
@@ -17,7 +18,7 @@
 
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" /> <!-- 전체 화면 -->
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <queries>
         <package android:name="com.google.android.gm" />
@@ -53,11 +54,18 @@
         </activity>
 
         <receiver
+            android:name=".broadcastreceiver.ResetReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".broadcastreceiver.AlarmReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

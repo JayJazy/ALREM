@@ -5,11 +5,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.gson.Gson
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmBell
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmRepeat
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmTTS
 import com.jayys.alrem.broadcastreceiver.alarmevent.alarmVibration
+import com.jayys.alrem.broadcastreceiver.alarmreset.AlarmResetWorker
 import com.jayys.alrem.broadcastreceiver.notification.createNormalNotification
 import com.jayys.alrem.broadcastreceiver.notification.createSleepTimeNotification
 import com.jayys.alrem.destination.DestinationAlarmActivity
@@ -39,6 +43,7 @@ class AlarmReceiver : BroadcastReceiver(), CoroutineScope {
     override fun onReceive(context: Context?, intent: Intent?) {
         val requestCode = intent?.getIntExtra("requestCode", -1)
         val action = intent?.getStringExtra("action")
+
 
         context?.let{ ctx ->
             if (requestCode == 0 || action == "goToBedTime") {
