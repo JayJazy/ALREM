@@ -15,6 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,9 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.jayys.alrem.navigation.SettingData
 import com.jayys.alrem.component.AdvertisementLayout
 import com.jayys.alrem.dialog.TimeOfSleepDialog
+import com.jayys.alrem.dialog.UpdateDialog
 import com.jayys.alrem.entity.AlarmEntity
 import com.jayys.alrem.viemodel.AlarmDataViewModel
 import com.jayys.alrem.viemodel.RemDataViewModel
@@ -49,6 +56,10 @@ fun MainScreen(
 )
 {
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
+    val appUpdateManager = AppUpdateManagerFactory.create(context)
+    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+    var showUpdateDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit)
     {
@@ -120,5 +131,18 @@ fun MainScreen(
         BackHandler(enabled = true, onBack = {
             activity.finish()
         })
+
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                showUpdateDialog = true
+            }
+        }
+
+        if(showUpdateDialog)
+        {
+            UpdateDialog(onConfirm = { showUpdateDialog = false }, context)
+        }
+
     }
 }

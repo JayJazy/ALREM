@@ -18,8 +18,8 @@ annotation = "1.8.2"
 
 # Compose
 activity-compose = "1.9.2"
-compose = "1.7.1"
-compose-bom = "2024.09.01"
+compose = "1.7.2"
+compose-bom = "2024.09.02"
 
 
 # Material
@@ -29,15 +29,16 @@ material = "1.12.0"
 # Test
 junit = "4.13.2"
 junitKtx = "1.2.1"
-uiTestJunit4Android = "1.7.1"
+uiTestJunit4Android = "1.7.2"
 mockito = "4.0.0"
 androidx-test-ext-junit = "1.2.1"
 espresso-core = "3.5.0"
+androidx-test-runner = "1.5.0"
 
 
 # Lifecycle
-lifecycle-runtime-ktx = "2.8.5"
-lifecycleRuntimeCompose = "2.8.5"
+lifecycle-runtime-ktx = "2.8.6"
+lifecycleRuntimeCompose = "2.8.6"
 
 
 # Coroutine
@@ -47,7 +48,7 @@ kotlinx-coroutines = "1.7.3"
 # Jetpack
 room = "2.6.1"
 work = "2.9.1"
-navigation = "2.8.0"
+navigation = "2.8.1"
 
 
 # DependencyInjection
@@ -62,6 +63,7 @@ gson = "2.10.1"
 
 # GoogleServices
 play-services-ads = "23.3.0"
+app-update-ktx = "2.1.0"
 
 
 
@@ -98,6 +100,7 @@ androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "
 ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 
 
 # Lifecycle and Core
@@ -135,6 +138,7 @@ splash = { module = "androidx.core:core-splashscreen", version = "1.0.1" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "app-update-ktx" }
 
 
 

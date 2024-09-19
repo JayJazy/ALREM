@@ -40,8 +40,8 @@ android {
         minSdk = 26
         targetSdk = 34
 
-        versionCode = 9
-        versionName = "1.0.8"
+        versionCode = 10
+        versionName = "1.0.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -117,8 +117,11 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.runner)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+
 
     // Splash
     implementation(libs.splash)
@@ -144,6 +147,9 @@ dependencies {
 
     // adMob
     implementation (libs.play.services.ads)
+
+    // google update
+    implementation(libs.app.update.ktx)
 
     implementation(project(":domain"))
     implementation(project(":data"))
