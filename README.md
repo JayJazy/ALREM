@@ -213,7 +213,7 @@
 
 <br>
 
-### 26. Fix Bug ( v1.1.2 )
+### 26. Fix Bug ( version 1.1.2 )
 * 안전성 오류 수정<br><br>
 
 
