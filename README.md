@@ -22,7 +22,38 @@
 
 <br><br><br><br>
 
-## 2. Commits
+
+## 2. Multi Modules ( MVVM Clean Architecture ) & Design
+| Feature | Image |
+|:--:|:--:|
+| Modules ( Architecture ) | <img src="https://github.com/user-attachments/assets/b7bef1a9-f59a-496e-b19f-c7f0203ff6de" alt="App Architecture Diagram" width="700"/> |
+| Design | <img src="https://github.com/user-attachments/assets/8e19e0bd-6035-4deb-a91b-a36cf62bd2a3" alt="ALREM Figma" width="700"/> |
+
+
+
+<br><br>
+
+## 3. Before Refactoring - UI & Description
+| <div align="center">UI</div> | <div align="center">Description</div> |
+|:--|:--|
+| <table><tr><td><img src="https://github.com/user-attachments/assets/3a8419e6-4727-4142-9e79-402ad5b7e35b" alt="image1" width="100"/></td><td><img src="https://github.com/user-attachments/assets/355f4aaa-3c1f-4e01-ba4c-94d875642afd" alt="image2" width="100"/></td><td><img src="https://github.com/user-attachments/assets/dd64ba45-b493-43c1-8c2a-9a1be8b32449" alt="image3" width="100"/></td></tr></table> | 사용자가 쉽게 알람을 설정하고 기본적인 알람 기능을 사용할 수 있습니다. <br><br> 내부 저장소의 음악 파일을 알람음으로 활용할 수 있습니다. |
+| <table><tr><td><img src="https://github.com/user-attachments/assets/4236a17e-c242-42d1-84c9-b33b14500db9" alt="image4" width="100"/></td><td><img src="https://github.com/user-attachments/assets/80b38826-6082-452e-a3ad-4e0736bafa2b" alt="image5" width="100"/></td></tr></table>| 사용자는 블루투스 연결을 통해 임베디드 시스템과 통신 지원을 합니다. <br><br> 알람 트리거 시 IoT 연동을 통해 조명 시스템을 자동 활성화합니다. <br><br> 작동 영상 : [시연 영상 보기](https://youtu.be/S33DSy2EuAQ) |
+
+
+<br><br>
+
+
+## 4. After Refactoring - UI & Description
+| <div align="center">UI</div> | <div align="center">Description</div> |
+|:--|:--|
+| <table><tr><td><img src="https://github.com/user-attachments/assets/12b2a7c0-ae76-4b2f-9ad3-31b715e1cdf4" alt="Screenshot_20240716_162031_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/24c89952-44e9-4fc6-8b90-0d86e0510b45" alt="Screenshot_20240716_162036_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/461cb5eb-5d2c-4700-954d-68475946c745" alt="Screenshot_20240716_162040_ALREM" width="100"/></td></tr></table> | ALREM을 사용하기 전 기본적인 내용을 가이드 합니다. <br><br> ALREM을 이용하기 전 사전에 권한을 설정할 수 있도록 합니다. |
+| <table><tr><td><img src="https://github.com/user-attachments/assets/a6d57811-0d75-41f7-8113-8ed0ba02bb52" alt="Screenshot_20240712_143834_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/448c6ed7-b61d-4766-b361-c262380a5c61" alt="Screenshot_20240712_144534_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/07386dad-7955-4706-9a6e-5d8b69e3be97" alt="Screenshot_20240712_183943_ALREM" width="100"/></td></tr></table> | ALREM의 메인 화면입니다. <br><br> 사용자는 알람 목록과 수면 시간 기록을 확인할 수 있습니다. |
+| <table><tr><td><img src="https://github.com/user-attachments/assets/8f331d72-007f-459f-ad61-2045a9cd179b" alt="Screenshot_20240712_143719_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/edec3461-4cb8-42f1-a72e-9e6eac707763" alt="Screenshot_20240717_162837_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/40da99be-fd62-4fb6-831b-d0c83f170223" alt="Screenshot_20240717_162903_ALREM" width="100"/></td></tr></table> | 사용자는 여러 알람 기능을 선택하여 알람을 생성할 수 있도록 합니다. <br><br> 기본적으로 제공되는 앱 음악 이외에도 시스템 음악 자신의 내부 저장소에 있는 음악을 사용할 수 있도록 합니다. |
+| <table><tr><td><img src="https://github.com/user-attachments/assets/ffe57441-8c69-4de9-a469-4e50b7992464" alt="Screenshot_20240712_183958_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/41ffd37f-5718-4df8-93da-87d89e7c6ac2" alt="Screenshot_20240712_183954_ALREM" width="100"/></td></tr></table> | 사용자는 REM 수면 주기를 고려하여 최적의 기상시간을 선택하고 알람으로 설정할 수 있도록 합니다. |
+
+<br><br>
+
+## 5. Commits
 
 ### 1. First Commit ( MultiModules, Version Catalog, DB Schema )
 * 클린 아키텍쳐 기반 멀티 모듈화(레이어 구성)<br><br>
@@ -174,36 +205,11 @@
 * 앱 업데이트 사항 다이얼로그 및 앱 업데이트시 알람 재설정<br><br>
 
 
+<br>
 
-<br><br>
+### 25. Improve Safety
+* 비정상 종료 건 안전성 개선<br><br>
 
-## 3. Multi Modules ( MVVM Clean Architecture ) & Design
-| Feature | Image |
-|:--:|:--:|
-| Modules ( Architecture ) | <img src="https://github.com/user-attachments/assets/b7bef1a9-f59a-496e-b19f-c7f0203ff6de" alt="App Architecture Diagram" width="700"/> |
-| Design | <img src="https://github.com/user-attachments/assets/8e19e0bd-6035-4deb-a91b-a36cf62bd2a3" alt="ALREM Figma" width="700"/> |
-
-
-
-<br><br>
-
-## 4. Before Refactoring - UI & Description
-| <div align="center">UI</div> | <div align="center">Description</div> |
-|:--|:--|
-| <table><tr><td><img src="https://github.com/user-attachments/assets/3a8419e6-4727-4142-9e79-402ad5b7e35b" alt="image1" width="100"/></td><td><img src="https://github.com/user-attachments/assets/355f4aaa-3c1f-4e01-ba4c-94d875642afd" alt="image2" width="100"/></td><td><img src="https://github.com/user-attachments/assets/dd64ba45-b493-43c1-8c2a-9a1be8b32449" alt="image3" width="100"/></td></tr></table> | 사용자가 쉽게 알람을 설정하고 기본적인 알람 기능을 사용할 수 있습니다. <br><br> 내부 저장소의 음악 파일을 알람음으로 활용할 수 있습니다. |
-| <table><tr><td><img src="https://github.com/user-attachments/assets/4236a17e-c242-42d1-84c9-b33b14500db9" alt="image4" width="100"/></td><td><img src="https://github.com/user-attachments/assets/80b38826-6082-452e-a3ad-4e0736bafa2b" alt="image5" width="100"/></td></tr></table>| 사용자는 블루투스 연결을 통해 임베디드 시스템과 통신 지원을 합니다. <br><br> 알람 트리거 시 IoT 연동을 통해 조명 시스템을 자동 활성화합니다. <br><br> 작동 영상 : [시연 영상 보기](https://youtu.be/S33DSy2EuAQ) |
-
-
-<br><br>
-
-
-## 5. After Refactoring - UI & Description
-| <div align="center">UI</div> | <div align="center">Description</div> |
-|:--|:--|
-| <table><tr><td><img src="https://github.com/user-attachments/assets/12b2a7c0-ae76-4b2f-9ad3-31b715e1cdf4" alt="Screenshot_20240716_162031_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/24c89952-44e9-4fc6-8b90-0d86e0510b45" alt="Screenshot_20240716_162036_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/461cb5eb-5d2c-4700-954d-68475946c745" alt="Screenshot_20240716_162040_ALREM" width="100"/></td></tr></table> | ALREM을 사용하기 전 기본적인 내용을 가이드 합니다. <br><br> ALREM을 이용하기 전 사전에 권한을 설정할 수 있도록 합니다. |
-| <table><tr><td><img src="https://github.com/user-attachments/assets/a6d57811-0d75-41f7-8113-8ed0ba02bb52" alt="Screenshot_20240712_143834_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/448c6ed7-b61d-4766-b361-c262380a5c61" alt="Screenshot_20240712_144534_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/07386dad-7955-4706-9a6e-5d8b69e3be97" alt="Screenshot_20240712_183943_ALREM" width="100"/></td></tr></table> | ALREM의 메인 화면입니다. <br><br> 사용자는 알람 목록과 수면 시간 기록을 확인할 수 있습니다. |
-| <table><tr><td><img src="https://github.com/user-attachments/assets/8f331d72-007f-459f-ad61-2045a9cd179b" alt="Screenshot_20240712_143719_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/edec3461-4cb8-42f1-a72e-9e6eac707763" alt="Screenshot_20240717_162837_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/40da99be-fd62-4fb6-831b-d0c83f170223" alt="Screenshot_20240717_162903_ALREM" width="100"/></td></tr></table> | 사용자는 여러 알람 기능을 선택하여 알람을 생성할 수 있도록 합니다. <br><br> 기본적으로 제공되는 앱 음악 이외에도 시스템 음악 자신의 내부 저장소에 있는 음악을 사용할 수 있도록 합니다. |
-| <table><tr><td><img src="https://github.com/user-attachments/assets/ffe57441-8c69-4de9-a469-4e50b7992464" alt="Screenshot_20240712_183958_ALREM" width="100"/></td><td><img src="https://github.com/user-attachments/assets/41ffd37f-5718-4df8-93da-87d89e7c6ac2" alt="Screenshot_20240712_183954_ALREM" width="100"/></td></tr></table> | 사용자는 REM 수면 주기를 고려하여 최적의 기상시간을 선택하고 알람으로 설정할 수 있도록 합니다. |
 
 <br><br>
 
