@@ -168,6 +168,12 @@
 * 재부팅 후 알람 재설정<br><br>
 
 
+<br>
+
+### 24. App Update Dialog & Reschedule Alarms After Update
+* 앱 업데이트 사항 다이얼로그 및 앱 업데이트시 알람 재설정<br><br>
+
+
 
 <br><br>
 
