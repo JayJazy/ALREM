@@ -30,6 +30,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -95,6 +97,9 @@ fun SettingItem(
 
             Box(modifier = modifier.weight(0.7f), contentAlignment = Alignment.CenterStart){
                 Switch(
+                    modifier = Modifier.semantics {
+                        contentDescription = if (isChecked) "활성화됨" else "비활성화됨"
+                    },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
                         uncheckedThumbColor = Color.White,

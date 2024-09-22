@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jayys.alrem.viemodel.SettingDataViewModel
@@ -57,11 +59,14 @@ fun RingtoneItemView(
                 },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = Color(0xFFE494FF),
-                )
+                ),
+                modifier = Modifier.semantics {
+                    contentDescription = "${item.title} ${if (settingDataViewModel.bellName == item.title) "선택됨" else "선택되지 않음"}"
+                }
             )
             Text(text = item.title,
                 color = Color.White,
-                modifier = Modifier.padding(start = 8.dp),
+                modifier = Modifier.padding(start = 8.dp).semantics(mergeDescendants = true) {},
                 fontSize = 20.sp,
                 style = MaterialTheme.typography.bodyMedium)
         }

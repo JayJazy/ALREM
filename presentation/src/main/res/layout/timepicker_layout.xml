@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:theme="@style/TimePicker"
+        android:contentDescription="시간 선택"
         android:timePickerMode="spinner" />
 
 </LinearLayout>

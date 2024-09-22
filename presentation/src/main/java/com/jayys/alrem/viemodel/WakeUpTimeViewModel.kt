@@ -20,8 +20,8 @@ class WakeUpTimeViewModel @Inject constructor(
     private val _wakeUpTime = MutableStateFlow(LocalDateTime.now())
     val wakeUpTime = _wakeUpTime.asStateFlow()
 
-    private val _error = MutableStateFlow("에러가 발생했습니다.")
-    val error: StateFlow<String> = _error.asStateFlow()
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
 
     init { loadWakeUpTime() }
 

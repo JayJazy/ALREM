@@ -36,8 +36,8 @@ class AlarmDataViewModel @Inject constructor(
     private var _maxId = MutableStateFlow(0)
     val maxId = _maxId.asStateFlow()
 
-    private val _error = MutableStateFlow("에러가 발생했습니다.")
-    val error: StateFlow<String> = _error.asStateFlow()
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
 
     private fun handleException(e: Exception, errorMessage: String) {
         _error.value = errorMessage
