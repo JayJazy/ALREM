@@ -23,8 +23,8 @@ class RemDataViewModel @Inject constructor(
     private var _remData = MutableStateFlow<List<RemEntity>>(emptyList())
     val remData = _remData.asStateFlow()
 
-    private val _error = MutableStateFlow<String?>(null)
-    val error: StateFlow<String?> = _error.asStateFlow()
+    private val _error = MutableStateFlow("에러가 발생했습니다.")
+    val error: StateFlow<String> = _error.asStateFlow()
 
     private fun handleException(e: Exception, errorMessage: String) {
         _error.value = errorMessage

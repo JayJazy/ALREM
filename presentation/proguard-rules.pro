@@ -84,14 +84,28 @@
 }
 
 # Keep WorkManager-related classes
-   -keep class * extends androidx.work.Worker
-   -keep class * extends androidx.work.ListenableWorker {
-       public <init>(android.content.Context,androidx.work.WorkerParameters);
-   }
+-keep class * extends androidx.work.Worker
+-keep class * extends androidx.work.ListenableWorker {
+   public <init>(android.content.Context,androidx.work.WorkerParameters);
+}
 
-   # Keep Hilt-related classes
-   -keep class androidx.hilt.work.HiltWorkerFactory
-   -keep class * extends androidx.hilt.work.HiltWorkerFactory
+# Keep Hilt-related classes
+-keep class androidx.hilt.work.HiltWorkerFactory
+-keep class * extends androidx.hilt.work.HiltWorkerFactory
 
-   # Keep your worker classes
-   -keep class com.jayys.alrem.broadcastreceiver.alarmreset.AlarmResetWorker { *; }
+# Keep your worker classes
+-keep class com.jayys.alrem.broadcastreceiver.alarmreset.AlarmResetWorker { *; }
+
+-keep class * extends androidx.work.Worker
+-keep class * extends androidx.work.ListenableWorker
+-keepclassmembers class * extends androidx.work.ListenableWorker {
+    public <init>(android.content.Context,androidx.work.WorkerParameters);
+}
+
+-keepattributes SourceFile,LineNumberTable
+-keep class com.google.android.material.** { *; }
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx.**
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }

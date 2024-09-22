@@ -20,7 +20,6 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-
     signingConfigs {
         create("release") {
             if (keystoreProperties.isNotEmpty()) {
@@ -41,7 +40,7 @@ android {
         targetSdk = 34
 
         versionCode = 10
-        versionName = "1.0.9"
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -153,5 +152,6 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(kotlin("script-runtime"))
 }
 

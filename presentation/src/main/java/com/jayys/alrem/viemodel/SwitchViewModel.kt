@@ -21,8 +21,8 @@ class SwitchViewModel @Inject constructor(
     private val _switchStates = MutableStateFlow<Map<Int, Boolean>>(emptyMap())
     val switchStates: StateFlow<Map<Int, Boolean>> = _switchStates.asStateFlow()
 
-    private val _error = MutableStateFlow<String?>(null)
-    val error: StateFlow<String?> = _error.asStateFlow()
+    private val _error = MutableStateFlow("에러가 발생했습니다.")
+    val error: StateFlow<String> = _error.asStateFlow()
 
     init {
         viewModelScope.launch {
