@@ -19,7 +19,6 @@ class DismissAlarm @Inject constructor() {
 
     fun resetCalendar(alarm: AlarmEntity, selectedDays: List<String>): Calendar {
         val now = Calendar.getInstance()
-        now.add(Calendar.MINUTE, 5)
 
         val closestDate = findClosestDate(now, selectedDays, alarm.alarmDate)
         val calendar = Calendar.getInstance()
@@ -62,7 +61,7 @@ private fun findClosestDate(now: Calendar, selectedDays: List<String>, alarmDate
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
 
-            if (before(now)) {
+            if (time.before(now.time)) {
                 add(Calendar.WEEK_OF_YEAR, 1)
             }
         }.time

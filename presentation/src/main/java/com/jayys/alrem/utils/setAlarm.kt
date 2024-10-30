@@ -8,7 +8,7 @@ import android.os.Build
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 import com.jayys.alrem.entity.AlarmEntity
 import java.util.Calendar
-
+import java.util.Date
 
 
 fun setAlarm(alarm: AlarmEntity, context: Context, isAlreadyAlarm: Boolean) {
@@ -16,7 +16,53 @@ fun setAlarm(alarm: AlarmEntity, context: Context, isAlreadyAlarm: Boolean) {
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     val now = Calendar.getInstance().time
-    val closestDate = alarm.alarmDate.filter { it.after(now) }.minOrNull() ?: return
+    var closestDate = alarm.alarmDate.filter { it.after(now) }.min()
+
+    if(isAlreadyAlarm)
+    {
+        val today = Calendar.getInstance()
+        val allDays = setOf("일", "월", "화", "수", "목", "금", "토")
+        val selectedDays = allDays.filterIndexed { index, _ -> alarm.alarmDayOfWeek[index] }
+
+        val dayMap = mapOf(
+            "일" to Calendar.SUNDAY,
+            "월" to Calendar.MONDAY,
+            "화" to Calendar.TUESDAY,
+            "수" to Calendar.WEDNESDAY,
+            "목" to Calendar.THURSDAY,
+            "금" to Calendar.FRIDAY,
+            "토" to Calendar.SATURDAY)
+
+        val candidateDates = mutableListOf<Date>()
+        val firstAlarmDate = alarm.alarmDate.first()
+        val calendar = Calendar.getInstance().apply {
+            time = firstAlarmDate
+        }
+
+        val alarmHour = calendar.get(Calendar.HOUR_OF_DAY)
+        val alarmMin = calendar.get(Calendar.MINUTE)
+
+        for(day in selectedDays)
+        {
+            val targetDay = dayMap[day] ?: continue
+            val closestAlarmDate = Calendar.getInstance().apply {
+                set(Calendar.DAY_OF_WEEK, targetDay)
+                set(Calendar.HOUR_OF_DAY, alarmHour)
+                set(Calendar.MINUTE, alarmMin)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+
+                if (time.before(now)) {
+                    add(Calendar.WEEK_OF_YEAR, 1)
+                }
+            }.time
+
+            candidateDates.add(closestAlarmDate)
+        }
+
+        closestDate = candidateDates.minByOrNull { it.time - today.timeInMillis }!!
+    }
+
 
     val calendar = Calendar.getInstance().apply {
         time = closestDate
@@ -30,7 +76,7 @@ fun setAlarm(alarm: AlarmEntity, context: Context, isAlreadyAlarm: Boolean) {
     val pendingIntent = if(isAlreadyAlarm){
         PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
-    else{
+    else {
         PendingIntent.getBroadcast(context, alarm.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 
