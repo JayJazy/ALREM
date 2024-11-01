@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import com.jayys.alrem.broadcastreceiver.AlarmReceiver
 import com.jayys.alrem.entity.AlarmEntity
 import java.util.Calendar
@@ -16,9 +17,7 @@ fun setAlarm(alarm: AlarmEntity, context: Context, isAlreadyAlarm: Boolean) {
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     val now = Calendar.getInstance().time
-    var closestDate = alarm.alarmDate.filter { it.after(now) }.min()
-
-    if(isAlreadyAlarm)
+    val closestDate = if(isAlreadyAlarm)
     {
         val today = Calendar.getInstance()
         val allDays = setOf("일", "월", "화", "수", "목", "금", "토")
@@ -60,8 +59,10 @@ fun setAlarm(alarm: AlarmEntity, context: Context, isAlreadyAlarm: Boolean) {
             candidateDates.add(closestAlarmDate)
         }
 
-        closestDate = candidateDates.minByOrNull { it.time - today.timeInMillis }!!
+        candidateDates.minByOrNull { it.time - today.timeInMillis } ?: alarm.alarmDate.filter { it.after(now) }.min()
     }
+
+    else alarm.alarmDate.filter { it.after(now) }.min()
 
 
     val calendar = Calendar.getInstance().apply {
