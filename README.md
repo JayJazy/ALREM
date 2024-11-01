@@ -219,7 +219,7 @@
 
 <br>
 
-### 27. Fix Set Alarm ( version 1.1.4 )
+### 27. Fix Set Alarm ( version 1.1.5 )
 * 알람 설정 오류 수정<br><br>
 
 
