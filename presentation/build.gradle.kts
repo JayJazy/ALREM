@@ -35,9 +35,9 @@ android {
     defaultConfig {
         applicationId = "com.jayys.alrem"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
 
-        versionCode = 16
+        versionCode = 17
         versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
