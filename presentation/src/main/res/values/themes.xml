@@ -10,14 +10,14 @@
 
     <style name="Theme.ALREM" parent="android:Theme.Material.Light.NoActionBar">
         <!-- Status Bar 투명 -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/MainBackground</item>
 
         <!-- Navigation Bar 색 설정 -->
         <item name="android:navigationBarColor">@color/MainBackground</item>
 
+        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="TimePicker" parent="Theme.AppCompat.Light.NoActionBar">

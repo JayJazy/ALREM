@@ -10,8 +10,6 @@ plugins {
     id("kotlin-parcelize")
 }
 
-
-
 val keystorePropertiesFile: File = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
 if (keystorePropertiesFile.exists()) {
@@ -32,7 +30,7 @@ android {
     }
 
     namespace = "com.jayys.alrem"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.jayys.alrem"
