@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
+<resources>
     <style name="Theme.ALREMSplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/MainBackground</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo_foreground</item>
@@ -18,8 +17,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowDisablePreview">true</item>
 
-        <!-- edge to edge 대응 -->
-        <item name="android:fitsSystemWindows">true</item>
+        <!-- android 15 edge to edge 대응 -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="TimePicker" parent="Theme.AppCompat.Light.NoActionBar">
@@ -30,5 +29,4 @@
         <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="colorControlNormal">#00FFFFFF</item>
     </style>
-
 </resources>
